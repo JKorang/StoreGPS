@@ -53,7 +53,7 @@ public class ListAdapter extends ArrayAdapter {
             }
 
             holder = new ViewHolder();
-            holder.titleText = (TextView)viewToUse.findViewById(R.id.listView);
+            holder.titleText = (TextView)viewToUse.findViewById(R.id.gridView);
             viewToUse.setTag(holder);
         } else {
             viewToUse = convertView;

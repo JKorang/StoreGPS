@@ -1,16 +1,14 @@
 package com.rowansenior.storegps;
 
-import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.app.ListFragment;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.GridView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -29,7 +27,7 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
     private OnFragmentInteractionListener mListener;
     private ArrayList<IndividualListFragment> itemList;
     private ListAdapter mAdapter;
-    private ListView lview;
+    private GridView gview;
 
     /**
      * Use this factory method to create a new instance of
@@ -52,6 +50,12 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
         itemList.add(new IndividualListFragment().newInstance("Example 1"));
         itemList.add(new IndividualListFragment().newInstance("Example 2"));
         itemList.add(new IndividualListFragment().newInstance("Example 3"));
+        itemList.add(new IndividualListFragment().newInstance("Example 4"));
+        itemList.add(new IndividualListFragment().newInstance("Example 5"));
+        itemList.add(new IndividualListFragment().newInstance("Example 6"));
+        itemList.add(new IndividualListFragment().newInstance("Example 7"));
+        itemList.add(new IndividualListFragment().newInstance("Example 8"));
+
 
 
 
@@ -69,8 +73,8 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
     @Override
     public void onStart(){
         super.onStart();
-        lview = (ListView) getView().findViewById(R.id.listView);
-        lview.setAdapter(mAdapter);
+        gview = (GridView) getView().findViewById(R.id.gridView);
+        gview.setAdapter(mAdapter);
     }
 
     public MyListFragment() {
@@ -86,7 +90,7 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        IndividualListFragment listPicked = (IndividualListFragment) this.itemList.get(position);
+        IndividualListFragment listPicked = this.itemList.get(position);
         Toast.makeText(getActivity(), listPicked.getListTitle() + " Clicked lolol", Toast.LENGTH_SHORT).show();
     }
 
