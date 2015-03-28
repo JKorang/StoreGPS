@@ -19,6 +19,11 @@ import android.text.TextUtils;
 
 
 import java.util.List;
+/**
+ * The 'Settings' menu option.
+ * Will be a separate activity, not yet developed at all.
+ */
+
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On

@@ -33,6 +33,13 @@ import com.google.android.gms.common.SignInButton;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Will contain the code to handle the login page.
+ *
+ * NOT YET IMPLEMENTED. CURRENTLY JUST THE TEMPLATE.
+ * MINOR HOTFIX PERFORMED, DOWNGRADING THE GOOGLE+ VERSION USED TO HANDLE LOGINS
+ * NEED TO REVERT THAT CHANGE AND IMPLEMENT THE PROPER FIX TO THE TEMPLATE
+ */
 
 /**
  * A login screen that offers login via email/password and via Google+ sign in.

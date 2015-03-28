@@ -3,65 +3,82 @@ package com.rowansenior.storegps;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 
 /**
- * HomeFragment is the "home page" of the application, and the default fragment.
- * This fragment is loaded when clicking "Home" from the Navigation Drawer,
- * or when booting the app.
+ * IndividualStoreFragment acts as a fragment for a single store.
+ * Eventually, data will be pulled in from a SQL query to a remote database to pull in
+ * store data for a store that exists with the apps scope.
  *
- * HomeFragment will implement a GridView, displaying MyLists, MyStores, and NearbyStores.
- * Each section of HomeFragment will feature 3 items from each of the 3 categories.
+ * At the moment, the ListStoreAdapter allows pulling the information from an existing
+ * fragment of ISF.  This adapter may not be required once SQL queries are implemented,
+ * as all data required to display in different modules can be pulled from the SQL database.
  *
- * In the event of the system having less than 3 items for a particular category,
- * blank space or an Add button will be shown in its place.
- *
- * Each section will also have its own "More" Button to view more items for a particular section.
+ * ISF currently acts almost as a custom object to display the name of a store.
+ * It will need to be reworked slightly to display all the information for the store it houses
+ * when selected from the HomeFragment, MyStoreFragment, or NearbyStoresFragment.
  */
-public class HomeFragment extends Fragment {
+public class IndividualStoreFragment extends Fragment {
 
+    private static final String ARG_PARAM1 = "param1";
+    private String mParam1;
     private OnFragmentInteractionListener mListener;
 
     /**
-     * Creates a new unique instance of the fragment.
-     * Bundle is used to store all unique data specific to this new instance of the fragment.
-     * Bundles allow the data to be passed to other activities/fragments.
+     * Creates a new ISF.
      *
+     * Currently requires a single string that is being used to store the name of the store.
+     *
+     * This functionality will be expanded to pull in more info from a SQL database.
+     * That information will need the:
+     * name
+     * location
+     * phone number
+     * store hours
+     * ***More to be decided later.
+     *
+     * Currently, the string param1 is being passed into the Bundle for use by other fragments.
+     *
+     * @param param1 - Name of the list
      * @return
      */
-    public static HomeFragment newInstance() {
-        HomeFragment fragment = new HomeFragment();
+    public static IndividualStoreFragment newInstance(String param1) {
+        IndividualStoreFragment fragment = new IndividualStoreFragment();
         Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
         fragment.setArguments(args);
         return fragment;
     }
 
     /**
-     * Required empty public constructorR
+     * Required empty public constructor
      */
-    public HomeFragment() {
+    public IndividualStoreFragment() {
     }
 
     /**
      * onCreate triggers immediately after onAttach, at the start of fragment creation.
      * Saves previous window state.
+     * If mParam1 is null, set it with the passed string from newInstance.
      *
      * @param savedInstanceState
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+        }
     }
 
     /**
      * Inflates the content view of the fragment.
      * Triggers immediately after onCreate
-     * Uses 'fragment_home' from layout/fragment_home.xml
-     *
+     * Uses 'fragment_individual_store' from layout/fragment_individual_store.xml
      *
      * @param inflater
      * @param container
@@ -71,8 +88,9 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_individual_store, container, false);
     }
+
 
     /**
      * Actions that take place when a button is pressed.
@@ -128,4 +146,14 @@ public class HomeFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
+    /**
+     * Makes a call to the fragment's Bundle in order to pull the appropriate String needed.
+     *
+     * @ARG_PARAM1 - The original key used to identify the item in the bundle
+     * @mParam1 - Default value of the key
+     * @return
+     */
+    public String getListTitle() {
+        return getArguments().getString(ARG_PARAM1, mParam1);
+    }
 }
