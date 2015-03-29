@@ -9,6 +9,8 @@
         android:layout_height="wrap_content"
         android:numColumns="3"
         android:id="@+id/myListRecycler"
-        android:layout_gravity="left|top"/>
+        android:layout_gravity="left|top"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"/>
 
 </RelativeLayout>
