@@ -111,9 +111,11 @@ public class MainPage extends ActionBarActivity
                 MainPage.this.startActivity(new Intent(MainPage.this, HelpActivity.class));
                 break;
         }
-        //After case selection, create a FragmentManager to handle the change.
+        //After case selection, update the title of the ActionBar
+        //Create a FragmentManager to handle the change.
         //Replace the currently reference container with the new fragment instance
         if (fragment != null) {
+            restoreActionBar();
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
         }
@@ -127,4 +129,14 @@ public class MainPage extends ActionBarActivity
     public void onFragmentInteraction(Uri uri) {
     }
 
+    /**
+     * Restores the ActionBar and sets the title of the ActionBar when a new item is chosen.
+     * May need refactoring in order to support fragments not launched through navigation drawer.
+     */
+    public void restoreActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setTitle(mTitle);
+    }
 }

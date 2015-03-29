@@ -20,4 +20,8 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_help">HelpActivity</string>
+    <string name="myListTextView">My Lists</string>
+    <string name="myStoresTextView">My Stores</string>
+    <string name="nearbyStoresTextView">Nearby Stores</string>
+    <string name="title_activity_deleteme">deletemen</string>
 </resources>

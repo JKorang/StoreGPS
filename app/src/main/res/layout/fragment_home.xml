@@ -2,16 +2,62 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="com.rowansenior.storegps.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"
-        android:id="@+id/test" />
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="left|top"
+        android:orientation="vertical"
+        android:id="@+id/homePageTable">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="HOME PAGE LOL"
-        android:id="@+id/button"
-        android:layout_gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/myListTextView"
+            android:id="@+id/myListTextView" />
+<!--
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numColumns="3"
+            android:id="@+id/homeMyListRecycler"
+            android:layout_gravity="left|top"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"/>
+-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/myStoresTextView"
+            android:id="@+id/myStoresTextView" />
+<!--
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numColumns="3"
+            android:id="@+id/homeMyStoresRecycler"
+            android:layout_gravity="left|top"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"/>
+-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/nearbyStoresTextView"
+            android:id="@+id/homeNearbyStoresRecycler" />
+<!--
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numColumns="3"
+            android:id="@+id/myListRecycler"
+            android:layout_gravity="left|top"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"/>
+            -->
+    </TableLayout>
 
 </FrameLayout>

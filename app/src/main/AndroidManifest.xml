@@ -45,6 +45,10 @@
             android:name=".HelpActivity"
             android:label="@string/title_activity_help" >
         </activity>
+        <activity
+            android:name=".deleteme"
+            android:label="@string/title_activity_deleteme" >
+        </activity>
     </application>
 
 </manifest>
