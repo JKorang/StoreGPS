@@ -3,6 +3,9 @@ package com.rowansenior.storegps;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +40,8 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
     private OnFragmentInteractionListener mListener;
     private ArrayList<IndividualListFragment> itemList;
     private ListListAdapter mAdapter;
-    private GridView gview;
+    private RecyclerView gview;
+    private GridLayoutManager mLayoutManager;
 
     /**
      * Creates a new MLF and establishes its Bundle file.
@@ -79,9 +83,11 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
         itemList.add(new IndividualListFragment().newInstance("Example 6"));
         itemList.add(new IndividualListFragment().newInstance("Example 7"));
         itemList.add(new IndividualListFragment().newInstance("Example 8"));
+        itemList.add(new IndividualListFragment().newInstance("Example 7"));
+        itemList.add(new IndividualListFragment().newInstance("Example 8"));
 
         mAdapter = new ListListAdapter(getActivity(), itemList);
-        mAdapter.setNotifyOnChange(true);
+
     }
 
     /**
@@ -108,7 +114,12 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
     @Override
     public void onStart(){
         super.onStart();
-        gview = (GridView) getView().findViewById(R.id.gridView);
+        //GridLayoutManager MUST be ran BEFORE _ANY_ references are made to it.
+        //RecyclerView does NOT check to see if the LayoutManager has been ran yet.
+        //Because of this, calls to LM before creation will null error out.
+        mLayoutManager = new GridLayoutManager(getActivity(),3);
+        gview = (RecyclerView) getView().findViewById(R.id.myListRecycler);
+        gview.setLayoutManager(mLayoutManager);
         gview.setAdapter(mAdapter);
     }
 

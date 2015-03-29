@@ -23,8 +23,10 @@ import android.view.ViewGroup;
  */
 public class IndividualListFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private String mParam1;
+    private static final String ARG_NAME = "NAME";
+    private static final String ARG_DATE = "DATE";
+    private String mName;
+    private String mDate;
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -48,7 +50,8 @@ public class IndividualListFragment extends Fragment {
     public static IndividualListFragment newInstance(String param1) {
         IndividualListFragment fragment = new IndividualListFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_NAME, param1);
+        args.putString(ARG_DATE, "Date");
         fragment.setArguments(args);
         return fragment;
     }
@@ -62,7 +65,7 @@ public class IndividualListFragment extends Fragment {
     /**
      * onCreate triggers immediately after onAttach, at the start of fragment creation.
      * Saves previous window state.
-     * If mParam1 is null, set it with the passed string from newInstance.
+     * If mName is null, set it with the passed string from newInstance.
      *
      * @param savedInstanceState
      */
@@ -70,7 +73,8 @@ public class IndividualListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            mName = getArguments().getString(ARG_NAME);
+            mDate = getArguments().getString(ARG_DATE);
         }
     }
 
@@ -152,6 +156,11 @@ public class IndividualListFragment extends Fragment {
      * @return
      */
     public String getListTitle() {
-        return getArguments().getString(ARG_PARAM1, mParam1);
+
+        return getArguments().getString(ARG_NAME, mName);
+    }
+    public String getListDate() {
+
+        return getArguments().getString(ARG_DATE, mDate);
     }
 }
