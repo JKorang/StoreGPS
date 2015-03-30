@@ -1,11 +1,14 @@
 package com.rowansenior.storegps;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by root on 3/29/15.
@@ -15,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static DatabaseHelper instance;
 
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
     // Database Name
     private static final String DATABASE_NAME = "storeGPS";
@@ -37,8 +40,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // LIST Table Create Statements
     private static final String CREATE_TABLE_LIST = "CREATE TABLE "
             + TABLE_LIST + "(" + KEY_NAME + " STRING PRIMARY KEY," + KEY_ICON
-            + " INTEGER," + KEY_COLOR + " INTEGER," + KEY_ACTIVE + " BOOLEAN," + KEY_DATE
-            + " DATETIME" + ")";
+            + " INTEGER," + KEY_COLOR + " INTEGER," + KEY_ACTIVE + " INTEGER," + KEY_DATE
+            + " STRING" + ")";
 
 
     // ITEM Table - column names
@@ -49,7 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Table Create Statements
     private static final String CREATE_TABLE_ITEM = "CREATE TABLE "
             + TABLE_ITEM + "(" + KEY_NAME + " STRING PRIMARY KEY," + KEY_ITEM_NAME
-            + " STRING," + KEY_QUANTITY + " INTEGER," + KEY_IF_FOUND + " BOOLEAN" + ")";
+            + " STRING," + KEY_QUANTITY + " INTEGER," + KEY_IF_FOUND + " INTEGER" + ")";
 
     // STORE Table - column names
     private static final String KEY_STORE_NAME = "store_name";
@@ -70,6 +73,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         // creating required tables
@@ -90,12 +94,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public static synchronized DatabaseHelper getHelper(Context context) {
-        if(instance == null) {
+        if (instance == null) {
             instance = new DatabaseHelper(context);
         }
         return instance;
     }
 
+    /**
+     * Create a new ShoppingList within the database
+     */
+    public long createNewList(String name, int color, int icon) {
+        SimpleDateFormat s = new SimpleDateFormat("ddMMyyyyhhmmss");
+        String format = s.format(new Date());
+        SQLiteDatabase dataBase = this.getReadableDatabase();
+        ContentValues newValues = new ContentValues();
+        newValues.put(KEY_NAME, name);
+        newValues.put(KEY_ICON, icon);
+        newValues.put(KEY_COLOR, color);
+        newValues.put(KEY_ACTIVE, 1);
+        newValues.put(KEY_DATE, format);
+
+        return dataBase.insert(TABLE_LIST, null, newValues);
+    }
+
+
+    /**
+     * Pulls in data from the database for ALL lists within the system.
+     * Has to read out to getAllItems in order to fill an arraylist of items for each list.
+     * @return
+     */
     public ArrayList<ShoppingList> getAllLists() {
         SQLiteDatabase dataBase = this.getReadableDatabase();
         ArrayList<ShoppingList> allLists = new ArrayList<ShoppingList>();
@@ -106,10 +133,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (c.moveToFirst()) {
             do {
-                ShoppingList sl = new ShoppingList(c.getString(c.getColumnIndex(KEY_NAME));
-
-
-                // adding to todo list
+               // ArrayList listOfItems = getAllItems(c.getString(c.getColumnIndex(KEY_NAME)));
+                ShoppingList sl = new ShoppingList(c.getString(c.getColumnIndex(KEY_NAME)),
+                        c.getString(c.getColumnIndex(KEY_DATE)),
+                        c.getInt(c.getColumnIndex(KEY_ICON)),
+                        c.getInt(c.getColumnIndex(KEY_COLOR)),
+                        c.getInt((c.getColumnIndex(KEY_ACTIVE))),
+                        null);
                 allLists.add(sl);
             } while (c.moveToNext());
         }
@@ -117,4 +147,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return allLists;
     }
 
+    /**
+     * Grabs all items from the TABLE_ITEM that match the name of the list.
+     * @param listName
+     * @return
+     */
+    public ArrayList getAllItems(String listName) {
+        SQLiteDatabase database = this.getReadableDatabase();
+        ArrayList allItems = new ArrayList();
+        String selectQuery = "SELECT * FROM " + TABLE_ITEM + " WHERE " + KEY_NAME + " = " + listName;
+
+        Cursor c = database.rawQuery(selectQuery, null);
+
+        if (c.moveToFirst()) {
+            do {
+                ShoppingListItem sli = new ShoppingListItem(c.getString(c.getColumnIndex(KEY_ITEM_NAME)),
+                        c.getInt(c.getColumnIndex(KEY_QUANTITY)),
+                        c.getInt(c.getColumnIndex(KEY_IF_FOUND)),
+                        c.getInt(c.getColumnIndex(KEY_ACTIVE)));
+                allItems.add(sli);
+            } while (c.moveToNext());
+        }
+        return allItems;
+    }
 }

@@ -1,5 +1,6 @@
 package com.rowansenior.storegps;
 
+
 import java.util.ArrayList;
 
 /**
@@ -7,16 +8,13 @@ import java.util.ArrayList;
  */
 public class ShoppingList {
     private String vName;
-    private int vDate;
+    private String vDate;
     private int vIcon;
     private int vColor;
-    private boolean vActive;
+    private int vActive;
     private ArrayList vItems;
 
-    public ShoppingList() {
-    }
-
-    public ShoppingList(String vName, int vDate, int vIcon, int vColor, boolean vActive, ArrayList vItems) {
+    public ShoppingList(String vName, String vDate, int vIcon, int vColor, int vActive, ArrayList vItems) {
         super();
         this.vName = vName;
         this.vDate = vDate;
@@ -24,6 +22,14 @@ public class ShoppingList {
         this.vColor = vColor;
         this.vActive = vActive;
         this.vItems = vItems;
+    }
+
+    public String getName() {
+        return vName;
+    }
+
+    public String getDate() {
+        return vDate;
     }
 
     @Override

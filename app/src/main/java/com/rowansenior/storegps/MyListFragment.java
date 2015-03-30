@@ -73,20 +73,19 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DatabaseHelper db = new DatabaseHelper(getActivity());
 
-        itemList = new ArrayList();
-        itemList.add(new IndividualListFragment().newInstance("Example 1"));
-        itemList.add(new IndividualListFragment().newInstance("Example 2"));
-        itemList.add(new IndividualListFragment().newInstance("Example 3"));
-        itemList.add(new IndividualListFragment().newInstance("Example 4"));
-        itemList.add(new IndividualListFragment().newInstance("Example 5"));
-        itemList.add(new IndividualListFragment().newInstance("Example 6"));
-        itemList.add(new IndividualListFragment().newInstance("Example 7"));
-        itemList.add(new IndividualListFragment().newInstance("Example 8"));
-        itemList.add(new IndividualListFragment().newInstance("Example 7"));
-        itemList.add(new IndividualListFragment().newInstance("Example 8"));
+/**
+        db.createNewList("list1", 5, 2);
+        db.createNewList("list2", 5, 2);
+        db.createNewList("list3", 5, 2);
+        db.createNewList("list4", 5, 2);
+        db.createNewList("list5", 5, 2);
+        db.createNewList("list6", 5, 2);
+        db.createNewList("list7", 5, 2);
+*/
 
-        mAdapter = new ListListAdapter(getActivity(), itemList);
+        mAdapter = new ListListAdapter(getActivity(), db.getAllLists());
 
     }
 

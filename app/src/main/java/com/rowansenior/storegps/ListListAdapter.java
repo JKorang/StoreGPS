@@ -22,7 +22,7 @@ import java.util.List;
 public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ListViewHolder> {
 
     private Context context;
-    private List<IndividualListFragment> items;
+    private List<ShoppingList> items;
 
     public ListListAdapter(Context context, List items) {
         this.items = items;
@@ -38,9 +38,9 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ListVi
 
     @Override
     public void onBindViewHolder(ListViewHolder viewHolder, int i) {
-        IndividualListFragment item = items.get(i);
-        viewHolder.vTitleText.setText(item.getListTitle());
-        viewHolder.vDate.setText(item.getListDate());
+        ShoppingList item = items.get(i);
+        viewHolder.vTitleText.setText(item.getName());
+        viewHolder.vDate.setText(item.getDate());
     }
 
     @Override
