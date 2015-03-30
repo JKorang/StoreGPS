@@ -102,6 +102,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Create a new ShoppingList within the database
+     *
+     * NEED TO HANDLE ERRORS FOR EXISTING LISTS
      */
     public long createNewList(String name, int color, int icon) {
         SimpleDateFormat s = new SimpleDateFormat("ddMMyyyyhhmmss");
@@ -117,6 +119,51 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return dataBase.insert(TABLE_LIST, null, newValues);
     }
 
+    /**
+     * Add item to existing ShoppingList.
+     *
+     * NEED TO TEST FOR UNIQUE KEYS.
+     * Not sure if sqlite will reject each item after the first for a list.
+     * Might need to give item name column PK in the database, as well.
+     *
+     * NEED TO HANDLE ERRORS FOR EXISTING ITEMS
+     */
+    public long addNewItem(String listName, String itemName) {
+        SQLiteDatabase dataBase = this.getReadableDatabase();
+        ContentValues newValues = new ContentValues();
+        newValues.put(KEY_NAME, listName);
+        newValues.put(KEY_ITEM_NAME, itemName);
+        newValues.put(KEY_IF_FOUND, 0);
+        newValues.put(KEY_QUANTITY, 1);
+
+        return dataBase.insert(TABLE_ITEM, null, newValues);
+    }
+
+    /**
+     * Removes row from the TABLE_ITEM.
+     * Finds only rows with the same list name and item name.
+     * @param listName
+     * @param itemName
+     */
+    public void removeItem(String listName, String itemName) {
+        SQLiteDatabase dataBase = this.getReadableDatabase();
+      //  String selectQuery = "DELETE FROM " + TABLE_ITEM + " WHERE " +
+        dataBase.delete(TABLE_ITEM, KEY_NAME + " = " + '"' + listName + '"' + " AND " + KEY_ITEM_NAME + " = " + '"' + itemName + '"', null);
+    }
+
+    /**
+     * Removes a list by name.
+     * On button press, get the name of the list and kill the table. Completely removes it.
+     *
+     * Will have to implement an archive button, which marks active as 0.
+     * 
+     * @param listName
+     */
+    public void removeList(String listName) {
+        SQLiteDatabase dataBase = this.getReadableDatabase();
+        String selectQuery = "DELETE FROM " + TABLE_LIST + " WHERE " + KEY_NAME + " = " + '"' + listName + '"';
+        dataBase.execSQL(selectQuery);
+    }
 
     /**
      * Pulls in data from the database for ALL lists within the system.
@@ -133,7 +180,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (c.moveToFirst()) {
             do {
-               // ArrayList listOfItems = getAllItems(c.getString(c.getColumnIndex(KEY_NAME)));
                 ShoppingList sl = new ShoppingList(c.getString(c.getColumnIndex(KEY_NAME)),
                         c.getString(c.getColumnIndex(KEY_DATE)),
                         c.getInt(c.getColumnIndex(KEY_ICON)),

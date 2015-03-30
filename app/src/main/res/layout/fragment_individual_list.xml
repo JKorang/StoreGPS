@@ -9,6 +9,9 @@
         android:layout_height="175dp"
         card_view:cardCornerRadius="6dp"
         android:layout_margin="5dp"
+        android:background="@android:drawable/btn_default"
+        android:clickable="true"
+        android:focusable="true"
     >
 
 
@@ -17,8 +20,7 @@
         android:layout_height="115dp"
         android:id="@+id/imageView"
         android:src="@mipmap/ic_launcher"
-        android:contentDescription="ImageOfList"
-        android:clickable="true"/>
+        android:contentDescription="ImageOfList"/>
 
     <TextView
             android:id="@+id/titleText"
@@ -26,7 +28,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="130dp"
             android:textColor="@android:color/black"
-            android:clickable="true"
             android:paddingLeft="5dp" />
     <TextView
             android:id="@+id/date"
