@@ -66,6 +66,8 @@ public class MainPage extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
 
+        DatabaseHelper dataBase = new DatabaseHelper(getApplicationContext());
+
         mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
