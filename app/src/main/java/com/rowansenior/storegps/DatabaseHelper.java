@@ -18,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static DatabaseHelper instance;
 
     // Database Version
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 6;
 
     // Database Name
     private static final String DATABASE_NAME = "storeGPS";
@@ -52,7 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Table Create Statements
     private static final String CREATE_TABLE_ITEM = "CREATE TABLE "
             + TABLE_ITEM + "(" + KEY_NAME + " STRING PRIMARY KEY," + KEY_ITEM_NAME
-            + " STRING," + KEY_QUANTITY + " INTEGER," + KEY_IF_FOUND + " INTEGER" + ")";
+            + " STRING," + KEY_QUANTITY + " INTEGER," + KEY_IF_FOUND + " INTEGER" +")";
 
     // STORE Table - column names
     private static final String KEY_STORE_NAME = "store_name";
@@ -123,7 +123,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * Add item to existing ShoppingList.
      *
      * NEED TO TEST FOR UNIQUE KEYS.
-     * Not sure if sqlite will reject each item after the first for a list.
+     * Not sure if sqlite will reject each item after thiight.ght.e first for a list.
      * Might need to give item name column PK in the database, as well.
      *
      * NEED TO HANDLE ERRORS FOR EXISTING ITEMS
@@ -142,13 +142,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /**
      * Removes row from the TABLE_ITEM.
      * Finds only rows with the same list name and item name.
+     *
+     * NEED ERROR HANDLING FOR ITEM THAT DOES NOT EXIST
+     *
      * @param listName
      * @param itemName
      */
     public void removeItem(String listName, String itemName) {
         SQLiteDatabase dataBase = this.getReadableDatabase();
-      //  String selectQuery = "DELETE FROM " + TABLE_ITEM + " WHERE " +
-        dataBase.delete(TABLE_ITEM, KEY_NAME + " = " + '"' + listName + '"' + " AND " + KEY_ITEM_NAME + " = " + '"' + itemName + '"', null);
+        String selectQuery = "DELETE FROM " + TABLE_ITEM + " WHERE " + KEY_NAME +
+                " = " + '"' + listName + '"' + " AND " + KEY_ITEM_NAME +
+                " = " + '"' + itemName + '"';
+        dataBase.execSQL(selectQuery);
     }
 
     /**
@@ -201,7 +206,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList getAllItems(String listName) {
         SQLiteDatabase database = this.getReadableDatabase();
         ArrayList allItems = new ArrayList();
-        String selectQuery = "SELECT * FROM " + TABLE_ITEM + " WHERE " + KEY_NAME + " = " + listName;
+        String selectQuery = "SELECT * FROM " + TABLE_ITEM + " WHERE " + KEY_NAME + " = " + '"' + listName + '"';
 
         Cursor c = database.rawQuery(selectQuery, null);
 
