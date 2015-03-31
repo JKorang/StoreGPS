@@ -24,4 +24,7 @@
     <string name="myStoresTextView">My Stores</string>
     <string name="nearbyStoresTextView">Nearby Stores</string>
     <string name="title_activity_deleteme">deletemen</string>
+    <string name="cancel">Cancel</string>
+    <string name="submit">Create</string>
+    <string name="newlist">Add New List</string>
 </resources>

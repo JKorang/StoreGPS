@@ -18,14 +18,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static DatabaseHelper instance;
 
     // Database Version
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 10;
 
     // Database Name
     private static final String DATABASE_NAME = "storeGPS";
 
     // Table Names
     private static final String TABLE_LIST = "list";
-    private static final String TABLE_ITEM = "item";
+    private static final String TABLE_ITEM = "_item";
     private static final String TABLE_STORE = "store";
 
     // Common column names
@@ -51,8 +51,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Table Create Statements
     private static final String CREATE_TABLE_ITEM = "CREATE TABLE "
-            + TABLE_ITEM + "(" + KEY_NAME + " STRING," + KEY_ITEM_NAME
-            + " STRING," + KEY_QUANTITY + " INTEGER," + KEY_IF_FOUND + " INTEGER," + " PRIMARY KEY(" + KEY_NAME + ", " + KEY_ITEM_NAME + "))";
+            + KEY_NAME + TABLE_ITEM + "(" + KEY_NAME + " STRING," + KEY_ITEM_NAME
+            + " STRING," + KEY_QUANTITY + " INTEGER," + KEY_IF_FOUND + " INTEGER" + ")";
 
     // STORE Table - column names
     private static final String KEY_STORE_NAME = "store_name";
@@ -77,7 +77,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // creating required tables
-        db.execSQL(CREATE_TABLE_ITEM);
         db.execSQL(CREATE_TABLE_LIST);
         db.execSQL(CREATE_TABLE_STORE);
     }
@@ -85,6 +84,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // on upgrade drop older tables
+
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ITEM);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LIST);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_STORE);
@@ -115,7 +115,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         newValues.put(KEY_COLOR, color);
         newValues.put(KEY_ACTIVE, 1);
         newValues.put(KEY_DATE, format);
-
+        String itemTable = name + "" + TABLE_ITEM;
+        dataBase.execSQL("CREATE TABLE " + itemTable + "(" + KEY_ITEM_NAME + " STRING PRIMARY KEY," + KEY_QUANTITY + " INTEGER," + KEY_IF_FOUND + " INTEGER" + ")");
         return dataBase.insert(TABLE_LIST, null, newValues);
     }
 
@@ -123,20 +124,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * Add item to existing ShoppingList.
      *
      * NEED TO TEST FOR UNIQUE KEYS.
-     * Not sure if sqlite will reject each item after thiight.ght.e first for a list.
+     * Not sure if sqlite will reject each item after the first for a list.
      * Might need to give item name column PK in the database, as well.
      *
      * NEED TO HANDLE ERRORS FOR EXISTING ITEMS
      */
-    public long addNewItem(String listName, String itemName) {
+    public void addNewItem(String listName, String itemName) {
         SQLiteDatabase dataBase = this.getReadableDatabase();
-        ContentValues newValues = new ContentValues();
-        newValues.put(KEY_NAME, listName);
-        newValues.put(KEY_ITEM_NAME, itemName);
-        newValues.put(KEY_IF_FOUND, 0);
-        newValues.put(KEY_QUANTITY, 1);
 
-        return dataBase.insert(TABLE_ITEM, null, newValues);
+        String selectQuery = "INSERT INTO " + listName + TABLE_ITEM + " VALUES(" + '"' + itemName + '"' + ", 0, 1)";
+        dataBase.execSQL(selectQuery);
     }
 
     /**
@@ -150,8 +147,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public void removeItem(String listName, String itemName) {
         SQLiteDatabase dataBase = this.getReadableDatabase();
-        String selectQuery = "DELETE FROM " + TABLE_ITEM + " WHERE " + KEY_NAME +
-                " = " + '"' + listName + '"' + " AND " + KEY_ITEM_NAME +
+        String selectQuery = "DELETE FROM " + listName + TABLE_ITEM + " WHERE " + KEY_ITEM_NAME +
                 " = " + '"' + itemName + '"';
         dataBase.execSQL(selectQuery);
     }
@@ -168,6 +164,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase dataBase = this.getReadableDatabase();
         String selectQuery = "DELETE FROM " + TABLE_LIST + " WHERE " + KEY_NAME + " = " + '"' + listName + '"';
         dataBase.execSQL(selectQuery);
+        dataBase.execSQL("DROP TABLE IF EXISTS " + listName + TABLE_ITEM);
     }
 
     /**
@@ -206,7 +203,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList getAllItems(String listName) {
         SQLiteDatabase database = this.getReadableDatabase();
         ArrayList allItems = new ArrayList();
-        String selectQuery = "SELECT * FROM " + TABLE_ITEM + " WHERE " + KEY_NAME + " = " + '"' + listName + '"';
+        String selectQuery = "SELECT * FROM " + listName + TABLE_ITEM;
 
         Cursor c = database.rawQuery(selectQuery, null);
 
