@@ -18,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static DatabaseHelper instance;
 
     // Database Version
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
 
     // Database Name
     private static final String DATABASE_NAME = "storeGPS";
@@ -51,8 +51,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Table Create Statements
     private static final String CREATE_TABLE_ITEM = "CREATE TABLE "
-            + TABLE_ITEM + "(" + KEY_NAME + " STRING PRIMARY KEY," + KEY_ITEM_NAME
-            + " STRING," + KEY_QUANTITY + " INTEGER," + KEY_IF_FOUND + " INTEGER" +")";
+            + TABLE_ITEM + "(" + KEY_NAME + " STRING," + KEY_ITEM_NAME
+            + " STRING," + KEY_QUANTITY + " INTEGER," + KEY_IF_FOUND + " INTEGER," + " PRIMARY KEY(" + KEY_NAME + ", " + KEY_ITEM_NAME + "))";
 
     // STORE Table - column names
     private static final String KEY_STORE_NAME = "store_name";
