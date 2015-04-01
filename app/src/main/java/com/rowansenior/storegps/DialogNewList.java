@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -19,7 +20,7 @@ import android.widget.Toast;
 /**
  * Created by root on 3/31/15.
  */
-public class DialogNewList extends DialogFragment {
+public class DialogNewList extends DialogFragment implements View.OnClickListener {
     Context mContext;
     Button cancel;
     Button accept;
@@ -46,18 +47,25 @@ public class DialogNewList extends DialogFragment {
         accept = (Button) v.findViewById(R.id.btn_accept);
 
         getDialog().setTitle("Create A New List");
+        cancel.setOnClickListener((View.OnClickListener) this);
+        accept.setOnClickListener((View.OnClickListener) this);
 
         return v;
     }
 
     public void onClick(View v) {
-        Editable name = listName.getText();
-        if(!TextUtils.isEmpty(name)) {
-            // Return the new entered name to the calling activity
-            callback.onNameSetted(name.toString());
-            this.dismiss();
+            switch (v.getId()) {
+            case R.id.btn_accept:
+                Editable name = listName.getText();
+                DatabaseHelper db = new DatabaseHelper(getActivity());
+                db.createNewList(name.toString(), 2, 1);
+                getDialog().dismiss();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.container, new MyListFragment().newInstance()).commit();
+                break;
+            case R.id.btn_cancel:
+                getDialog().dismiss();
+                break;
         }
-        else
-            Toast.makeText(getActivity(), "lol no text entered", Toast.LENGTH_LONG).show();
     }
 }

@@ -1,0 +1,67 @@
+<!--<android.support.v7.widget.CardView -->
+    <RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.rowansenior.storegps.IndividualListFragment"
+
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="75dp"
+    card_view:cardCornerRadius="6dp"
+    android:layout_margin="5dp"
+    android:background="@android:drawable/btn_default"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingLeft="15dp"
+    android:paddingTop="15dp">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/itemTableLayout" >
+
+        <TableRow
+            android:layout_width="fill_parent">
+
+            <TextView
+            android:id="@+id/itemText"
+            android:layout_width="90dp"
+            android:layout_height="15dp"
+            android:textColor="@android:color/black"
+            android:paddingLeft="5dp" />
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:text="Add Item"
+                android:id="@+id/incQuantity"
+                android:contentDescription=""
+                android:src="@mipmap/up_arrow" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+>
+
+            <TextView
+                android:id="@+id/QuantityText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:paddingLeft="5dp" />
+
+            <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:text="Add Item"
+            android:id="@+id/decQuantity"
+            android:contentDescription=""
+                android:src="@mipmap/down_arrow" />
+        </TableRow>
+    </TableLayout>
+
+    </RelativeLayout>
+<!-- </android.support.v7.widget.CardView> -->
+

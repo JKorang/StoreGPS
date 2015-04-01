@@ -3,6 +3,7 @@ package com.rowansenior.storegps;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,7 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 /**
@@ -110,8 +112,8 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
         db.addNewItem("list2", "gum");
 */
 
-
         mAdapter = new ListListAdapter(getActivity(), db.getAllLists());
+
 
     }
 
@@ -131,6 +133,7 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
         view = inflater.inflate(R.layout.fragment_my_list, container, false);
         newList = (Button) view.findViewById(R.id.newList);
         newList.setOnClickListener(this);
+
         return view;
     }
 
@@ -169,7 +172,6 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
     }
 
 
-
     /**
      * Actions to be taken when an item in the fragment is clicked.
      * Not yet working, but should display a Toast message.
@@ -190,9 +192,16 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.newList:
+                System.out.println("Wow much click");
+                FragmentManager fragmentManager = getFragmentManager();
+                DialogNewList diagNL = new DialogNewList();
+                diagNL.show(fragmentManager, null);
                 break;
+            case R.id.listIcon:
+                System.out.println("Clicked a card");
         }
     }
+
 
     /**
      * This interface must be implemented by activities that contain this

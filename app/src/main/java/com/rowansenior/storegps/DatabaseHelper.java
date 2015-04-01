@@ -116,7 +116,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         newValues.put(KEY_ACTIVE, 1);
         newValues.put(KEY_DATE, format);
         String itemTable = name + "" + TABLE_ITEM;
-        dataBase.execSQL("CREATE TABLE " + itemTable + "(" + KEY_ITEM_NAME + " STRING PRIMARY KEY," + KEY_QUANTITY + " INTEGER," + KEY_IF_FOUND + " INTEGER" + ")");
+        dataBase.execSQL("CREATE TABLE " + '"' + itemTable + '"' + "(" + KEY_ITEM_NAME + " STRING PRIMARY KEY," + KEY_QUANTITY + " INTEGER," + KEY_IF_FOUND + " INTEGER" + ")");
         return dataBase.insert(TABLE_LIST, null, newValues);
     }
 
@@ -148,7 +148,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public void removeItem(String listName, String itemName) {
         SQLiteDatabase dataBase = this.getReadableDatabase();
-        String selectQuery = "DELETE FROM " + listName + TABLE_ITEM + " WHERE " + KEY_ITEM_NAME +
+        String selectQuery = "DELETE FROM " + '"' +  listName + '"' + TABLE_ITEM + " WHERE " + KEY_ITEM_NAME +
                 " = " + '"' + itemName + '"';
         dataBase.execSQL(selectQuery);
     }
@@ -181,7 +181,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor c = dataBase.rawQuery(selectQuery, null);
 
         // looping through all rows and adding to list
-        if (c.moveToFirst()) {
+        if (c.moveToLast()) {
             do {
                 ShoppingList sl = new ShoppingList(c.getString(c.getColumnIndex(KEY_NAME)),
                         c.getString(c.getColumnIndex(KEY_DATE)),
@@ -190,7 +190,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         c.getInt((c.getColumnIndex(KEY_ACTIVE))),
                         null);
                 allLists.add(sl);
-            } while (c.moveToNext());
+            } while (c.moveToPrevious());
         }
         return allLists;
     }

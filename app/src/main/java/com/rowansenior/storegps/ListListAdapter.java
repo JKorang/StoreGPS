@@ -9,6 +9,7 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.app.Activity;
@@ -36,6 +37,7 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ListVi
         return vh;
     }
 
+
     @Override
     public void onBindViewHolder(ListViewHolder viewHolder, int i) {
         ShoppingList item = items.get(i);
@@ -51,7 +53,7 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ListVi
     /**
      * Capable of holding each item in the LLA.
      */
-    public static class ListViewHolder extends RecyclerView.ViewHolder {
+    public static class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView vTitleText;
         public TextView vDate;
 
@@ -59,7 +61,12 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ListVi
             super(v);
             vTitleText = (TextView) v.findViewById(R.id.titleText);
             vDate = (TextView) v.findViewById(R.id.date);
-
         }
+
+        public void onClick(View v) {
+            System.out.println("CLick");
+        }
+
+
     }
 }

@@ -11,8 +11,6 @@
         android:layout_height="wrap_content"
         android:hint="@string/newlist"
         android:singleLine="true" >
-
-        <requestFocus />
     </EditText>
 
     <HorizontalScrollView
