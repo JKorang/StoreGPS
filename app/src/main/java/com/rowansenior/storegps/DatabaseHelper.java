@@ -128,6 +128,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * Might need to give item name column PK in the database, as well.
      *
      * NEED TO HANDLE ERRORS FOR EXISTING ITEMS
+     * INCREMENT EXISTING
      */
     public void addNewItem(String listName, String itemName) {
         SQLiteDatabase dataBase = this.getReadableDatabase();
@@ -191,7 +192,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 allLists.add(sl);
             } while (c.moveToNext());
         }
-
         return allLists;
     }
 

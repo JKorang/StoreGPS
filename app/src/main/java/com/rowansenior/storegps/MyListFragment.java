@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -35,13 +36,15 @@ import java.util.ArrayList;
  * will also need to contain its own small menu button.
  *
  */
-public class MyListFragment extends Fragment implements AbsListView.OnItemClickListener {
+public class MyListFragment extends Fragment implements AbsListView.OnItemClickListener, View.OnClickListener {
 
     private OnFragmentInteractionListener mListener;
     private ArrayList<IndividualListFragment> itemList;
     private ListListAdapter mAdapter;
     private RecyclerView gview;
     private GridLayoutManager mLayoutManager;
+    private View view;
+    private Button newList;
 
     /**
      * Creates a new MLF and establishes its Bundle file.
@@ -125,7 +128,10 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_my_list, container, false);
+        view = inflater.inflate(R.layout.fragment_my_list, container, false);
+        newList = (Button) view.findViewById(R.id.newList);
+        newList.setOnClickListener(this);
+        return view;
     }
 
     /**
@@ -162,6 +168,8 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
         }
     }
 
+
+
     /**
      * Actions to be taken when an item in the fragment is clicked.
      * Not yet working, but should display a Toast message.
@@ -176,6 +184,14 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         IndividualListFragment listPicked = this.itemList.get(position);
         Toast.makeText(getActivity(), listPicked.getListTitle() + " Clicked lolol", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.newList:
+                break;
+        }
     }
 
     /**
