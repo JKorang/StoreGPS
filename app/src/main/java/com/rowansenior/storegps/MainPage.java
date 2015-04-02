@@ -37,7 +37,8 @@ public class MainPage extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
         MyListFragment.OnFragmentInteractionListener,
         HomeFragment.OnFragmentInteractionListener,
-        MyStoreFragment.OnFragmentInteractionListener {
+        MyStoreFragment.OnFragmentInteractionListener,
+        IndividualListFragment.OnFragmentInteractionListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -141,4 +142,10 @@ public class MainPage extends ActionBarActivity
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }
-}
+
+    public void changeFragment(Fragment frag) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, frag).commit();
+        }
+    }
+

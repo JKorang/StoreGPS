@@ -9,7 +9,7 @@
         android:id="@+id/txt_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/newlist"
+        android:hint="@string/newlistButton"
         android:singleLine="true" >
     </EditText>
 
@@ -31,7 +31,7 @@
             android:id="@+id/btn_accept"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:text="@string/submit" />
+            android:text="@string/submitButton" />
 
         <Button
             android:id="@+id/btn_cancel"
@@ -40,6 +40,6 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/btn_accept"
-            android:text="@string/cancel" />
+            android:text="@string/cancelButton" />
     </RelativeLayout>
     </LinearLayout>

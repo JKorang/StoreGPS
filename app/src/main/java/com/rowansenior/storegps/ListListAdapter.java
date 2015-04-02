@@ -3,16 +3,17 @@ package com.rowansenior.storegps;
 /**
  * Created by Joseph on 3/27/2015.
  */
+import android.app.Activity;
+import android.support.v4.app.Fragment;
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.app.Activity;
 import java.util.List;
 
 /**
@@ -24,6 +25,8 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ListVi
 
     private Context context;
     private List<ShoppingList> items;
+    public static FragmentManager fragmentManager;
+
 
     public ListListAdapter(Context context, List items) {
         this.items = items;
@@ -33,7 +36,8 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ListVi
     @Override
     public ListViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_individual_list, viewGroup, false);
-        ListViewHolder vh = new ListViewHolder(v);
+        Activity activity = (Activity) context;
+        ListViewHolder vh = new ListViewHolder(v, activity);
         return vh;
     }
 
@@ -56,17 +60,35 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ListVi
     public static class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView vTitleText;
         public TextView vDate;
+        public CardView vCardView;
+        public ImageView vImageView;
+        public Activity vAct;
+        public FragmentManager vFM;
 
-        public ListViewHolder(View v) {
+        public ListViewHolder(View v, Activity act) {
             super(v);
             vTitleText = (TextView) v.findViewById(R.id.titleText);
             vDate = (TextView) v.findViewById(R.id.date);
+            vCardView = (CardView) v.findViewById(R.id.card_view);
+            vImageView = (ImageView) v.findViewById(R.id.listIcon);
+            vAct = act;
+            vTitleText.setOnClickListener(this);
+            vDate.setOnClickListener(this);
+            vCardView.setOnClickListener(this);
+            vImageView.setOnClickListener(this);
         }
 
         public void onClick(View v) {
-            System.out.println("CLick");
+            switch (v.getId()) {
+                case R.id.titleText:
+                    System.out.println("title text");
+                case R.id.date:
+                    System.out.println("Date");
+                case R.id.card_view:
+                    System.out.println("Card View");
+                case R.id.listIcon:
+                    System.out.println("Image");
+            }
         }
-
-
     }
 }

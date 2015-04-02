@@ -12,7 +12,7 @@
             android:id="@+id/newItemName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/newlist"
+            android:hint="@string/newlistBox"
             android:singleLine="true"
             android:layout_weight="1"
             />

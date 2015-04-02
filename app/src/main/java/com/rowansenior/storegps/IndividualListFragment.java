@@ -3,10 +3,22 @@ package com.rowansenior.storegps;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.GridView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 
 /**
@@ -21,7 +33,7 @@ import android.view.ViewGroup;
  * It will need to be reworked slightly to display all the contents of the list it houses
  * when selected from the HomeFragment or MyListFragment.
  */
-public class IndividualListFragment extends Fragment {
+public class IndividualListFragment extends Fragment implements AbsListView.OnItemClickListener, View.OnClickListener {
 
     private static final String ARG_NAME = "NAME";
     private static final String ARG_DATE = "DATE";
@@ -51,6 +63,15 @@ public class IndividualListFragment extends Fragment {
         IndividualListFragment fragment = new IndividualListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_NAME, param1);
+        args.putString(ARG_DATE, "Date");
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static IndividualListFragment newInstance() {
+        IndividualListFragment fragment = new IndividualListFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_NAME, "temp");
         args.putString(ARG_DATE, "Date");
         fragment.setArguments(args);
         return fragment;
@@ -91,7 +112,8 @@ public class IndividualListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_individual_list, container, false);
+       // return inflater.inflate(R.layout.fragment_individual_list, container, false);
+        return inflater.inflate(R.layout.fragment_list_layout, container, false);
     }
 
     /**
@@ -131,6 +153,16 @@ public class IndividualListFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
     }
 
     /**
