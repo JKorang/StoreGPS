@@ -18,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static DatabaseHelper instance;
 
     // Database Version
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 13;
 
     // Database Name
     private static final String DATABASE_NAME = "storeGPS";
@@ -88,6 +88,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ITEM);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LIST);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_STORE);
+        db.execSQL("DROP TABLE IF EXISTS *");
 
         // create new tables
         onCreate(db);
@@ -133,7 +134,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void addNewItem(String listName, String itemName) {
         SQLiteDatabase dataBase = this.getReadableDatabase();
 
-        String selectQuery = "INSERT INTO " + listName + TABLE_ITEM + " VALUES(" + '"' + itemName + '"' + ", 0, 1)";
+        String selectQuery = "INSERT INTO " + listName + TABLE_ITEM + " VALUES(" + '"' + itemName + '"' + ", 1, 0)";
         dataBase.execSQL(selectQuery);
     }
 
@@ -217,5 +218,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } while (c.moveToNext());
         }
         return allItems;
+    }
+
+    public void increaseQuantity(String listName, String itemName)
+    {
+        SQLiteDatabase database = this.getReadableDatabase();
+        String selectQuery = " UPDATE " + '"' + listName + '"' + TABLE_ITEM + " SET " + KEY_QUANTITY + " = " + KEY_QUANTITY + " + 1 WHERE " + KEY_ITEM_NAME + " = " + '"' + itemName + '"';
+        database.execSQL(selectQuery);
+    }
+
+    public void decreaseQuantity(String listName, String itemName)
+    {
+        SQLiteDatabase database = this.getReadableDatabase();
+        String selectQuery = " UPDATE " + '"' + listName + '"' + TABLE_ITEM + " SET " + KEY_QUANTITY + " = " + KEY_QUANTITY + " - 1 WHERE " + KEY_ITEM_NAME + " = " + '"' + itemName + '"';
+        database.execSQL(selectQuery);
+    }
+
+    public void itemFound(String listName, String itemName)
+    {
+        SQLiteDatabase database = this.getReadableDatabase();
+        //String selectQuery = " SELECT " + KEY_IF_FOUND + " FROM " + listName + TABLE_ITEM + " WHERE " + KEY_ITEM_NAME + " = " + itemName;
+        String selectQuery = " UPDATE " + '"' + listName + '"' + TABLE_ITEM + " SET " + KEY_IF_FOUND + " = 1 WHERE " + KEY_ITEM_NAME + " = " + '"' + itemName + '"';
+        database.execSQL(selectQuery);
+    }
+
+    public void itemNotFound(String listName, String itemName)
+    {
+        SQLiteDatabase database = this.getReadableDatabase();
+        //String selectQuery = " SELECT " + KEY_IF_FOUND + " FROM " + listName + TABLE_ITEM + " WHERE " + KEY_ITEM_NAME + " = " + itemName;
+        String selectQuery = " UPDATE " + '"' + listName + '"' + TABLE_ITEM + " SET " + KEY_IF_FOUND + " = 0 WHERE " + KEY_ITEM_NAME + " = " + '"' + itemName + '"';
+        database.execSQL(selectQuery);
     }
 }

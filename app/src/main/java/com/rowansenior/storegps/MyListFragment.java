@@ -84,6 +84,7 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
  * SAMPLE TEST CASE TO TEST DATABASE FUNCTIONALITY
  * ADD 7 LISTS, REMOVE LIST 4.
  * MyList SHOULD SHOW LIST 1, 2, 3, 5, 6, 7 NOW
+ *
 
         db.createNewList("list1", 5, 2);
         db.createNewList("list2", 5, 2);
@@ -110,7 +111,14 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
         db.removeItem("list2", "gun");
 
         db.addNewItem("list2", "gum");
-*/
+
+        db.createNewList("jawn", 5, 2);
+        db.addNewItem("jawn", "jawn sauce");
+        db.increaseQuantity("jawn", "jawn sauce");
+        db.decreaseQuantity("jawn", "jawn sauce");
+
+        db.itemFound("jawn", "jawn sauce");
+ */
 
         mAdapter = new ListListAdapter(getActivity(), db.getAllLists());
 
