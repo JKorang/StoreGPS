@@ -103,7 +103,8 @@ public class MainPage extends ActionBarActivity
             case 3:
                 //MyStore
                 mTitle = getString(R.string.title_section3);
-                fragment = new MyStoreFragment().newInstance();
+               // fragment = new MyStoreFragment().newInstance();
+                fragment = new IndividualListFragment().newInstance();
                 break;
             case 4:
                 //Settings

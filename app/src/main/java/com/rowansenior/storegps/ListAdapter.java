@@ -22,14 +22,14 @@ import java.util.List;
  * In this case, LLA handles data access of IndividualListFragments and places the content
  * within views that the monitor is attached to.
  */
-public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ViewHolder> {
+public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     private Context context;
     private List<ShoppingList> items;
     public static FragmentManager fragmentManager;
 
 
-    public ListListAdapter(Context context, List items) {
+    public ListAdapter(Context context, List items) {
         this.items = items;
         this.context = context;
         fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
@@ -42,6 +42,7 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ViewHo
         ViewHolder vh = new ViewHolder(v, fragmentManager);
         return vh;
     }
+
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
