@@ -12,10 +12,9 @@
             android:id="@+id/newItemName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/newlistBox"
+            android:hint="Enter A New Item"
             android:singleLine="true"
-            android:layout_weight="1"
-            />
+            android:layout_weight="1"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -41,13 +40,13 @@
         android:text="Found Items"
         android:id="@+id/textItemsFound" />
 
-    <android.support.v7.widget.RecyclerView
+   <!-- <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/foundItems"
         android:numColumns="1"
         android:layout_gravity="left|top"
         android:paddingLeft="5dp"
-        android:paddingRight="5dp"/>
+        android:paddingRight="5dp"/>-->
 
 </LinearLayout>

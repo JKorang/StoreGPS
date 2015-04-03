@@ -120,6 +120,7 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
         db.itemFound("jawn", "jawn sauce");
 
 */
+
         mAdapter = new ListListAdapter(getActivity(), db.getAllLists());
 
 

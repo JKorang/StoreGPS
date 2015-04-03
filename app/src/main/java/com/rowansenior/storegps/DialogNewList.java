@@ -26,18 +26,8 @@ public class DialogNewList extends DialogFragment implements View.OnClickListene
     Button accept;
     EditText listName;
 
-    private OnNameSettedCallback callback;
-
-    public interface OnNameSettedCallback {
-        void onNameSetted(String newName);
-    }
-
     public DialogNewList() {
         mContext = getActivity();
-    }
-
-    static DialogNewList newInstance() {
-        return new DialogNewList();
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

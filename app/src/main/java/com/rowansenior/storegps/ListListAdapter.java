@@ -91,7 +91,8 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ViewHo
                 case R.id.listIcon:
                     System.out.println("Image");
             }
-            vFM.beginTransaction().replace(R.id.container, new IndividualListFragment().newInstance()).commit();
+            String newFrag = vTitleText.getText().toString();
+            vFM.beginTransaction().replace(R.id.container, new SingleListFragment().newInstance(newFrag)).commit();
 
         }
     }

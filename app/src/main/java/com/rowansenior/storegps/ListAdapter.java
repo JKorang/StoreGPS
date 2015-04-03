@@ -38,21 +38,19 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        System.out.println("oncreateviewholder");
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_individual_list, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_item, viewGroup, false);
+        System.out.println(v);
+        System.out.println(fragmentManager);
         ViewHolder vh = new ViewHolder(v, fragmentManager);
-        System.out.println("oncreateviewholder");
         return vh;
     }
 
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        System.out.println("onbindviewholder");
         ShoppingListItem item = items.get(i);
         viewHolder.vTitleText.setText(item.getName());
-        viewHolder.vQuantity.setText(item.getQuantity());
-        System.out.println("onbindviewholder");
+        viewHolder.vQuantity.setText("Quantity: " + String.valueOf(item.getQuantity()));
     }
 
     @Override

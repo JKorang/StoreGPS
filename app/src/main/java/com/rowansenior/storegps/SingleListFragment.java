@@ -7,12 +7,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -48,6 +50,8 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
     private View view;
     private static String listName;
     private Button newList;
+    private DatabaseHelper db;
+    private EditText newItem;
 
     /**
      * Creates a new MLF and establishes its Bundle file.
@@ -80,7 +84,7 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DatabaseHelper db = new DatabaseHelper(getActivity());
+        db = new DatabaseHelper(getActivity());
         mAdapter = new ListAdapter(getActivity(), db.getAllItems(listName));
     }
 
@@ -98,6 +102,9 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_list_layout, container, false);
+        newList = (Button) view.findViewById(R.id.addItemButton);
+        newItem = (EditText) view.findViewById(R.id.newItemName);
+        newList.setOnClickListener(this);
         return view;
     }
 
@@ -156,14 +163,12 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.newList:
+            case R.id.addItemButton:
                 System.out.println("Wow much click");
-                FragmentManager fragmentManager = getFragmentManager();
-                DialogNewList diagNL = new DialogNewList();
-                diagNL.show(fragmentManager, null);
+                Editable name = newItem.getText();
+                db.addNewItem(listName, name.toString());
+                //NEED TO HANDLE REFRESH OF ELEMENTS
                 break;
-            case R.id.listIcon:
-                System.out.println("Clicked a card");
         }
     }
 

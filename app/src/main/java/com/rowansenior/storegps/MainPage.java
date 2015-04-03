@@ -1,21 +1,12 @@
 package com.rowansenior.storegps;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.*;
-import android.support.v4.app.ListFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import com.rowansenior.storegps.MyListFragment;
-import com.rowansenior.storegps.MyStoreFragment;
 
 /**
  * THE core and MainActivity of the entire program.
