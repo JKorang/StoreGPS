@@ -9,14 +9,27 @@ public class ShoppingListItem {
     private String vItemName;
     private int vQuantity;
     private int vIfFound;
-    private int vActive;
 
-    public ShoppingListItem(String vItemName, int vQuantity, int vIfFound, int vActive) {
+    public ShoppingListItem(String vItemName, int vQuantity, int vIfFound) {
         super();
         this.vItemName = vItemName;
         this.vQuantity = vQuantity;
         this.vIfFound = vIfFound;
-        this.vActive = vActive;
+    }
+
+    public ShoppingListItem() {
+        super();
+        this.vItemName = "test";
+        this.vQuantity = 1;
+        this.vIfFound = 0;
+    }
+
+    public String getName() {
+        return vItemName;
+    }
+
+    public int getQuantity() {
+        return vQuantity;
     }
 
     @Override

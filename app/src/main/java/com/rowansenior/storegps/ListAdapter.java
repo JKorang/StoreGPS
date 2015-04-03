@@ -18,14 +18,14 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
- * ListListAdapter handles transmission and access of data from fragments associated with it.
+ * ListAdapter handles transmission and access of data from fragments associated with it.
  * In this case, LLA handles data access of IndividualListFragments and places the content
  * within views that the monitor is attached to.
  */
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     private Context context;
-    private List<ShoppingList> items;
+    private List<ShoppingListItem> items;
     public static FragmentManager fragmentManager;
 
 
@@ -38,17 +38,21 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        System.out.println("oncreateviewholder");
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_individual_list, viewGroup, false);
         ViewHolder vh = new ViewHolder(v, fragmentManager);
+        System.out.println("oncreateviewholder");
         return vh;
     }
 
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        ShoppingList item = items.get(i);
+        System.out.println("onbindviewholder");
+        ShoppingListItem item = items.get(i);
         viewHolder.vTitleText.setText(item.getName());
-        viewHolder.vDate.setText(item.getDate());
+        viewHolder.vQuantity.setText(item.getQuantity());
+        System.out.println("onbindviewholder");
     }
 
     @Override
@@ -61,22 +65,19 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
      */
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView vTitleText;
-        public TextView vDate;
+        public TextView vQuantity;
         public CardView vCardView;
-        public ImageView vImageView;
         public FragmentManager vFM;
 
         public ViewHolder(View v, FragmentManager FM) {
             super(v);
-            vTitleText = (TextView) v.findViewById(R.id.titleText);
-            vDate = (TextView) v.findViewById(R.id.date);
-            vCardView = (CardView) v.findViewById(R.id.card_view);
-            vImageView = (ImageView) v.findViewById(R.id.listIcon);
+            vTitleText = (TextView) v.findViewById(R.id.itemText);
+            vQuantity = (TextView) v.findViewById(R.id.QuantityText);
+            vCardView = (CardView) v.findViewById(R.id.itemcardview);
             vFM = FM;
             vTitleText.setOnClickListener(this);
-            vDate.setOnClickListener(this);
+            vQuantity.setOnClickListener(this);
             vCardView.setOnClickListener(this);
-            vImageView.setOnClickListener(this);
         }
 
 
@@ -92,8 +93,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                 case R.id.listIcon:
                     System.out.println("Image");
             }
-            vFM.beginTransaction().replace(R.id.container, new IndividualListFragment().newInstance()).commit();
-
+            //vFM.beginTransaction().replace(R.id.container, new IndividualListFragment().newInstance()).commit();
         }
     }
 }

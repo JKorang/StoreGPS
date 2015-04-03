@@ -118,8 +118,8 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
         db.decreaseQuantity("jawn", "jawn sauce");
 
         db.itemFound("jawn", "jawn sauce");
- */
 
+*/
         mAdapter = new ListListAdapter(getActivity(), db.getAllLists());
 
 

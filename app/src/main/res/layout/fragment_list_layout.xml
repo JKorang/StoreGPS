@@ -25,10 +25,14 @@
             android:layout_gravity="right"
             />
     </LinearLayout>
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/activeList" />
+        android:id="@+id/activeList"
+        android:numColumns="1"
+        android:layout_gravity="left|top"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,9 +41,13 @@
         android:text="Found Items"
         android:id="@+id/textItemsFound" />
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/foundItems" />
+        android:id="@+id/foundItems"
+        android:numColumns="1"
+        android:layout_gravity="left|top"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"/>
 
 </LinearLayout>

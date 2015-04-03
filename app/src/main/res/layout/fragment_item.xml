@@ -1,11 +1,10 @@
-<!--<android.support.v7.widget.CardView -->
-    <RelativeLayout
+<android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.rowansenior.storegps.IndividualListFragment"
 
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/card_view"
+    android:id="@+id/itemcardview"
     android:layout_gravity="center"
     android:layout_width="match_parent"
     android:layout_height="75dp"
@@ -62,6 +61,5 @@
         </TableRow>
     </TableLayout>
 
-    </RelativeLayout>
-<!-- </android.support.v7.widget.CardView> -->
+</android.support.v7.widget.CardView>
 
