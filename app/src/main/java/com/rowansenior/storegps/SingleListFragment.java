@@ -3,8 +3,6 @@ package com.rowansenior.storegps;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -15,11 +13,9 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 
 /**
@@ -45,7 +41,7 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
     private OnFragmentInteractionListener mListener;
     private ArrayList<IndividualListFragment> itemList;
     private ListAdapter mAdapter;
-    private RecyclerView gview;
+    private RecyclerView rview;
     private LinearLayoutManager mLayoutManager;
     private View view;
     private static String listName;
@@ -111,7 +107,7 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
     /**
      * Actions that occur AFTER the view has been created and attached.
      *
-     * Here, gview is set by obtaining the view ID and then the ListListAdapter is set to it.
+     * Here, rview is set by obtaining the view ID and then the ListListAdapter is set to it.
      */
     @Override
     public void onStart(){
@@ -121,9 +117,9 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
         //Because of this, calls to LM before creation will null error out.
         mLayoutManager = new LinearLayoutManager(getActivity());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        gview = (RecyclerView) getView().findViewById(R.id.activeList);
-        gview.setLayoutManager(mLayoutManager);
-        gview.setAdapter(mAdapter);
+        rview = (RecyclerView) getView().findViewById(R.id.activeList);
+        rview.setLayoutManager(mLayoutManager);
+        rview.setAdapter(mAdapter);
     }
 
     /**
@@ -168,6 +164,10 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                 Editable name = newItem.getText();
                 db.addNewItem(listName, name.toString());
                 //NEED TO HANDLE REFRESH OF ELEMENTS
+                mAdapter.notifyDataSetChanged();
+                rview.refreshDrawableState();
+                newItem.clearFocus();
+                newItem.setText("");
                 break;
         }
     }

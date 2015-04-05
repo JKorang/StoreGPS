@@ -39,9 +39,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_item, viewGroup, false);
-        System.out.println(v);
-        System.out.println(fragmentManager);
         ViewHolder vh = new ViewHolder(v, fragmentManager);
+        System.out.println("vh: " + vh);
         return vh;
     }
 
@@ -76,6 +75,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             vTitleText.setOnClickListener(this);
             vQuantity.setOnClickListener(this);
             vCardView.setOnClickListener(this);
+            System.out.println("new viewholder, title text = " + vTitleText.toString());
         }
 
 

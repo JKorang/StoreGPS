@@ -213,7 +213,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         c.getInt(c.getColumnIndex(KEY_QUANTITY)),
                         c.getInt(c.getColumnIndex(KEY_IF_FOUND)));
                 allItems.add(sli);
-                System.out.println("ITEM NAME " + sli.getName());
             } while (c.moveToPrevious());
         }
         return allItems;
