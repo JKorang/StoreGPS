@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,10 @@ import android.view.ViewGroup;
 public class HomeFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
+    private ListListAdapter mAdapter;
+    private GridLayoutManager mLayoutManager;
+    private View view;
+    private RecyclerView gview;
 
     /**
      * Creates a new unique instance of the fragment.
@@ -54,7 +60,10 @@ public class HomeFragment extends Fragment {
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        DatabaseHelper db = new DatabaseHelper(getActivity());
+        mAdapter = new ListListAdapter(getActivity(), db.getlast3Lists());
     }
 
     /**
@@ -72,6 +81,18 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        //GridLayoutManager MUST be ran BEFORE _ANY_ references are made to it.
+        //RecyclerView does NOT check to see if the LayoutManager has been ran yet.
+        //Because of this, calls to LM before creation will null error out.
+        mLayoutManager = new GridLayoutManager(getActivity(),3);
+        gview = (RecyclerView) getView().findViewById(R.id.homeMyListRecycler);
+        gview.setLayoutManager(mLayoutManager);
+        gview.setAdapter(mAdapter);
     }
 
     /**

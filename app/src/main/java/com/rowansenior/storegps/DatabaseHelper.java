@@ -195,6 +195,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return allLists;
     }
 
+    public ArrayList<ShoppingList> getlast3Lists() {
+        SQLiteDatabase dataBase = this.getReadableDatabase();
+        ArrayList<ShoppingList> allLists = new ArrayList<ShoppingList>();
+        String selectQuery = "SELECT  * FROM " + TABLE_LIST;
+
+        Cursor c = dataBase.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (c.moveToLast()) {
+            for(int i = 0; i < 3; i++){
+
+                if(c.isNull(i)) {break;}
+
+                else{
+                    ShoppingList sl = new ShoppingList(c.getString(c.getColumnIndex(KEY_NAME)),
+                            c.getString(c.getColumnIndex(KEY_DATE)),
+                            c.getInt(c.getColumnIndex(KEY_ICON)),
+                            c.getInt(c.getColumnIndex(KEY_COLOR)),
+                            c.getInt((c.getColumnIndex(KEY_ACTIVE))),
+                            null);
+                    allLists.add(sl);
+                    c.moveToPrevious();
+                }
+            }
+        }
+        return allLists;
+    }
+
     /**
      * Grabs all items from the TABLE_ITEM that match the name of the list.
      * @param listName
