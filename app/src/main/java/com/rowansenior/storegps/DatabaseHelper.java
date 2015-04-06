@@ -106,7 +106,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * NEED TO HANDLE ERRORS FOR EXISTING LISTS
      */
     public long createNewList(String name, int color, int icon) {
-        SimpleDateFormat s = new SimpleDateFormat("ddMMyyyyhhmmss");
+        SimpleDateFormat s = new SimpleDateFormat("MM/dd/yyyy");
         String format = s.format(new Date());
         SQLiteDatabase dataBase = this.getReadableDatabase();
         ContentValues newValues = new ContentValues();
