@@ -204,11 +204,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // looping through all rows and adding to list
         if (c.moveToLast()) {
-            for(int i = 0; i < 3; i++){
+            int lastPosition = c.getPosition();
+            for(int i = lastPosition; i > (lastPosition - 3); i--){
 
-                if(c.isNull(i)) {break;}
+                if(i < 0) {
+                    System.out.println("BREKAING");
+                    break;}
 
                 else{
+                    System.out.println("Not breaking");
                     ShoppingList sl = new ShoppingList(c.getString(c.getColumnIndex(KEY_NAME)),
                             c.getString(c.getColumnIndex(KEY_DATE)),
                             c.getInt(c.getColumnIndex(KEY_ICON)),
