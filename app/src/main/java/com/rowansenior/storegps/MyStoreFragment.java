@@ -3,47 +3,53 @@ package com.rowansenior.storegps;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 /**
- * MyStoreFragment exists to manage ALL favorited stores contained in the system.
+ * MyListFragment exists to manage ALL lists contained in the system.
  *
- * When opening the MyStoreFragment, the fragment should populate based on a JSON file
+ * When opening the MyListFragment, the fragment should populate based on a JSON file
  * The resulting view will be a 3 wide grid, dictacted by the XML file.
  *
- * At the moment, the fragment populates based on an ArrayList of type IndividualStoreFragment.
+ * At the moment, the fragment populates based on an ArrayList of type IndividualListFragments
  * It displays these fragments as simple text boxes, based on the String name passed at creation.
  *
  * This functionality needs to be tweaked, however.  While the ArrayList implementation
  * can handle the operation, the content that the ArrayList contains must be modified.
- * Once the JSON file has been constructed to store all of the favorite store information,
- * we must pull the name and store location data.
+ * Once the JSON file has been constructed to store all of the individual list information,
+ * we must pull the date of creation of a list as well as the name.
  *
- * GPS location data will also need to be evaluated to calculate the distance to each store
- * from the users current location.
- *
- * The fragment? or block of XML code that dictates the card-style view of each store
+ * The fragment? or block of XML code that dictates the card-style view of each list
  * will also need to contain its own small menu button.
  *
  */
-public class MyStoreFragment extends Fragment implements AbsListView.OnItemClickListener {
+public class MyStoreFragment extends Fragment implements AbsListView.OnItemClickListener, View.OnClickListener {
 
     private OnFragmentInteractionListener mListener;
     private ArrayList<IndividualStoreFragment> storeList;
     private ListStoreAdapter mAdapter;
-    private GridView gview;
+    private RecyclerView gview;
+    private GridLayoutManager mLayoutManager;
+    private View view;
+    private Button newList;
 
     /**
-     * Creates a new MSF and establishes its Bundle file.
+     * Creates a new MLF and establishes its Bundle file.
      */
     public static MyStoreFragment newInstance() {
         MyStoreFragment fragment = new MyStoreFragment();
@@ -58,11 +64,11 @@ public class MyStoreFragment extends Fragment implements AbsListView.OnItemClick
      *
      * Creates an ArrayList and populates the ArrayList.
      * This functionality will need to be updated to, instead of filling the ArrayList with
-     * example Stores, a collection of Stores pulled from the JSON file.
+     * example Lists, a collection of Lists pulled from the JSON file.
      *
-     * These Stores do not need to exist as separate fragments upon creation in this list.
+     * These Lists do not need to exist as separate fragments upon creation in this list.
      * The fragment creation will be located in the onClick, which will reference the
-     * location of the JSON file and create a new IndividualStoreFragment.
+     * location of the JSON file and create a new IndividualListFragment
      *
      * After creating the list, mAdapter is created and set to monitor the list.
      * This adapter currently acts as a way to access the information of each
@@ -72,25 +78,16 @@ public class MyStoreFragment extends Fragment implements AbsListView.OnItemClick
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DatabaseHelper db = new DatabaseHelper(getActivity());
+        mAdapter = new ListStoreAdapter(getActivity(), db.getAllLists());
 
-        storeList = new ArrayList();
-        storeList.add(new IndividualStoreFragment().newInstance("Example 1"));
-        storeList.add(new IndividualStoreFragment().newInstance("Example 2"));
-        storeList.add(new IndividualStoreFragment().newInstance("Example 3"));
-        storeList.add(new IndividualStoreFragment().newInstance("Example 4"));
-        storeList.add(new IndividualStoreFragment().newInstance("Example 5"));
-        storeList.add(new IndividualStoreFragment().newInstance("Example 6"));
-        storeList.add(new IndividualStoreFragment().newInstance("Example 7"));
-        storeList.add(new IndividualStoreFragment().newInstance("Example 8"));
 
-        mAdapter = new ListStoreAdapter(getActivity(), storeList);
-        mAdapter.setNotifyOnChange(true);
     }
 
     /**
      * Inflates the content view of the fragment.
      * Triggers immediately after onCreate
-     * Uses 'fragment_my_store' from layout/fragment_my_store.xml
+     * Uses 'fragment_my_list' from layout/fragment_my_list.xml
      *
      * @param inflater
      * @param container
@@ -100,18 +97,27 @@ public class MyStoreFragment extends Fragment implements AbsListView.OnItemClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_my_store, container, false);
+        view = inflater.inflate(R.layout.fragment_my_list, container, false);
+        newList = (Button) view.findViewById(R.id.newList);
+        newList.setOnClickListener(this);
+
+        return view;
     }
 
     /**
      * Actions that occur AFTER the view has been created and attached.
      *
-     * Here, gview is set by obtaining the view ID and then the ListStoreAdapter is set to it.
+     * Here, gview is set by obtaining the view ID and then the ListListAdapter is set to it.
      */
     @Override
     public void onStart(){
         super.onStart();
-        gview = (GridView) getView().findViewById(R.id.storeGridView);
+        //GridLayoutManager MUST be ran BEFORE _ANY_ references are made to it.
+        //RecyclerView does NOT check to see if the LayoutManager has been ran yet.
+        //Because of this, calls to LM before creation will null error out.
+        mLayoutManager = new GridLayoutManager(getActivity(),3);
+        gview = (RecyclerView) getView().findViewById(R.id.myStoreRecycler);
+        gview.setLayoutManager(mLayoutManager);
         gview.setAdapter(mAdapter);
     }
 
@@ -125,11 +131,13 @@ public class MyStoreFragment extends Fragment implements AbsListView.OnItemClick
      * Actions that take place when a button is pressed.
      *
      * @param uri
-     */    public void onButtonPressed(Uri uri) {
+     */
+    public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
     }
+
 
     /**
      * Actions to be taken when an item in the fragment is clicked.
@@ -146,6 +154,21 @@ public class MyStoreFragment extends Fragment implements AbsListView.OnItemClick
         IndividualStoreFragment listPicked = this.storeList.get(position);
         Toast.makeText(getActivity(), listPicked.getListTitle() + " Clicked lolol", Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.newList:
+                System.out.println("Wow much click");
+                FragmentManager fragmentManager = getFragmentManager();
+                DialogNewList diagNL = new DialogNewList();
+                diagNL.show(fragmentManager, null);
+                break;
+            case R.id.listIcon:
+                System.out.println("Clicked a card");
+        }
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this

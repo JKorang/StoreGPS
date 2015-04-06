@@ -4,63 +4,93 @@ package com.rowansenior.storegps;
  * Created by Joseph on 3/27/2015.
  */
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.app.Activity;
 import java.util.List;
 
 /**
- * ListStoreAdapter handles transmission and access of data from fragments associated with it.
- * In this case, LSA handles data access of IndividualStoreFragment and places the content
+ * ListListAdapter handles transmission and access of data from fragments associated with it.
+ * In this case, LLA handles data access of IndividualListFragments and places the content
  * within views that the monitor is attached to.
  */
-
-public class ListStoreAdapter extends ArrayAdapter {
+public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.ViewHolder> {
 
     private Context context;
+    private List<Store> stores;
+    public static FragmentManager fragmentManager;
 
-    //simple_gallery_item is a predefined list style in Android
-    public ListStoreAdapter(Context context, List items) {
-        super(context, android.R.layout.simple_gallery_item, items);
+
+    public ListStoreAdapter(Context context, List stores) {
+        this.stores = stores;
         this.context = context;
+        fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_individual_list, viewGroup, false);
+        ViewHolder vh = new ViewHolder(v, fragmentManager);
+        return vh;
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder viewHolder, int i) {
+        Store store = stores.get(i);
+        viewHolder.vTitleText.setText(store.getName());
+        viewHolder.vLocation.setText(store.getLocation());
+    }
+
+    @Override
+    public int getItemCount() {
+        return stores.size();
     }
 
     /**
-     * Capable of holding each item in the LSA.
+     * Capable of holding each item in the LLA.
      */
-    private class ViewHolder{
-        TextView titleText;
-    }
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public TextView vTitleText;
+        public TextView vLocation;
+        public CardView vCardView;
+        public ImageView vImageView;
+        public FragmentManager vFM;
 
-    /**
-     * Inflates the view for the items within the IndividualStoreFragments and returns the
-     * extracted items as a view.
-     *
-     * View/layout to use is hardcoded to be fragment_individual_store
-     * Sets the text value to return based on getListTitle() found in ISF.
-     *
-     * Gets the relevant information about the view that the adapter is attached to.
-     * Has to create a ISF fragment, thus exclusivity to only work on ISF.
-     * However, the class can be copied and modified relatively easily in order to
-     * work on other fragment types.
-     *
-     * @param position
-     * @param convertView
-     * @param parent
-     * @return
-     */
-    public View getView(int position, View convertView, ViewGroup parent) {
-        IndividualStoreFragment item = (IndividualStoreFragment)getItem(position);
-        // Inflates the layout based on the fragment_individual_list
-        LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        View viewToUse = mInflater.inflate(R.layout.fragment_individual_store, null);
-        ViewHolder holder = new ViewHolder();
-        holder.titleText = (TextView)viewToUse.findViewById(R.id.indivStoreGridView);
-        viewToUse.setTag(holder);
-        holder.titleText.setText(item.getListTitle());
-        return viewToUse;
+        public ViewHolder(View v, FragmentManager FM) {
+            super(v);
+            vTitleText = (TextView) v.findViewById(R.id.titleText);
+            vLocation = (TextView) v.findViewById(R.id.date);
+            vCardView = (CardView) v.findViewById(R.id.card_view);
+            vImageView = (ImageView) v.findViewById(R.id.listIcon);
+            vFM = FM;
+            vTitleText.setOnClickListener(this);
+            vLocation.setOnClickListener(this);
+            vCardView.setOnClickListener(this);
+            vImageView.setOnClickListener(this);
+        }
+
+
+
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.titleText:
+                    System.out.println("title text");
+                case R.id.date:
+                    System.out.println("Date");
+                case R.id.card_view:
+                    System.out.println("Card View");
+                case R.id.listIcon:
+                    System.out.println("Image");
+            }
+            String newFrag = vTitleText.getText().toString();
+            vFM.beginTransaction().replace(R.id.container, new SingleListFragment().newInstance(newFrag)).commit();
+
+        }
     }
 }
