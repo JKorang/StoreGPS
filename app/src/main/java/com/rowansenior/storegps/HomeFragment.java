@@ -63,7 +63,7 @@ public class HomeFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
         DatabaseHelper db = new DatabaseHelper(getActivity());
-        mAdapter = new ListListAdapter(getActivity(), db.getlast3Lists());
+        mAdapter = new ListListAdapter(getActivity(), db.getLast3Lists());
     }
 
     /**

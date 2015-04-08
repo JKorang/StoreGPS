@@ -201,13 +201,11 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.newList:
-                System.out.println("Wow much click");
                 FragmentManager fragmentManager = getFragmentManager();
                 DialogNewList diagNL = new DialogNewList();
                 diagNL.show(fragmentManager, null);
                 break;
             case R.id.listIcon:
-                System.out.println("Clicked a card");
         }
     }
 

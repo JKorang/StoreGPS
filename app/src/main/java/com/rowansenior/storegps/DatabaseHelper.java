@@ -195,7 +195,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return allLists;
     }
 
-    public ArrayList<ShoppingList> getlast3Lists() {
+    public ArrayList<ShoppingList> getLast3Lists() {
         SQLiteDatabase dataBase = this.getReadableDatabase();
         ArrayList<ShoppingList> allLists = new ArrayList<ShoppingList>();
         String selectQuery = "SELECT  * FROM " + TABLE_LIST;
@@ -208,11 +208,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             for(int i = lastPosition; i > (lastPosition - 3); i--){
 
                 if(i < 0) {
-                    System.out.println("BREKAING");
-                    break;}
+                    break;
+                }
 
-                else{
-                    System.out.println("Not breaking");
+                else {
                     ShoppingList sl = new ShoppingList(c.getString(c.getColumnIndex(KEY_NAME)),
                             c.getString(c.getColumnIndex(KEY_DATE)),
                             c.getInt(c.getColumnIndex(KEY_ICON)),

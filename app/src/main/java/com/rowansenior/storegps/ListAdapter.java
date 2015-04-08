@@ -3,8 +3,7 @@ package com.rowansenior.storegps;
 /**
  * Created by Joseph on 3/27/2015.
  */
-import android.app.Activity;
-import android.app.Fragment;
+
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -13,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.List;
 
@@ -40,7 +38,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_item, viewGroup, false);
         ViewHolder vh = new ViewHolder(v, fragmentManager);
-        System.out.println("vh: " + vh);
         return vh;
     }
 
@@ -83,13 +80,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.titleText:
-                    System.out.println("title text");
                 case R.id.date:
-                    System.out.println("Date");
                 case R.id.card_view:
-                    System.out.println("Card View");
                 case R.id.listIcon:
-                    System.out.println("Image");
             }
             //vFM.beginTransaction().replace(R.id.container, new IndividualListFragment().newInstance()).commit();
         }

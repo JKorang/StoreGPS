@@ -37,8 +37,8 @@ public class DialogNewList extends DialogFragment implements View.OnClickListene
         accept = (Button) v.findViewById(R.id.btn_accept);
 
         getDialog().setTitle("Create A New List");
-        cancel.setOnClickListener((View.OnClickListener) this);
-        accept.setOnClickListener((View.OnClickListener) this);
+        cancel.setOnClickListener(this);
+        accept.setOnClickListener(this);
 
         return v;
     }
