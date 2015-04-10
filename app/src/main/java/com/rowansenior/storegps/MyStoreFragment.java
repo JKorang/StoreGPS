@@ -46,9 +46,8 @@ public class MyStoreFragment extends Fragment implements AbsListView.OnItemClick
     private RecyclerView gview;
     private GridLayoutManager mLayoutManager;
     private View view;
-    private Button newList;
 
-    /**
+    /**We talk cars, I can talk cars.
      * Creates a new MLF and establishes its Bundle file.
      */
     public static MyStoreFragment newInstance() {
@@ -79,8 +78,12 @@ public class MyStoreFragment extends Fragment implements AbsListView.OnItemClick
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DatabaseHelper db = new DatabaseHelper(getActivity());
-        mAdapter = new ListStoreAdapter(getActivity(), db.getAllLists());
-
+        mAdapter = new ListStoreAdapter(getActivity(), db.getAllStores());
+/**
+        db.addNewFavoriteStore("Target", 609123523, "http://www.target.com", 6, 18, "BHP");
+        db.addNewFavoriteStore("Sears", 85666666, "http://www.sears.com", 6, 18, "Nearest Empty Building");
+        db.addNewFavoriteStore("Obama Rama", 696969, "http://www.potus.gov", 6, 18, "White House, Bitch");
+*/
 
     }
 
@@ -97,9 +100,7 @@ public class MyStoreFragment extends Fragment implements AbsListView.OnItemClick
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_my_list, container, false);
-        newList = (Button) view.findViewById(R.id.newList);
-        newList.setOnClickListener(this);
+        view = inflater.inflate(R.layout.fragment_my_store, container, false);
 
         return view;
     }
@@ -152,18 +153,11 @@ public class MyStoreFragment extends Fragment implements AbsListView.OnItemClick
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         IndividualStoreFragment listPicked = this.storeList.get(position);
-        Toast.makeText(getActivity(), listPicked.getListTitle() + " Clicked lolol", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.newList:
-                System.out.println("Wow much click");
-                FragmentManager fragmentManager = getFragmentManager();
-                DialogNewList diagNL = new DialogNewList();
-                diagNL.show(fragmentManager, null);
-                break;
             case R.id.listIcon:
                 System.out.println("Clicked a card");
         }

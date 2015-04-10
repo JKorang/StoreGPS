@@ -24,8 +24,6 @@ import android.view.ViewGroup;
  */
 public class IndividualStoreFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private String mParam1;
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -43,14 +41,10 @@ public class IndividualStoreFragment extends Fragment {
      *
      * Currently, the string param1 is being passed into the Bundle for use by other fragments.
      *
-     * @param param1 - Name of the list
      * @return
      */
-    public static IndividualStoreFragment newInstance(String param1) {
+    public static IndividualStoreFragment newInstance(String store) {
         IndividualStoreFragment fragment = new IndividualStoreFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -70,9 +64,6 @@ public class IndividualStoreFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-        }
     }
 
     /**
@@ -144,16 +135,5 @@ public class IndividualStoreFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
-    }
-
-    /**
-     * Makes a call to the fragment's Bundle in order to pull the appropriate String needed.
-     *
-     * @ARG_PARAM1 - The original key used to identify the item in the bundle
-     * @mParam1 - Default value of the key
-     * @return
-     */
-    public String getListTitle() {
-        return getArguments().getString(ARG_PARAM1, mParam1);
     }
 }

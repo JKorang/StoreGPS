@@ -29,7 +29,8 @@ public class MainPage extends ActionBarActivity
         MyListFragment.OnFragmentInteractionListener,
         HomeFragment.OnFragmentInteractionListener,
         MyStoreFragment.OnFragmentInteractionListener,
-        IndividualListFragment.OnFragmentInteractionListener {
+        IndividualListFragment.OnFragmentInteractionListener,
+        IndividualStoreFragment.OnFragmentInteractionListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -94,8 +95,8 @@ public class MainPage extends ActionBarActivity
             case 3:
                 //MyStore
                 mTitle = getString(R.string.title_section3);
-               // fragment = new MyStoreFragment().newInstance();
-                fragment = new SingleListFragment().newInstance("list2");
+                fragment = new MyStoreFragment().newInstance();
+                //fragment = new SingleListFragment().newInstance("list2");
                 break;
             case 4:
                 //Settings

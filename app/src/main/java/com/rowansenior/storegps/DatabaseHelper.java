@@ -278,4 +278,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String selectQuery = " UPDATE " + '"' + listName + TABLE_ITEM + '"' + " SET " + KEY_IF_FOUND + " = 0 WHERE " + KEY_ITEM_NAME + " = " + '"' + itemName + '"';
         database.execSQL(selectQuery);
     }
+
+    public void addNewFavoriteStore(String storeName, int phoneNumber, String uRL, int open, int closed, String location) {
+        SQLiteDatabase dataBase = this.getReadableDatabase();
+
+        String selectQuery = "INSERT INTO " + TABLE_STORE + " VALUES(" + '"' + storeName + '"' + ", 1, 1, " + '"' + location + '"' +  ", " + phoneNumber + ", " + '"' + uRL + '"' + ", " + open + ", " + closed + ")";
+        dataBase.execSQL(selectQuery);
+    }
+
+    public ArrayList<Store> getAllStores() {
+        SQLiteDatabase dataBase = this.getReadableDatabase();
+        ArrayList<Store> allStores = new ArrayList<Store>();
+        String selectQuery = "SELECT  * FROM " + TABLE_STORE;
+
+        Cursor c = dataBase.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (c.moveToLast()) {
+            do {
+                Store sl = new Store(c.getString(c.getColumnIndex(KEY_STORE_NAME)),
+                        c.getString(c.getColumnIndex(KEY_LOCATION)),
+                        c.getInt(c.getColumnIndex(KEY_PHONE_NUMBER)),
+                        c.getString(c.getColumnIndex(KEY_URL)),
+                        c.getInt(c.getColumnIndex(KEY_HOUR_OPEN)),
+                        c.getInt(c.getColumnIndex(KEY_HOUR_CLOSED)));
+                allStores.add(sl);
+            } while (c.moveToPrevious());
+        }
+        return allStores;
+    }
+
+    public ArrayList<Store> getStoreInfo() {
+        return null;
+    }
 }
