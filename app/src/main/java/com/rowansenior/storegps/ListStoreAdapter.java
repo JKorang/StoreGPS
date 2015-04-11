@@ -89,7 +89,7 @@ public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.View
                     System.out.println("Image");
             }
             String newFrag = vTitleText.getText().toString();
-            vFM.beginTransaction().replace(R.id.container, new IndividualStoreFragment().newInstance(newFrag)).commit();
+            vFM.beginTransaction().replace(R.id.container, new IndividualStoreFragment(newFrag).newInstance(newFrag)).commit();
 
         }
     }

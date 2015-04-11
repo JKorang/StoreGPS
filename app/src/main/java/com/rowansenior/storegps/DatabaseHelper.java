@@ -308,7 +308,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return allStores;
     }
 
-    public ArrayList<Store> getStoreInfo() {
-        return null;
+    public Store getStoreInfo(String storeName) {
+        SQLiteDatabase dataBase = this.getReadableDatabase();
+        String selectQuery = "SELECT  * FROM " + TABLE_STORE + " WHERE " + '"' + KEY_STORE_NAME + '"' +  " = " + '"' + storeName + '"';
+        Cursor c = dataBase.rawQuery(selectQuery, null);
+        c.moveToFirst();
+        Store storeToReturn = new Store(c.getString(c.getColumnIndex(KEY_STORE_NAME)),
+                c.getString(c.getColumnIndex(KEY_LOCATION)),
+                c.getInt(c.getColumnIndex(KEY_PHONE_NUMBER)),
+                c.getString(c.getColumnIndex(KEY_URL)),
+                c.getInt(c.getColumnIndex(KEY_HOUR_OPEN)),
+                c.getInt(c.getColumnIndex(KEY_HOUR_CLOSED)));
+
+        return storeToReturn;
     }
 }

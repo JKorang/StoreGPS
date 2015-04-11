@@ -36,4 +36,20 @@ public class Store {
         return vLocation;
     }
 
+    public String getURL() {
+        return vURL;
+    }
+
+    public int getHoursOpen() {
+        return vHourOpen;
+    }
+
+    public int getHoursClosed() {
+        return vHourClosed;
+    }
+
+    public int getPhoneNumber() {
+        return vPhoneNumber;
+    }
+
 }

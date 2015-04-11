@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 
 /**
@@ -25,6 +26,15 @@ import android.view.ViewGroup;
 public class IndividualStoreFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
+    private String storeName;
+    private Store storeInfo;
+    private View storeView;
+    private TextView nameOfStore;
+    private TextView storeDistance;
+    private TextView storeAddress;
+    private TextView storePhone;
+
+
 
     /**
      * Creates a new ISF.
@@ -44,14 +54,15 @@ public class IndividualStoreFragment extends Fragment {
      * @return
      */
     public static IndividualStoreFragment newInstance(String store) {
-        IndividualStoreFragment fragment = new IndividualStoreFragment();
+        IndividualStoreFragment fragment = new IndividualStoreFragment(store);
         return fragment;
     }
 
     /**
      * Required empty public constructor
      */
-    public IndividualStoreFragment() {
+    public IndividualStoreFragment(String store) {
+        this.storeName = store;
     }
 
     /**
@@ -64,6 +75,9 @@ public class IndividualStoreFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DatabaseHelper db = new DatabaseHelper(getActivity());
+        storeInfo = db.getStoreInfo(storeName);
+        nameOfStore.setText(storeInfo.getName());
     }
 
     /**
@@ -79,7 +93,14 @@ public class IndividualStoreFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_individual_store, container, false);
+        storeView = inflater.inflate(R.layout.fragment_individual_store, container, false);
+
+        System.out.println("INFLATED         INFLATED          INFLATED");
+        nameOfStore = (TextView)storeView.findViewById(R.id.storeName);
+        storeDistance = (TextView)storeView.findViewById(R.id.storeDistanceTo);
+        storeAddress = (TextView)storeView.findViewById(R.id.storeAddress);
+        storePhone = (TextView)storeView.findViewById(R.id.storePhoneNumber);
+        return storeView;
     }
 
 
