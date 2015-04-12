@@ -51,7 +51,7 @@ public class DialogNewList extends DialogFragment implements View.OnClickListene
                 db.createNewList(name.toString(), 2, 1);
                 getDialog().dismiss();
                 FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.container, new MyListFragment().newInstance()).commit();
+                fragmentManager.beginTransaction().replace(R.id.container, new MyListFragment().newInstance()).addToBackStack(null).commit();
                 break;
             case R.id.btn_cancel:
                 getDialog().dismiss();

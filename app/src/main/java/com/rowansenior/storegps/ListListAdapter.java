@@ -88,7 +88,7 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ViewHo
                 case R.id.listIcon:
             }
             String newFrag = vTitleText.getText().toString();
-            vFM.beginTransaction().replace(R.id.container, new SingleListFragment().newInstance(newFrag)).commit();
+            vFM.beginTransaction().replace(R.id.container, new SingleListFragment().newInstance(newFrag)).addToBackStack(null).commit();
 
         }
     }

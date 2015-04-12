@@ -11,14 +11,14 @@ public class Store {
     private String vURL;
     private int vHourOpen;
     private int vHourClosed;
-    private int vPhoneNumber;
+    private String vPhoneNumber;
 
 
     public Store(String name, String location) {
       this.vName = name;       this.vLocation = location;
     }
 
-    public Store(String name, String location, int phone, String url, int hourOpen, int hourClosed) {
+    public Store(String name, String location, String phone, String url, int hourOpen, int hourClosed) {
         this.vName = name;
         this.vLocation = location;
         this.vURL = url;
@@ -48,7 +48,7 @@ public class Store {
         return vHourClosed;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return vPhoneNumber;
     }
 

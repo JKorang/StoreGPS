@@ -25,8 +25,10 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/storeName"
+            android:maxLines="3"
             android:layout_row="0"
-            android:layout_column="3" />
+            android:layout_column="3"
+            android:ellipsize="end" />
 
         <ToggleButton
             android:layout_width="wrap_content"
@@ -34,7 +36,7 @@
             android:text="New ToggleButton"
             android:id="@+id/toggleButton"
             android:layout_row="0"
-            android:layout_column="4"
+            android:layout_column="5"
             android:layout_alignParentRight="true"
             />
 
@@ -49,11 +51,24 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=""
+            android:id="@+id/spacerThing"
+            android:layout_row="3"
+            android:layout_column="0"
+            android:maxLines="2"
+            android:layout_columnSpan="7" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/storeAddress"
-            android:layout_row="4"
+            android:layout_row="7"
             android:layout_column="0"
-            android:layout_columnSpan="7" />
+            android:maxLines="2"
+            android:layout_columnSpan="7"
+            android:ellipsize="end" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -62,7 +77,9 @@
             android:id="@+id/storePhoneNumber"
             android:layout_row="5"
             android:layout_column="0"
-            android:layout_columnSpan="7" />
+            android:layout_columnSpan="7"
+            android:autoLink="phone"
+            android:clickable="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -71,7 +88,9 @@
             android:id="@+id/storeURL"
             android:layout_row="6"
             android:layout_column="0"
-            android:layout_columnSpan="7" />
+            android:layout_columnSpan="7"
+            android:autoLink="web"
+            android:clickable="true"/>
 
         <TextView
             android:layout_width="wrap_content"

@@ -33,6 +33,7 @@ public class IndividualStoreFragment extends Fragment {
     private TextView storeDistance;
     private TextView storeAddress;
     private TextView storePhone;
+    private TextView storeURL;
 
 
 
@@ -77,7 +78,6 @@ public class IndividualStoreFragment extends Fragment {
         super.onCreate(savedInstanceState);
         DatabaseHelper db = new DatabaseHelper(getActivity());
         storeInfo = db.getStoreInfo(storeName);
-        nameOfStore.setText(storeInfo.getName());
     }
 
     /**
@@ -100,6 +100,13 @@ public class IndividualStoreFragment extends Fragment {
         storeDistance = (TextView)storeView.findViewById(R.id.storeDistanceTo);
         storeAddress = (TextView)storeView.findViewById(R.id.storeAddress);
         storePhone = (TextView)storeView.findViewById(R.id.storePhoneNumber);
+        storeURL = (TextView)storeView.findViewById(R.id.storeURL);
+        System.out.println(storeInfo.getPhoneNumber());
+        nameOfStore.setText(storeInfo.getName());
+        storeAddress.setText(storeInfo.getLocation());
+        storePhone.setText(storeInfo.getPhoneNumber());
+        storeURL.setText(storeInfo.getURL());
+
         return storeView;
     }
 

@@ -68,7 +68,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_STORE = "CREATE TABLE "
             + TABLE_STORE + "(" + KEY_STORE_NAME + " STRING PRIMARY KEY," + KEY_STORE_ICON
             + " INTEGER," + KEY_STORE_COLOR + " INTEGER," + KEY_LOCATION + " STRING," + KEY_PHONE_NUMBER +
-            " INTEGER," + KEY_URL + " STRING," + KEY_HOUR_OPEN + " INTEGER," + KEY_HOUR_CLOSED + " INTEGER" + ")";
+            " STRING," + KEY_URL + " STRING," + KEY_HOUR_OPEN + " INTEGER," + KEY_HOUR_CLOSED + " INTEGER" + ")";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -279,10 +279,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.execSQL(selectQuery);
     }
 
-    public void addNewFavoriteStore(String storeName, int phoneNumber, String uRL, int open, int closed, String location) {
+    public void addNewFavoriteStore(String storeName, String phoneNumber, String uRL, int open, int closed, String location) {
         SQLiteDatabase dataBase = this.getReadableDatabase();
 
-        String selectQuery = "INSERT INTO " + TABLE_STORE + " VALUES(" + '"' + storeName + '"' + ", 1, 1, " + '"' + location + '"' +  ", " + phoneNumber + ", " + '"' + uRL + '"' + ", " + open + ", " + closed + ")";
+        String selectQuery = "INSERT INTO " + TABLE_STORE + " VALUES(" + '"' + storeName + '"' + ", 1, 1, " + '"' + location + '"' +  ", " + '"' + phoneNumber + '"' + ", " + '"' + uRL + '"' + ", " + open + ", " + closed + ")";
         dataBase.execSQL(selectQuery);
     }
 
@@ -298,7 +298,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             do {
                 Store sl = new Store(c.getString(c.getColumnIndex(KEY_STORE_NAME)),
                         c.getString(c.getColumnIndex(KEY_LOCATION)),
-                        c.getInt(c.getColumnIndex(KEY_PHONE_NUMBER)),
+                        c.getString(c.getColumnIndex(KEY_PHONE_NUMBER)),
                         c.getString(c.getColumnIndex(KEY_URL)),
                         c.getInt(c.getColumnIndex(KEY_HOUR_OPEN)),
                         c.getInt(c.getColumnIndex(KEY_HOUR_CLOSED)));
@@ -315,7 +315,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c.moveToFirst();
         Store storeToReturn = new Store(c.getString(c.getColumnIndex(KEY_STORE_NAME)),
                 c.getString(c.getColumnIndex(KEY_LOCATION)),
-                c.getInt(c.getColumnIndex(KEY_PHONE_NUMBER)),
+                c.getString(c.getColumnIndex(KEY_PHONE_NUMBER)),
                 c.getString(c.getColumnIndex(KEY_URL)),
                 c.getInt(c.getColumnIndex(KEY_HOUR_OPEN)),
                 c.getInt(c.getColumnIndex(KEY_HOUR_CLOSED)));

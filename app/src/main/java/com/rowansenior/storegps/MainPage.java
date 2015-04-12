@@ -113,7 +113,7 @@ public class MainPage extends ActionBarActivity
         if (fragment != null) {
             restoreActionBar();
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.container, fragment).addToBackStack(null).commit();
         }
     }
 
@@ -138,7 +138,7 @@ public class MainPage extends ActionBarActivity
 
     public void changeFragment(Fragment frag) {
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.container, frag).commit();
+            fragmentManager.beginTransaction().replace(R.id.container, frag).addToBackStack(null).commit();
         }
     }
 
