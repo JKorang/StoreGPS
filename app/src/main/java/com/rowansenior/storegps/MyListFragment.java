@@ -163,6 +163,12 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
         gview.setAdapter(mAdapter);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainPage) getActivity()).changeActionBarTitle("My Lists");
+    }
+
     /**
      * Required empty public constructor
      */

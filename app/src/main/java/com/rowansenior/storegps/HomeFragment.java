@@ -66,6 +66,12 @@ public class HomeFragment extends Fragment {
         mAdapter = new ListListAdapter(getActivity(), db.getLast3Lists());
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainPage) getActivity()).changeActionBarTitle("Home");
+    }
+
     /**
      * Inflates the content view of the fragment.
      * Triggers immediately after onCreate

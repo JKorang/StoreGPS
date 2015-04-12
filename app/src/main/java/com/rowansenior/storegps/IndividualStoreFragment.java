@@ -95,7 +95,6 @@ public class IndividualStoreFragment extends Fragment {
                              Bundle savedInstanceState) {
         storeView = inflater.inflate(R.layout.fragment_individual_store, container, false);
 
-        System.out.println("INFLATED         INFLATED          INFLATED");
         nameOfStore = (TextView)storeView.findViewById(R.id.storeName);
         storeDistance = (TextView)storeView.findViewById(R.id.storeDistanceTo);
         storeAddress = (TextView)storeView.findViewById(R.id.storeAddress);

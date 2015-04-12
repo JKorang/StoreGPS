@@ -168,6 +168,12 @@ public class MyStoreFragment extends Fragment implements AbsListView.OnItemClick
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainPage) getActivity()).changeActionBarTitle("My Stores");
+    }
+
 
     /**
      * This interface must be implemented by activities that contain this

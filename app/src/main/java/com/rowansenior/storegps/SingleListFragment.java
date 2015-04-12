@@ -103,6 +103,12 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
         newList.setOnClickListener(this);
         return view;
     }
+    
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainPage) getActivity()).changeActionBarTitle(listName);
+    }
 
     /**
      * Actions that occur AFTER the view has been created and attached.

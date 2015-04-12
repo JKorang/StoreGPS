@@ -136,9 +136,10 @@ public class MainPage extends ActionBarActivity
         actionBar.setTitle(mTitle);
     }
 
-    public void changeFragment(Fragment frag) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.container, frag).addToBackStack(null).commit();
-        }
+    public void changeActionBarTitle(String title){
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(title);
+    }
+
     }
 
