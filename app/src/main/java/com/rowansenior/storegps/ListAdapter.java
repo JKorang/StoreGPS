@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import java.util.List;
 
@@ -22,14 +23,15 @@ import java.util.List;
  */
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
-    private Context context;
+    private Context adapterContext;
     private List<ShoppingListItem> items;
+    private String vhListName;
     public static FragmentManager fragmentManager;
 
-
-    public ListAdapter(Context context, List items) {
+    public ListAdapter(Context context, List items, String listName) {
         this.items = items;
-        this.context = context;
+        this.adapterContext = context;
+        this.vhListName = listName;
         fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
 
     }
@@ -37,7 +39,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_item, viewGroup, false);
-        ViewHolder vh = new ViewHolder(v, fragmentManager);
+        ViewHolder vh = new ViewHolder(v, fragmentManager, vhListName, adapterContext);
         return vh;
     }
 
@@ -47,6 +49,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         ShoppingListItem item = items.get(i);
         viewHolder.vTitleText.setText(item.getName());
         viewHolder.vQuantity.setText("Quantity: " + String.valueOf(item.getQuantity()));
+
     }
 
     @Override
@@ -62,27 +65,53 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         public TextView vQuantity;
         public CardView vCardView;
         public FragmentManager vFM;
+        public ImageButton vIncQuantity;
+        public ImageButton vDecQuantity;
+        public ImageButton vFoundItem;
+        public ImageButton vDeleteItem;
+        public String parentList;
+        public Context vhContext;
 
-        public ViewHolder(View v, FragmentManager FM) {
+        public ViewHolder(View v, FragmentManager FM, String listName, Context context) {
             super(v);
+
             vTitleText = (TextView) v.findViewById(R.id.itemText);
             vQuantity = (TextView) v.findViewById(R.id.QuantityText);
             vCardView = (CardView) v.findViewById(R.id.itemcardview);
+            vIncQuantity = (ImageButton) v.findViewById(R.id.incQuantity);
+            vDecQuantity = (ImageButton) v.findViewById(R.id.decQuantity);
+            vFoundItem = (ImageButton) v.findViewById(R.id.foundItem);
+            vDeleteItem = (ImageButton) v.findViewById(R.id.deleteItem);
+
+            vhContext = context;
+            parentList = listName;
             vFM = FM;
             vTitleText.setOnClickListener(this);
             vQuantity.setOnClickListener(this);
             vCardView.setOnClickListener(this);
-            System.out.println("new viewholder, title text = " + vTitleText.toString());
+            vIncQuantity.setOnClickListener(this);
+            vDecQuantity.setOnClickListener(this);
+            vFoundItem.setOnClickListener(this);
+            vDeleteItem.setOnClickListener(this);
         }
 
 
 
         public void onClick(View v) {
+            DatabaseHelper db = new DatabaseHelper(vhContext);
             switch (v.getId()) {
-                case R.id.titleText:
-                case R.id.date:
-                case R.id.card_view:
-                case R.id.listIcon:
+                case R.id.incQuantity:
+                    db.increaseQuantity(parentList, vTitleText.getText().toString());
+                    break;
+                case R.id.decQuantity:
+                    db.decreaseQuantity(parentList, vTitleText.getText().toString());
+                    break;
+                case R.id.foundItem:
+                    db.itemFound(parentList, vTitleText.getText().toString());
+                    break;
+                case R.id.deleteItem:
+                    db.removeItem(parentList, vTitleText.getText().toString());
+                    break;
             }
             //vFM.beginTransaction().replace(R.id.container, new IndividualListFragment().newInstance()).commit();
         }

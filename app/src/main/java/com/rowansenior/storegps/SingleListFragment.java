@@ -81,7 +81,7 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = new DatabaseHelper(getActivity());
-        mAdapter = new ListAdapter(getActivity(), db.getAllItems(listName));
+        mAdapter = new ListAdapter(getActivity(), db.getAllItems(listName), listName);
     }
 
     /**

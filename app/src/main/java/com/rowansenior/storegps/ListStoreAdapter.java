@@ -80,13 +80,9 @@ public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.View
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.titleText:
-                    System.out.println("title text");
                 case R.id.date:
-                    System.out.println("Date");
                 case R.id.card_view:
-                    System.out.println("Card View");
                 case R.id.listIcon:
-                    System.out.println("Image");
             }
             String newFrag = vTitleText.getText().toString();
             vFM.beginTransaction().replace(R.id.container, new IndividualStoreFragment(newFrag).newInstance(newFrag)).addToBackStack(null).commit();

@@ -34,6 +34,7 @@ public class IndividualStoreFragment extends Fragment {
     private TextView storeAddress;
     private TextView storePhone;
     private TextView storeURL;
+    private TextView storeHours;
 
 
 
@@ -100,11 +101,16 @@ public class IndividualStoreFragment extends Fragment {
         storeAddress = (TextView)storeView.findViewById(R.id.storeAddress);
         storePhone = (TextView)storeView.findViewById(R.id.storePhoneNumber);
         storeURL = (TextView)storeView.findViewById(R.id.storeURL);
+        storeHours = (TextView)storeView.findViewById(R.id.storeHours);
         System.out.println(storeInfo.getPhoneNumber());
         nameOfStore.setText(storeInfo.getName());
         storeAddress.setText(storeInfo.getLocation());
         storePhone.setText(storeInfo.getPhoneNumber());
         storeURL.setText(storeInfo.getURL());
+
+        String openTime = String.valueOf(storeInfo.getHoursOpen());
+        String closedTime = String.valueOf(storeInfo.getHoursClosed());
+        storeHours.setText("Open from " + openTime + " to " + closedTime);
 
         return storeView;
     }
