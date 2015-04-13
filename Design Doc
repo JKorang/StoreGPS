@@ -1,0 +1,32 @@
+Design Document
+
+Brian Rosenblum, Joseph Korang, Joe Falcone
+
+
+
+                                               
+
+The main screen shows the users recent lists, nearby stores, and favorite stores. From this screen the user can click on a list and edit or delete it, click on the nearest store to select that store to shop at or click one of their favorites to shop at. If the more button is clicked  for any of the three options the rest of the items will show full screen. For example if I want to view all of my lists and click more I will be taken to all of my lists. The thumbnails throughout the app will use a picture on top and a box on the bottom that displays the date and title with some quick options like edit or delete. The icon on top will be chosen from a set of predetermined pictures and a set of colors will be given to be used as the user wishes.
+                                            
+
+Above is a layout for screen seen when more is clicked on the homescreen or when myLists is selected from the menu. From this screen you can view a current list, add a new list, edit a current list and delete a list. When a list is clicked that already exists you will be shown the list from there you can choose to edit if desired. If the three dots are clicked at the bottom of the thumbnail the options will be given to delete or edit for convenience.
+
+
+
+                                        
+
+	Above is a layout for both the nearby stores and favorite stores screen. Since both sections are portraying the same idea, showing stores, we’ve decided to implement them the same way. The screen will be broken down into sections such as food, electronics, department stores, clothing, etc. We found this to be the best way to organize all the stores. Should a user be looking for only a xbox one, he’ll only have to navigate through the electronic stores section rather than navigating through all stores on the page. Like the lists screen we’ll be including a more button option for all the described sections. The screen will only show either the closest three stores in each section or the top three stores visited in each section depending on whether you are on the nearby stores screen or the favorite stores screen. We will also be including a button on each screen that will link the user to the opposite screen. For example, if i’m looking at the nearby stores screen and I want to visit a store that i frequently visit, there will be a button that when pressed will jump me to the favorite stores screen.
+
+
+
+
+
+
+Functionality
+	Our plan for the apps function is to be able to create a list go into a chosen or nearby store with that list and be able to choose an item from that list and be shown where in the store that item is located along with the price. If it is written as a general item say eggs, the app will show a sublist of all the egg brands along with their prices. you can also do a general search for an item that will show the nearby stores and their price for that item. If a store is already chosen as shopping then the user can just search for an item and be shown its price and location in the selected store.
+
+
+
+The companion app
+
+The companion website will allow stores to add themselves to our app along with their layouts, items and prices. The layout for the site will be based off a drupal.com design edited for our purpose. The site will be simple and basic so the companies will easily and quickly be able to add and edit their information.
