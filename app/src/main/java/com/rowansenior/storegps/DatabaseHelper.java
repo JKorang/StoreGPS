@@ -226,6 +226,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return allLists;
     }
 
+    public ArrayList<Store> get3ClosestStores() {
+        SQLiteDatabase dataBase = this.getReadableDatabase();
+        ArrayList<Store> allStores = new ArrayList<Store>();
+        String selectQuery = "SELECT  * FROM " + TABLE_STORE;
+
+        Cursor c = dataBase.rawQuery(selectQuery, null);
+
+        if (c.moveToLast()) {
+            int lastPosition = c.getPosition();
+            for (int i = lastPosition; i > (lastPosition - 3); i--) {
+
+                if (i < 0) {
+                    break;
+                } else {
+                    Store sl = new Store(c.getString(c.getColumnIndex(KEY_STORE_NAME)),
+                            c.getString(c.getColumnIndex(KEY_LOCATION)),
+                            c.getString(c.getColumnIndex(KEY_PHONE_NUMBER)),
+                            c.getString(c.getColumnIndex(KEY_URL)),
+                            c.getInt(c.getColumnIndex(KEY_HOUR_OPEN)),
+                            c.getInt(c.getColumnIndex(KEY_HOUR_CLOSED)));
+                    allStores.add(sl);
+                    c.moveToPrevious();
+                }
+            }
+        }
+        return allStores;
+    }
+
     /**
      * Grabs all items from the TABLE_ITEM that match the name of the list.
      * @param listName

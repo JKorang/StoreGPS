@@ -28,9 +28,12 @@ public class HomeFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private ListListAdapter mAdapter;
+    private ListStoreAdapter mStoreAdapter;
     private GridLayoutManager mLayoutManager;
+    private GridLayoutManager mStoreManager;
     private View view;
     private RecyclerView gview;
+    private RecyclerView storegView;
 
     /**
      * Creates a new unique instance of the fragment.
@@ -64,6 +67,7 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         DatabaseHelper db = new DatabaseHelper(getActivity());
         mAdapter = new ListListAdapter(getActivity(), db.getLast3Lists());
+        mStoreAdapter = new ListStoreAdapter(getActivity(), db.get3ClosestStores());
     }
 
     @Override
@@ -96,9 +100,13 @@ public class HomeFragment extends Fragment {
         //RecyclerView does NOT check to see if the LayoutManager has been ran yet.
         //Because of this, calls to LM before creation will null error out.
         mLayoutManager = new GridLayoutManager(getActivity(),3);
+        mStoreManager = new GridLayoutManager(getActivity(), 3);
         gview = (RecyclerView) getView().findViewById(R.id.homeMyListRecycler);
+        storegView = (RecyclerView) getView().findViewById(R.id.homeMyStoresRecycler);
         gview.setLayoutManager(mLayoutManager);
+        storegView.setLayoutManager(mStoreManager);
         gview.setAdapter(mAdapter);
+        storegView.setAdapter(mStoreAdapter);
     }
 
     /**

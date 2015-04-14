@@ -6,7 +6,7 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:rowCount="10"
+        android:rowCount="11"
         android:columnCount="7"
         android:id="@+id/storeGridLayout">
 
@@ -29,16 +29,6 @@
             android:layout_row="0"
             android:layout_column="3"
             android:ellipsize="end" />
-
-        <ToggleButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New ToggleButton"
-            android:id="@+id/toggleButton"
-            android:layout_row="0"
-            android:layout_column="5"
-            android:layout_alignParentRight="true"
-            />
 
         <TextView
             android:layout_width="190dp"
@@ -111,6 +101,16 @@
             android:id="@+id/navButton"
             android:layout_row="9"
             android:layout_column="1" />
+
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New ToggleButton"
+            android:id="@+id/toggleButton"
+            android:layout_row="10"
+            android:layout_column="1"
+            android:layout_alignParentRight="true"
+            />
 
     </GridLayout>
 </LinearLayout>
