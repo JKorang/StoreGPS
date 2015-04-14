@@ -165,7 +165,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase dataBase = this.getReadableDatabase();
         String selectQuery = "DELETE FROM " + TABLE_LIST + " WHERE " + KEY_NAME + " = " + '"' + listName + '"';
         dataBase.execSQL(selectQuery);
-        dataBase.execSQL("DROP TABLE IF EXISTS " + listName + TABLE_ITEM);
+        dataBase.execSQL("DROP TABLE IF EXISTS " + '"' + listName + TABLE_ITEM + '"');
     }
 
     /**

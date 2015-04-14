@@ -28,4 +28,7 @@
     <string name="submitButton">Create</string>
     <string name="newlistButton">Add New List</string>
     <string name="newlistBox">newListBox</string>
+    <string name="cancel_choost_list">cancel_choose_list</string>
+    <string name="cancel_choose_list">cancel_choose_list</string>
+    <string name="Cancel">Cancel</string>
 </resources>

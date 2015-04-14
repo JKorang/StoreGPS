@@ -87,6 +87,7 @@ public class MyStoreFragment extends Fragment implements AbsListView.OnItemClick
          db.addNewFavoriteStore("This is an obnoxiously long store name but you'll shop here anyway", "856-256-4942", "http://www.americaneagles.com", 6, 18, "You can find this place at the corner of 711 and Auschwitz");
          db.addNewFavoriteStore("Shop Rite of Williamstown", "(856) 728-5600", "http://www.shoprite.com", 7, 23, "100 S Black Horse Pike Williamstown, NJ 08094");
          */
+
         mAdapter = new ListStoreAdapter(getActivity(), db.getAllStores());
 
 

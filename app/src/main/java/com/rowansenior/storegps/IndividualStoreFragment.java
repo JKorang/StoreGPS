@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -23,7 +25,7 @@ import android.widget.TextView;
  * It will need to be reworked slightly to display all the information for the store it houses
  * when selected from the HomeFragment, MyStoreFragment, or NearbyStoresFragment.
  */
-public class IndividualStoreFragment extends Fragment {
+public class IndividualStoreFragment extends Fragment implements View.OnClickListener {
 
     private OnFragmentInteractionListener mListener;
     private String storeName;
@@ -35,6 +37,7 @@ public class IndividualStoreFragment extends Fragment {
     private TextView storePhone;
     private TextView storeURL;
     private TextView storeHours;
+    private Button navigationButton;
 
 
 
@@ -102,12 +105,13 @@ public class IndividualStoreFragment extends Fragment {
         storePhone = (TextView)storeView.findViewById(R.id.storePhoneNumber);
         storeURL = (TextView)storeView.findViewById(R.id.storeURL);
         storeHours = (TextView)storeView.findViewById(R.id.storeHours);
-        System.out.println(storeInfo.getPhoneNumber());
+        navigationButton = (Button)storeView.findViewById(R.id.navButton);
         nameOfStore.setText(storeInfo.getName());
         storeAddress.setText(storeInfo.getLocation());
         storePhone.setText(storeInfo.getPhoneNumber());
         storeURL.setText(storeInfo.getURL());
 
+        navigationButton.setOnClickListener(this);
         String openTime = String.valueOf(storeInfo.getHoursOpen());
         String closedTime = String.valueOf(storeInfo.getHoursClosed());
         storeHours.setText("Open from " + openTime + " to " + closedTime);
@@ -153,6 +157,16 @@ public class IndividualStoreFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.navButton:
+                FragmentManager fragmentManager = getFragmentManager();
+                DialogChooseList diagNL = new DialogChooseList();
+                diagNL.show(fragmentManager, null);
+                break;
+        }
     }
 
     /**
