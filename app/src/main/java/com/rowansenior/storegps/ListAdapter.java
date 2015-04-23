@@ -53,7 +53,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         ShoppingListItem item = items.get(i);
         viewHolder.vTitleText.setText(item.getName());
         viewHolder.vQuantityInt = item.getQuantity();
-        viewHolder.vQuantity.setText("Quantity: " + String.valueOf(viewHolder.vQuantityInt));
+        viewHolder.vQuantity.setText("Quantity: " + String.valueOf(item.getQuantity()));
         System.out.println("IS NAV??? " + viewHolder.vIsNavigated);
         if(viewHolder.vIsNavigated == true) {
             viewHolder.vItemLocation.setText("Yeah this works?");
@@ -115,7 +115,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             switch (v.getId()) {
                 case R.id.incQuantity:
                     db.increaseQuantity(parentList, vTitleText.getText().toString());
-                    vQuantityInt++;
                     break;
                 case R.id.decQuantity:
                     if(vQuantityInt < 2)

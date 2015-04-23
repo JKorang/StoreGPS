@@ -99,6 +99,7 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
         mAdapter = new ListAdapter(getActivity(), db.getAllItems(listName), listName, isNavigated);
     }
 
+
     /**
      * Inflates the content view of the fragment.
      * Triggers immediately after onCreate
@@ -118,7 +119,7 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
         newList.setOnClickListener(this);
         return view;
     }
-    
+
     @Override
     public void onResume() {
         super.onResume();
@@ -184,15 +185,15 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                 System.out.println("Wow much click");
                 Editable name = newItem.getText();
                 db.addNewItem(listName, name.toString());
+
                 //NEED TO HANDLE REFRESH OF ELEMENTS
-                mAdapter.notifyDataSetChanged();
                 rview.refreshDrawableState();
+                mAdapter.notifyDataSetChanged();
                 newItem.clearFocus();
                 newItem.setText("");
                 break;
         }
     }
-
 
     /**
      * This interface must be implemented by activities that contain this
