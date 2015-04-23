@@ -29,11 +29,13 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     private List<ShoppingListItem> items;
     private String vhListName;
     public static FragmentManager fragmentManager;
+    public static boolean isNavigated;
 
-    public ListAdapter(Context context, List items, String listName) {
+    public ListAdapter(Context context, List items, String listName, boolean isNav) {
         this.items = items;
         this.adapterContext = context;
         this.vhListName = listName;
+        this.isNavigated = isNav;
         fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
 
     }
@@ -41,7 +43,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_item, viewGroup, false);
-        ViewHolder vh = new ViewHolder(v, fragmentManager, vhListName, adapterContext);
+        ViewHolder vh = new ViewHolder(v, fragmentManager, vhListName, adapterContext, isNavigated);
         return vh;
     }
 
