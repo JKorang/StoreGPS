@@ -17,8 +17,8 @@
     <GridLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:rowCount="2"
-        android:columnCount="9"
+        android:rowCount="5"
+        android:columnCount="16"
         android:id="@+id/itemGridLayout"
         android:alignmentMode="alignBounds">
 
@@ -30,16 +30,6 @@
             android:layout_row="0"
             android:layout_column="0"/>
 
-        <ImageButton
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:text="Add Item"
-            android:id="@+id/incQuantity"
-            android:contentDescription=""
-            android:layout_row="0"
-            android:layout_columnSpan="2"
-            android:layout_rowSpan="2"/>
-
         <TextView
             android:id="@+id/QuantityText"
             android:layout_width="120dp"
@@ -48,6 +38,25 @@
             android:layout_row="1"
             android:layout_column="0"/>
 
+        <TextView
+            android:id="@+id/locationText"
+            android:layout_width="120dp"
+            android:textColor="@android:color/black"
+            android:paddingLeft="5dp"
+            android:layout_row="3"
+            android:layout_column="0"/>
+
+        <ImageButton
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:text="Add Item"
+            android:id="@+id/incQuantity"
+            android:contentDescription=""
+            android:layout_row="0"
+            android:layout_rowSpan="5"
+            android:src="@android:drawable/arrow_up_float"
+            android:layout_column="12" />
+
         <ImageButton
             android:layout_width="55dp"
             android:layout_height="55dp"
@@ -55,18 +64,9 @@
             android:id="@+id/decQuantity"
             android:contentDescription=""
             android:layout_row="0"
-            android:layout_columnSpan="2"
-            android:layout_rowSpan="2"/>
-
-        <ImageButton
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:text="Add Item"
-            android:id="@+id/deleteItem"
-            android:contentDescription=""
-            android:layout_row="0"
-            android:layout_columnSpan="2"
-            android:layout_rowSpan="2"/>
+            android:layout_rowSpan="5"
+            android:src="@android:drawable/arrow_down_float"
+            android:layout_column="13" />
 
         <ImageButton
             android:layout_width="55dp"
@@ -75,8 +75,20 @@
             android:id="@+id/foundItem"
             android:contentDescription=""
             android:layout_row="0"
-            android:layout_columnSpan="2"
-            android:layout_rowSpan="2"/>
+            android:layout_rowSpan="5"
+            android:src="@android:drawable/checkbox_on_background"
+            android:layout_column="14" />
+
+        <ImageButton
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:text="Add Item"
+            android:id="@+id/deleteItem"
+            android:contentDescription=""
+            android:layout_row="0"
+            android:layout_rowSpan="5"
+            android:src="@android:drawable/ic_delete"
+            android:layout_column="15" />
 
     </GridLayout>
 

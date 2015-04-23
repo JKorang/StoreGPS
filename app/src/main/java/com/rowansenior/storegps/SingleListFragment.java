@@ -48,6 +48,7 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
     private Button newList;
     private DatabaseHelper db;
     private EditText newItem;
+    private static boolean isNavigated;
 
     /**
      * Creates a new MLF and establishes its Bundle file.
@@ -56,6 +57,20 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
         SingleListFragment fragment = new SingleListFragment();
         Bundle args = new Bundle();
         listName = ln;
+        isNavigated = false;
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    /**
+     * Creates a new MLF and establishes its Bundle file.
+     */
+    public static SingleListFragment newInstance(String ln, boolean isNav) {
+        SingleListFragment fragment = new SingleListFragment();
+        Bundle args = new Bundle();
+        listName = ln;
+        isNavigated = isNav;
+        System.out.print(isNavigated);
         fragment.setArguments(args);
         return fragment;
     }
@@ -81,7 +96,8 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = new DatabaseHelper(getActivity());
-        mAdapter = new ListAdapter(getActivity(), db.getAllItems(listName), listName);
+        mAdapter = new ListAdapter(getActivity(), db.getAllItems(listName), listName, isNavigated);
+    }
 
             }
 

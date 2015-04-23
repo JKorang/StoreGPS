@@ -107,7 +107,6 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ViewHo
 
             String newFrag = vTitleText.getText().toString();
             vFM.beginTransaction().replace(R.id.container, new SingleListFragment().newInstance(newFrag)).addToBackStack(null).commit();
-
         }
 
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {

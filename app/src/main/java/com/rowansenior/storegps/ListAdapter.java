@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.List;
 
 /**
@@ -27,11 +29,13 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     private List<ShoppingListItem> items;
     private String vhListName;
     public static FragmentManager fragmentManager;
+    public static boolean isNavigated;
 
-    public ListAdapter(Context context, List items, String listName) {
+    public ListAdapter(Context context, List items, String listName, boolean isNav) {
         this.items = items;
         this.adapterContext = context;
         this.vhListName = listName;
+        this.isNavigated = isNav;
         fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
 
     }
@@ -39,7 +43,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_item, viewGroup, false);
-        ViewHolder vh = new ViewHolder(v, fragmentManager, vhListName, adapterContext);
+        ViewHolder vh = new ViewHolder(v, fragmentManager, vhListName, adapterContext, isNavigated);
         return vh;
     }
 
@@ -48,8 +52,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         ShoppingListItem item = items.get(i);
         viewHolder.vTitleText.setText(item.getName());
+        viewHolder.vQuantityInt = item.getQuantity();
         viewHolder.vQuantity.setText("Quantity: " + String.valueOf(item.getQuantity()));
-
+        System.out.println("IS NAV??? " + viewHolder.vIsNavigated);
+        if(viewHolder.vIsNavigated == true) {
+            viewHolder.vItemLocation.setText("Yeah this works?");
+        }
     }
 
     @Override
@@ -63,6 +71,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView vTitleText;
         public TextView vQuantity;
+        public int vQuantityInt;
         public CardView vCardView;
         public FragmentManager vFM;
         public ImageButton vIncQuantity;
@@ -71,12 +80,15 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         public ImageButton vDeleteItem;
         public String parentList;
         public Context vhContext;
+        public TextView vItemLocation;
+        public boolean vIsNavigated;
 
-        public ViewHolder(View v, FragmentManager FM, String listName, Context context) {
+        public ViewHolder(View v, FragmentManager FM, String listName, Context context, boolean isNav) {
             super(v);
 
             vTitleText = (TextView) v.findViewById(R.id.itemText);
             vQuantity = (TextView) v.findViewById(R.id.QuantityText);
+            vItemLocation = (TextView) v.findViewById(R.id.locationText);
             vCardView = (CardView) v.findViewById(R.id.itemcardview);
             vIncQuantity = (ImageButton) v.findViewById(R.id.incQuantity);
             vDecQuantity = (ImageButton) v.findViewById(R.id.decQuantity);
@@ -86,6 +98,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             vhContext = context;
             parentList = listName;
             vFM = FM;
+            vIsNavigated = isNav;
             vTitleText.setOnClickListener(this);
             vQuantity.setOnClickListener(this);
             vCardView.setOnClickListener(this);
@@ -105,7 +118,17 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
                     break;
                 case R.id.decQuantity:
-                    db.decreaseQuantity(parentList, vTitleText.getText().toString());
+                    if(vQuantityInt < 2)
+                    {
+                        CharSequence text = "Quantity must be at least 1!";
+                        int duration = Toast.LENGTH_SHORT;
+                        Toast toast = Toast.makeText(vhContext, text, duration);
+                        toast.show();
+                    }
+                    else {
+                        db.decreaseQuantity(parentList, vTitleText.getText().toString());
+                        vQuantityInt--;
+                    }
                     break;
                 case R.id.foundItem:
                     db.itemFound(parentList, vTitleText.getText().toString());
