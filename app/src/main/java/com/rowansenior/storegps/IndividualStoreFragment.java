@@ -38,6 +38,7 @@ public class IndividualStoreFragment extends Fragment implements View.OnClickLis
     private TextView storeURL;
     private TextView storeHours;
     private Button navigationButton;
+    private Button searchButton;
 
 
 
@@ -106,12 +107,15 @@ public class IndividualStoreFragment extends Fragment implements View.OnClickLis
         storeURL = (TextView)storeView.findViewById(R.id.storeURL);
         storeHours = (TextView)storeView.findViewById(R.id.storeHours);
         navigationButton = (Button)storeView.findViewById(R.id.navButton);
+        searchButton = (Button)storeView.findViewById(R.id.performSearch);
         nameOfStore.setText(storeInfo.getName());
         storeAddress.setText(storeInfo.getLocation());
         storePhone.setText(storeInfo.getPhoneNumber());
         storeURL.setText(storeInfo.getURL());
 
         navigationButton.setOnClickListener(this);
+        searchButton.setOnClickListener(this);
+
         String openTime = String.valueOf(storeInfo.getHoursOpen());
         String closedTime = String.valueOf(storeInfo.getHoursClosed());
         storeHours.setText("Open from " + openTime + " to " + closedTime);
@@ -160,11 +164,15 @@ public class IndividualStoreFragment extends Fragment implements View.OnClickLis
     }
 
     public void onClick(View v) {
+        FragmentManager fragmentManager = getFragmentManager();
         switch (v.getId()) {
             case R.id.navButton:
-                FragmentManager fragmentManager = getFragmentManager();
                 DialogChooseList diagNL = new DialogChooseList();
                 diagNL.show(fragmentManager, null);
+                break;
+            case R.id.performSearch:
+                DialogSingleItemSearch sIS = new DialogSingleItemSearch();
+                sIS.show(fragmentManager, null);
                 break;
         }
     }

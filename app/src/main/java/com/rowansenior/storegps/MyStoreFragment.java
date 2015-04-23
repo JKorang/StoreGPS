@@ -81,12 +81,11 @@ public class MyStoreFragment extends Fragment implements AbsListView.OnItemClick
 
 
         /**  TEST CASES*
-         db.addNewFavoriteStore("Target", 609123523, "http://www.target.com", 6, 18, "BHP");
-         db.addNewFavoriteStore("Sears", 85666666, "http://www.sears.com", 6, 18, "Nearest Empty Building");
-         db.addNewFavoriteStore("Obama Rama", 696969, "http://www.potus.gov", 6, 18, "White House, Bitch");
-         db.addNewFavoriteStore("This is an obnoxiously long store name but you'll shop here anyway", "856-256-4942", "http://www.americaneagles.com", 6, 18, "You can find this place at the corner of 711 and Auschwitz");
-         db.addNewFavoriteStore("Shop Rite of Williamstown", "(856) 728-5600", "http://www.shoprite.com", 7, 23, "100 S Black Horse Pike Williamstown, NJ 08094");
-         */
+        db.addNewFavoriteStore("This is an obnoxiously long store name but you only care about our prices", "856-256-4942", "http://www.americaneagles.com", 6, 18, "201 Mullica Hill Road Glassboro, NJ 08028");
+        db.addNewFavoriteStore("Shop Rite of Williamstown", "(856) 728-5600", "http://www.shoprite.com", 7, 23, "100 S Black Horse Pike Williamstown, NJ 08094");
+        db.addNewFavoriteStore("Shop Rite of Turnersville", "(856) 728-5600", "http://www.shoprite.com", 7, 23, "382 Egg Harbor Road Sewell, NJ 08080");
+        db.addNewFavoriteStore("CVS Pharmacy", "856-582-0020", "http://www.cvs.com", 7, 22, "1050 N Delsea Dr, Glassboro, NJ 08028");
+        */
 
         mAdapter = new ListStoreAdapter(getActivity(), db.getAllStores());
 
