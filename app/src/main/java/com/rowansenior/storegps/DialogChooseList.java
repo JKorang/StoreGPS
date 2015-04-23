@@ -27,9 +27,6 @@ import java.util.List;
  */
 public class DialogChooseList extends DialogFragment implements View.OnClickListener {
     Context mContext;
-    Button cancel;
-    Button accept;
-    EditText listName;
     ArrayList<String> listOfNames;
 
     public DialogChooseList() {
@@ -61,7 +58,6 @@ public class DialogChooseList extends DialogFragment implements View.OnClickList
             listOfNames.add(temp.getName());
         }
     }
-
 
     public void onClick(View v) {
         switch (v.getId()) {
