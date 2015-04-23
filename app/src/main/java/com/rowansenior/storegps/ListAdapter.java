@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.List;
 
 /**
@@ -48,6 +50,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         ShoppingListItem item = items.get(i);
         viewHolder.vTitleText.setText(item.getName());
+        viewHolder.vQuantityInt = item.getQuantity();
         viewHolder.vQuantity.setText("Quantity: " + String.valueOf(item.getQuantity()));
 
     }
@@ -63,6 +66,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView vTitleText;
         public TextView vQuantity;
+        public int vQuantityInt;
         public CardView vCardView;
         public FragmentManager vFM;
         public ImageButton vIncQuantity;
@@ -104,7 +108,16 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                     db.increaseQuantity(parentList, vTitleText.getText().toString());
                     break;
                 case R.id.decQuantity:
-                    db.decreaseQuantity(parentList, vTitleText.getText().toString());
+                    if(vQuantityInt == 1)
+                    {
+                        CharSequence text = "Can't be less than 1!";
+                        int duration = Toast.LENGTH_SHORT;
+                        Toast toast = Toast.makeText(vhContext, text, duration);
+                        toast.show();
+                    }
+                    else {
+                        db.decreaseQuantity(parentList, vTitleText.getText().toString());
+                    }
                     break;
                 case R.id.foundItem:
                     db.itemFound(parentList, vTitleText.getText().toString());
