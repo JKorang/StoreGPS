@@ -78,8 +78,6 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ViewHo
             vImageView.setOnClickListener(this);
         }
 
-
-
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.titleText:
@@ -89,7 +87,6 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ViewHo
             }
             String newFrag = vTitleText.getText().toString();
             vFM.beginTransaction().replace(R.id.container, new SingleListFragment().newInstance(newFrag)).addToBackStack(null).commit();
-
         }
     }
 }

@@ -58,9 +58,7 @@ public class DialogChooseList extends DialogFragment implements View.OnClickList
         listOfNames = new ArrayList<String>();
         for (int i = 0; i < tempList.size(); i++) {
             ShoppingList temp = (ShoppingList) tempList.get(i);
-            for (int j = 0; j < 1; j++) {
-                listOfNames.add(temp.getName());
-            }
+            listOfNames.add(temp.getName());
         }
     }
 
