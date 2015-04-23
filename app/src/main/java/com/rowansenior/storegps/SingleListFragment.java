@@ -99,7 +99,6 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
         mAdapter = new ListAdapter(getActivity(), db.getAllItems(listName), listName, isNavigated);
     }
 
-            }
 
     /**
      * Inflates the content view of the fragment.
