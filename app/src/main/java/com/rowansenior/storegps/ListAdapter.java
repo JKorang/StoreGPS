@@ -102,6 +102,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             switch (v.getId()) {
                 case R.id.incQuantity:
                     db.increaseQuantity(parentList, vTitleText.getText().toString());
+
                     break;
                 case R.id.decQuantity:
                     db.decreaseQuantity(parentList, vTitleText.getText().toString());
