@@ -184,7 +184,7 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
             case R.id.addItemButton:
                 System.out.println("Wow much click");
                 Editable name = newItem.getText();
-                if(name.toString().equals(""))
+                if(name.toString().trim().length() == 0)
                 {
                     CharSequence text = "Item must have a name!";
                     int duration = Toast.LENGTH_SHORT;
