@@ -78,6 +78,8 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ViewHo
             vImageView.setOnClickListener(this);
         }
 
+
+
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.titleText:

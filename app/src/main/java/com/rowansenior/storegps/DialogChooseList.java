@@ -6,12 +6,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,11 +41,18 @@ public class DialogChooseList extends DialogFragment implements View.OnClickList
         DatabaseHelper db = new DatabaseHelper(getActivity());
         ArrayList list = db.getAllLists();
         generateListOfNames(list);
-        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, listOfNames);
+        final ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, listOfNames);
         ListView listView = (ListView) v.findViewById(R.id.choose_list_view);
         System.out.println(listView);
+        final FragmentManager fm = (getActivity()).getSupportFragmentManager();
         listView.setAdapter(itemsAdapter);
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                fm.beginTransaction().replace(R.id.container, new SingleListFragment().newInstance(itemsAdapter.getItem(position), true)).addToBackStack(null).commit();
+                getDialog().dismiss();
+            }
+        });
 
         Button cancel = (Button)v.findViewById(R.id.cancel_choose_list);
         cancel.setOnClickListener(this);
@@ -61,11 +70,9 @@ public class DialogChooseList extends DialogFragment implements View.OnClickList
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_accept:
-                break;
             case R.id.cancel_choose_list:
                 getDialog().dismiss();
                 break;
-        }
+            }
     }
 }
