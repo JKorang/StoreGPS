@@ -29,23 +29,22 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     private List<ShoppingListItem> items;
     private String vhListName;
     public static FragmentManager fragmentManager;
-    private boolean isNavigated;
 
-    public ListAdapter(Context context, List items, String listName, boolean isNavigated) {
-        System.out.println(isNavigated);
+    public ListAdapter(Context context, List items, String listName) {
         this.items = items;
         this.adapterContext = context;
         this.vhListName = listName;
-        this.isNavigated = isNavigated;
         fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
+
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_item, viewGroup, false);
-        ViewHolder vh = new ViewHolder(v, fragmentManager, vhListName, adapterContext, isNavigated);
+        ViewHolder vh = new ViewHolder(v, fragmentManager, vhListName, adapterContext);
         return vh;
     }
+
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
@@ -57,7 +56,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         if(viewHolder.vIsNavigated == true) {
             viewHolder.vItemLocation.setText("Yeah this works?");
         }
-
     }
 
     @Override
@@ -117,15 +115,16 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                     db.increaseQuantity(parentList, vTitleText.getText().toString());
                     break;
                 case R.id.decQuantity:
-                    if(vQuantityInt == 1)
+                    if(vQuantityInt < 2)
                     {
-                        CharSequence text = "Can't be less than 1!";
+                        CharSequence text = "Quantity must be at least 1!";
                         int duration = Toast.LENGTH_SHORT;
                         Toast toast = Toast.makeText(vhContext, text, duration);
                         toast.show();
                     }
                     else {
                         db.decreaseQuantity(parentList, vTitleText.getText().toString());
+                        vQuantityInt--;
                     }
                     break;
                 case R.id.foundItem:
