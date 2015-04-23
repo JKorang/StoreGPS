@@ -1,5 +1,6 @@
 package com.rowansenior.storegps;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -44,11 +45,19 @@ public class DialogNewList extends DialogFragment implements View.OnClickListene
     }
 
     public void onClick(View v) {
+        CharSequence text = "List already exists!";
+        int duration = Toast.LENGTH_SHORT;
             switch (v.getId()) {
             case R.id.btn_accept:
                 Editable name = listName.getText();
                 DatabaseHelper db = new DatabaseHelper(getActivity());
-                db.createNewList(name.toString(), 2, 1);
+                try {
+                    db.createNewList(name.toString(), 2, 1);
+                }
+                catch(Exception e){
+                    Toast toast = Toast.makeText(getActivity(), text, duration);
+                    toast.show();
+                }
                 getDialog().dismiss();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.container, new MyListFragment().newInstance()).addToBackStack(null).commit();
