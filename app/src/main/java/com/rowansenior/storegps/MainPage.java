@@ -96,7 +96,6 @@ public class MainPage extends ActionBarActivity
                 //MyStore
                 mTitle = getString(R.string.title_section3);
                 fragment = new MyStoreFragment().newInstance();
-                //fragment = new SingleListFragment().newInstance("list2");
                 break;
             case 4:
                 //Settings
