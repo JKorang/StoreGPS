@@ -52,7 +52,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         viewHolder.vTitleText.setText(item.getName());
         viewHolder.vQuantityInt = item.getQuantity();
         viewHolder.vQuantity.setText("Quantity: " + String.valueOf(item.getQuantity()));
-
     }
 
     @Override
@@ -108,15 +107,16 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                     db.increaseQuantity(parentList, vTitleText.getText().toString());
                     break;
                 case R.id.decQuantity:
-                    if(vQuantityInt == 1)
+                    if(vQuantityInt < 2)
                     {
-                        CharSequence text = "Can't be less than 1!";
+                        CharSequence text = "Quantity must be at least 1!";
                         int duration = Toast.LENGTH_SHORT;
                         Toast toast = Toast.makeText(vhContext, text, duration);
                         toast.show();
                     }
                     else {
                         db.decreaseQuantity(parentList, vTitleText.getText().toString());
+                        vQuantityInt--;
                     }
                     break;
                 case R.id.foundItem:
