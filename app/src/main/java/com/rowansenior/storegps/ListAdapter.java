@@ -26,7 +26,7 @@ import java.util.List;
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     private Context adapterContext;
-    private List<ShoppingListItem> items;
+    public List<ShoppingListItem> items;
     private String vhListName;
     public static FragmentManager fragmentManager;
     public static boolean isNavigated;
@@ -37,7 +37,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         this.vhListName = listName;
         this.isNavigated = isNav;
         fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
-
     }
 
     @Override
@@ -54,7 +53,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         viewHolder.vTitleText.setText(item.getName());
         viewHolder.vQuantityInt = item.getQuantity();
         viewHolder.vQuantity.setText("Quantity: " + String.valueOf(viewHolder.vQuantityInt));
-        System.out.println("IS NAV??? " + viewHolder.vIsNavigated);
+        viewHolder.thisItem = item;
         if(viewHolder.vIsNavigated == true) {
             viewHolder.vItemLocation.setText("Yeah this works?");
         }
@@ -68,7 +67,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     /**
      * Capable of holding each item in the LLA.
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView vTitleText;
         public TextView vQuantity;
         public int vQuantityInt;
@@ -82,6 +81,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         public Context vhContext;
         public TextView vItemLocation;
         public boolean vIsNavigated;
+        public ShoppingListItem thisItem;
 
         public ViewHolder(View v, FragmentManager FM, String listName, Context context, boolean isNav) {
             super(v);
@@ -137,14 +137,17 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                     CharSequence foundText = "Item Found!";
                     int foundDuration = Toast.LENGTH_SHORT;
                     Toast foundToast = Toast.makeText(vhContext, foundText, foundDuration);
+                    notifyDataSetChanged();
                     foundToast.show();
                     break;
                 case R.id.deleteItem:
                     db.removeItem(parentList, vTitleText.getText().toString());
+                    items.remove(thisItem);
                     CharSequence delText = "Item Deleted!";
                     int delDuration = Toast.LENGTH_SHORT;
                     Toast delToast = Toast.makeText(vhContext, delText, delDuration);
                     delToast.show();
+                    notifyDataSetChanged();
                     break;
             }
             //vFM.beginTransaction().replace(R.id.container, new IndividualListFragment().newInstance()).commit();

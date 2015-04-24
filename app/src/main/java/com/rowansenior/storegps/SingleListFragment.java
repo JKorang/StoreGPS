@@ -175,7 +175,7 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         IndividualListFragment listPicked = this.itemList.get(position);
-        Toast.makeText(getActivity(), listPicked.getListTitle() + " Clicked lolol", Toast.LENGTH_SHORT).show();
+        System.out.println("CLICKING AN ITEM " + position);
     }
 
     @Override
@@ -193,6 +193,7 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                 }
                 else {
                     db.addNewItem(listName, name.toString());
+                    mAdapter.notifyDataSetChanged();
                 }
 
                 //NEED TO HANDLE REFRESH OF ELEMENTS
