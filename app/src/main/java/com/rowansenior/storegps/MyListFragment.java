@@ -22,26 +22,24 @@ import java.util.Collections;
 
 /**
  * MyListFragment exists to manage ALL lists contained in the system.
- *
+ * <p/>
  * When opening the MyListFragment, the fragment should populate based on a JSON file
  * The resulting view will be a 3 wide grid, dictacted by the XML file.
- *
+ * <p/>
  * At the moment, the fragment populates based on an ArrayList of type IndividualListFragments
  * It displays these fragments as simple text boxes, based on the String name passed at creation.
- *
+ * <p/>
  * This functionality needs to be tweaked, however.  While the ArrayList implementation
  * can handle the operation, the content that the ArrayList contains must be modified.
  * Once the JSON file has been constructed to store all of the individual list information,
  * we must pull the date of creation of a list as well as the name.
- *
+ * <p/>
  * The fragment? or block of XML code that dictates the card-style view of each list
  * will also need to contain its own small menu button.
- *
  */
 public class MyListFragment extends Fragment implements AbsListView.OnItemClickListener, View.OnClickListener {
 
     private OnFragmentInteractionListener mListener;
-    private ArrayList<IndividualListFragment> itemList;
     private ListListAdapter mAdapter;
     private RecyclerView gview;
     private GridLayoutManager mLayoutManager;
@@ -61,18 +59,19 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
     /**
      * onCreate triggers immediately after onAttach, at the start of fragment creation.
      * Saves previous window state.
-     *
+     * <p/>
      * Creates an ArrayList and populates the ArrayList.
      * This functionality will need to be updated to, instead of filling the ArrayList with
      * example Lists, a collection of Lists pulled from the JSON file.
-     *
+     * <p/>
      * These Lists do not need to exist as separate fragments upon creation in this list.
      * The fragment creation will be located in the onClick, which will reference the
      * location of the JSON file and create a new IndividualListFragment
-     *
+     * <p/>
      * After creating the list, mAdapter is created and set to monitor the list.
      * This adapter currently acts as a way to access the information of each
      * fragment within the ArrayList, for use on this existing fragment.
+     *
      * @param savedInstanceState
      */
     @Override
@@ -86,40 +85,40 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
  * MyList SHOULD SHOW LIST 1, 2, 3, 5, 6, 7 NOW
  *
 
-        db.createNewList("list1", 5, 2);
-        db.createNewList("list2", 5, 2);
-        db.createNewList("list3", 5, 2);
-        db.createNewList("list4", 5, 2);
-        db.createNewList("list5", 5, 2);
-        db.createNewList("list6", 5, 2);
-        db.createNewList("list7", 5, 2);
-        db.createNewList("list8", 5, 2);
-        db.createNewList("list9", 5, 2);
-        db.createNewList("list10", 5, 2);
-        db.createNewList("list11", 5, 2);
-        db.createNewList("list12", 5, 2);
+ db.createNewList("list1", 5, 2);
+ db.createNewList("list2", 5, 2);
+ db.createNewList("list3", 5, 2);
+ db.createNewList("list4", 5, 2);
+ db.createNewList("list5", 5, 2);
+ db.createNewList("list6", 5, 2);
+ db.createNewList("list7", 5, 2);
+ db.createNewList("list8", 5, 2);
+ db.createNewList("list9", 5, 2);
+ db.createNewList("list10", 5, 2);
+ db.createNewList("list11", 5, 2);
+ db.createNewList("list12", 5, 2);
 
-        db.addNewItem("list4", "pizza");
+ db.addNewItem("list4", "pizza");
 
-        db.removeList("list4");
+ db.removeList("list4");
 
-        db.addNewItem("list2", "shampoo");
-        db.addNewItem("list2", "soap");
-        db.addNewItem("list2", "coffee");
-        db.addNewItem("list2", "gun");
+ db.addNewItem("list2", "shampoo");
+ db.addNewItem("list2", "soap");
+ db.addNewItem("list2", "coffee");
+ db.addNewItem("list2", "gun");
 
-        db.removeItem("list2", "gun");
+ db.removeItem("list2", "gun");
 
-        db.addNewItem("list2", "gum");
+ db.addNewItem("list2", "gum");
 
-        db.createNewList("jawn", 5, 2);
-        db.addNewItem("jawn", "jawn sauce");
-        db.increaseQuantity("jawn", "jawn sauce");
-        db.decreaseQuantity("jawn", "jawn sauce");
+ db.createNewList("jawn", 5, 2);
+ db.addNewItem("jawn", "jawn sauce");
+ db.increaseQuantity("jawn", "jawn sauce");
+ db.decreaseQuantity("jawn", "jawn sauce");
 
-        db.itemFound("jawn", "jawn sauce");
+ db.itemFound("jawn", "jawn sauce");
 
-*/
+ */
 
         mAdapter = new ListListAdapter(getActivity(), db.getAllLists());
 
@@ -148,16 +147,16 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
 
     /**
      * Actions that occur AFTER the view has been created and attached.
-     *
+     * <p/>
      * Here, gview is set by obtaining the view ID and then the ListListAdapter is set to it.
      */
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         //GridLayoutManager MUST be ran BEFORE _ANY_ references are made to it.
         //RecyclerView does NOT check to see if the LayoutManager has been ran yet.
         //Because of this, calls to LM before creation will null error out.
-        mLayoutManager = new GridLayoutManager(getActivity(),3);
+        mLayoutManager = new GridLayoutManager(getActivity(), 3);
         gview = (RecyclerView) getView().findViewById(R.id.myListRecycler);
         gview.setLayoutManager(mLayoutManager);
         gview.setAdapter(mAdapter);
@@ -199,8 +198,6 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
      */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        IndividualListFragment listPicked = this.itemList.get(position);
-        Toast.makeText(getActivity(), listPicked.getListTitle() + " Clicked lolol", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -230,7 +227,6 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
-
 
 
 }

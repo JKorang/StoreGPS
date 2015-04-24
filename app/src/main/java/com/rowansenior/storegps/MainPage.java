@@ -29,7 +29,6 @@ public class MainPage extends ActionBarActivity
         MyListFragment.OnFragmentInteractionListener,
         HomeFragment.OnFragmentInteractionListener,
         MyStoreFragment.OnFragmentInteractionListener,
-        IndividualListFragment.OnFragmentInteractionListener,
         IndividualStoreFragment.OnFragmentInteractionListener {
 
     /**

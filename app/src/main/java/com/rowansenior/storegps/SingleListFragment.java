@@ -39,7 +39,7 @@ import java.util.ArrayList;
 public class SingleListFragment extends Fragment implements AbsListView.OnItemClickListener, View.OnClickListener {
 
     private OnFragmentInteractionListener mListener;
-    private ArrayList<IndividualListFragment> itemList;
+    private ArrayList<ShoppingListItem> itemList;
     private ListAdapter mAdapter;
     private RecyclerView rview;
     private LinearLayoutManager mLayoutManager;
@@ -175,7 +175,7 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
      */
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        IndividualListFragment listPicked = this.itemList.get(position);
+        ShoppingListItem listPicked = this.itemList.get(position);
     }
 
     /**
@@ -202,7 +202,6 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                     itemList = db.getAllItems(listName);
                     mAdapter = new ListAdapter(getActivity(), itemList, listName, isNavigated);
                     rview.setAdapter(mAdapter);
-                    //mAdapter.notifyDataSetChanged();
                 }
 
                 //NEED TO HANDLE REFRESH OF ELEMENTS

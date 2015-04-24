@@ -3,43 +3,131 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:padding="10sp" >
+    android:padding="10sp">
 
     <EditText
         android:id="@+id/txt_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="@string/newlistButton"
-        android:singleLine="true" >
-    </EditText>
+        android:singleLine="true"></EditText>
 
     <HorizontalScrollView
+        android:id="@+id/colorView"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:id="@+id/colorView" />
+        android:layout_height="42dp">
+
+
+        <RadioGroup
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/blueButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Button" />
+
+            <RadioButton
+                android:id="@+id/redButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/blueButton"
+                android:text="New Button" />
+
+            <RadioButton
+                android:id="@+id/greenButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/redButton"
+                android:text="New Button" />
+
+            <RadioButton
+                android:id="@+id/yellowButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/greenButton"
+                android:text="New Button" />
+
+            <RadioButton
+                android:id="@+id/whiteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/yellowButton"
+                android:text="New Button" />
+
+            <RadioButton
+                android:id="@+id/blackButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/whiteButton"
+                android:text="New Button" />
+        </RadioGroup>
+
+    </HorizontalScrollView>
 
     <HorizontalScrollView
+        android:id="@+id/iconView"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:id="@+id/iconView" />
+        android:layout_height="42dp" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
 
-        <Button
-            android:id="@+id/btn_accept"
-            android:layout_width="120dp"
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/image1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/submitButton" />
+            android:text="New Button" />
 
-        <Button
-            android:id="@+id/btn_cancel"
-            android:layout_width="120dp"
+        <RadioButton
+            android:id="@+id/image2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/btn_accept"
-            android:text="@string/cancelButton" />
-    </RelativeLayout>
-    </LinearLayout>
+            android:text="New Button" />
+
+        <RadioButton
+            android:id="@+id/image3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Button" />
+
+        <RadioButton
+            android:id="@+id/image4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Button" />
+
+        <RadioButton
+            android:id="@+id/image5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Button" />
+
+        <RadioButton
+            android:id="@+id/image6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Button" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btn_accept"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="@string/submitButton" />
+
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/btn_accept"
+        android:text="@string/cancelButton" />
+
+</LinearLayout>
