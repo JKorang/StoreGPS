@@ -96,7 +96,8 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = new DatabaseHelper(getActivity());
-        mAdapter = new ListAdapter(getActivity(), db.getAllItems(listName), listName, isNavigated);
+        itemList = db.getAllItems(listName);
+        mAdapter = new ListAdapter(getActivity(), itemList, listName, isNavigated);
     }
 
 
@@ -175,14 +176,12 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         IndividualListFragment listPicked = this.itemList.get(position);
-        System.out.println("CLICKING AN ITEM " + position);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.addItemButton:
-                System.out.println("Wow much click");
                 Editable name = newItem.getText();
                 if(name.toString().trim().length() == 0)
                 {
@@ -193,7 +192,10 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                 }
                 else {
                     db.addNewItem(listName, name.toString());
-                    mAdapter.notifyDataSetChanged();
+                    itemList = db.getAllItems(listName);
+                    mAdapter = new ListAdapter(getActivity(), itemList, listName, isNavigated);
+                    rview.setAdapter(mAdapter);
+                    //mAdapter.notifyDataSetChanged();
                 }
 
                 //NEED TO HANDLE REFRESH OF ELEMENTS
