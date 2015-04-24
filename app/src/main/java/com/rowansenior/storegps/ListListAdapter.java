@@ -96,6 +96,9 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ViewHo
 
         }
 
+        /**
+         *on a click open the shopping list window and allow for list editing
+          */
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.titleText:
@@ -109,22 +112,12 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ViewHo
             vFM.beginTransaction().replace(R.id.container, new SingleListFragment().newInstance(newFrag)).addToBackStack(null).commit();
         }
 
-        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-            menu.setHeaderTitle("Context Menu");
-            menu.add(0, v.getId(), 0, "Delete");
-        }
-
-        public boolean onContextItemSelected(MenuItem item) {
-            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-            switch (item.getItemId()) {
-                case R.id.deleteItem:
-
-                    return true;
-                default:
-                    return false;
-            }
-        }
-
+        /**
+         *  On a long press prompt a window to confirm deletion, if the confirmed the item is deleted
+         * and the store list is refreshed
+         * @param v
+         * @return true
+         */
         @Override
         public boolean onLongClick(View v) {
 

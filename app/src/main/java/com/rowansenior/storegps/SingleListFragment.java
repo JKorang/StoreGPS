@@ -178,11 +178,18 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
         IndividualListFragment listPicked = this.itemList.get(position);
     }
 
+    /**
+     * add an item to the shopping list. If the name field is left blank promp a warning
+     * if it has a name add it to the list
+     *TODO if the item is already in the list, up the quanity of the item
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.addItemButton:
                 Editable name = newItem.getText();
+
                 if(name.toString().trim().length() == 0)
                 {
                     CharSequence text = "Item must have a name!";
