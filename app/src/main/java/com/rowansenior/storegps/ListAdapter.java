@@ -82,6 +82,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         public Context vhContext;
         public TextView vItemLocation;
         public boolean vIsNavigated;
+        public int isFound = 0;
 
         public ViewHolder(View v, FragmentManager FM, String listName, Context context, boolean isNav) {
             super(v);
@@ -133,12 +134,25 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                     }
                     break;
                 case R.id.foundItem:
-                    db.itemFound(parentList, vTitleText.getText().toString());
-                    CharSequence foundText = "Item Found!";
-                    int foundDuration = Toast.LENGTH_SHORT;
-                    Toast foundToast = Toast.makeText(vhContext, foundText, foundDuration);
-                    foundToast.show();
-                    break;
+                    if(isFound == 0) {
+                        isFound++;
+                        db.itemFound(parentList, vTitleText.getText().toString());
+                        CharSequence foundText = "Item Found!";
+                        int foundDuration = Toast.LENGTH_SHORT;
+                        Toast foundToast = Toast.makeText(vhContext, foundText, foundDuration);
+                        foundToast.show();
+                        break;
+                    }
+                    else
+                    {
+                        isFound--;
+                        db.itemNotFound(parentList, vTitleText.getText().toString());
+                        CharSequence foundText = "Item Not Found!";
+                        int foundDuration = Toast.LENGTH_SHORT;
+                        Toast foundToast = Toast.makeText(vhContext, foundText, foundDuration);
+                        foundToast.show();
+                        break;
+                    }
                 case R.id.deleteItem:
                     db.removeItem(parentList, vTitleText.getText().toString());
                     CharSequence delText = "Item Deleted!";
