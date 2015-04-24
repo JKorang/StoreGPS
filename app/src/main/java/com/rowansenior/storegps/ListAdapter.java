@@ -132,9 +132,17 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                     break;
                 case R.id.foundItem:
                     db.itemFound(parentList, vTitleText.getText().toString());
+                    CharSequence foundText = "Item Found!";
+                    int foundDuration = Toast.LENGTH_SHORT;
+                    Toast foundToast = Toast.makeText(vhContext, foundText, foundDuration);
+                    foundToast.show();
                     break;
                 case R.id.deleteItem:
                     db.removeItem(parentList, vTitleText.getText().toString());
+                    CharSequence delText = "Item Deleted!";
+                    int delDuration = Toast.LENGTH_SHORT;
+                    Toast delToast = Toast.makeText(vhContext, delText, delDuration);
+                    delToast.show();
                     break;
             }
             //vFM.beginTransaction().replace(R.id.container, new IndividualListFragment().newInstance()).commit();
