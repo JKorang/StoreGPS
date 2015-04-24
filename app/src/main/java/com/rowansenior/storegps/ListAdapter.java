@@ -116,6 +116,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                 case R.id.incQuantity:
                     db.increaseQuantity(parentList, vTitleText.getText().toString());
                     vQuantityInt++;
+                    vQuantity.setText("Quantity: " + vQuantityInt);
                     break;
                 case R.id.decQuantity:
                     if(vQuantityInt < 2)
@@ -128,6 +129,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                     else {
                         db.decreaseQuantity(parentList, vTitleText.getText().toString());
                         vQuantityInt--;
+                        vQuantity.setText("Quantity: " + vQuantityInt);
                     }
                     break;
                 case R.id.foundItem:
