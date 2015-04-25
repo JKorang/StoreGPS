@@ -18,7 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="115dp"
         android:id="@+id/listIcon"
-        android:src="@mipmap/ic_launcher"
         android:contentDescription="ImageOfList"
         android:clickable="true"
         android:longClickable="true" />

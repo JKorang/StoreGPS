@@ -32,6 +32,10 @@ public class ShoppingList {
         return vDate;
     }
 
+    public int getColor() { return vColor; }
+
+    public int getIcon() { return vIcon; }
+
     @Override
     public String toString(){
         return "tbd";

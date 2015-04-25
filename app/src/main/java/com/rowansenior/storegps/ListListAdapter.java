@@ -3,12 +3,17 @@ package com.rowansenior.storegps;
 /**
  * Created by Joseph on 3/27/2015.
  */
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
@@ -21,7 +26,10 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.lang.reflect.Field;
 import java.util.List;
+
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 
@@ -58,6 +66,68 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ViewHo
         ShoppingList item = items.get(i);
         viewHolder.vTitleText.setText(item.getName());
         viewHolder.vDate.setText(item.getDate());
+        setBackgroundColor(viewHolder, item.getColor());
+        setListIcon(viewHolder, item.getIcon());
+    }
+
+    public void setListIcon(ViewHolder viewHolder, int logoInt) {
+        ImageView imgVw = viewHolder.vImageView;
+        Drawable logoUsed;
+        switch (logoInt) {
+            case 0:
+                logoUsed = context.getResources().getDrawable(R.drawable.applications);
+                break;
+            case 1:
+                logoUsed = context.getResources().getDrawable(R.drawable.computer);
+                break;
+            case 2:
+                logoUsed = context.getResources().getDrawable(R.drawable.coffee_badge);
+                break;
+            case 3:
+                logoUsed = context.getResources().getDrawable(R.drawable.music);
+                break;
+            case 4:
+                logoUsed = context.getResources().getDrawable(R.drawable.pictures);
+                break;
+            case 5:
+                logoUsed = context.getResources().getDrawable(R.drawable.toolbox_badge);
+                break;
+            default:
+                logoUsed = context.getResources().getDrawable(R.drawable.favorites);
+                break;
+        }
+        imgVw.setBackgroundDrawable(logoUsed);
+    }
+
+    public void setBackgroundColor(ViewHolder viewHolder, int colorInt) {
+        String colorHex;
+        switch (colorInt) {
+            case 0:
+                colorHex = "#FF0000";
+                break;
+            case 1:
+                colorHex = "#FF9900";
+                break;
+            case 2:
+                colorHex = "#33CCCC";
+                break;
+            case 3:
+                colorHex = "#3333FF";
+                break;
+            case 4:
+                colorHex = "#FF00FF";
+                break;
+            case 5:
+                colorHex = "#33CC33";
+                break;
+            case 6:
+                colorHex = "#FFFFFF";
+                break;
+            default:
+                colorHex = "#000000";
+                break;
+        }
+        viewHolder.vhCard.setCardBackgroundColor(Color.parseColor(colorHex));
     }
 
     @Override
@@ -66,17 +136,17 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ViewHo
     }
 
 
-
     /**
      * Capable of holding each item in the LLA.
      */
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, ContextMenuInfo, View.OnLongClickListener {
-        public TextView vTitleText;
-        public TextView vDate;
-        public CardView vCardView;
-        public ImageView vImageView;
-        public FragmentManager vFM;
-        public Context vhContext;
+        private TextView vTitleText;
+        private TextView vDate;
+        private CardView vCardView;
+        private ImageView vImageView;
+        private FragmentManager vFM;
+        private Context vhContext;
+        private CardView vhCard;
 
         public ViewHolder(View v, FragmentManager FM, Context context) {
             super(v);
@@ -86,6 +156,8 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ViewHo
             vDate = (TextView) v.findViewById(R.id.date);
             vCardView = (CardView) v.findViewById(R.id.card_view);
             vImageView = (ImageView) v.findViewById(R.id.listIcon);
+            vhCard = (CardView) v.findViewById(R.id.card_view);
+
             vFM = FM;
             vTitleText.setOnClickListener(this);
             vDate.setOnClickListener(this);
@@ -97,24 +169,17 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ViewHo
         }
 
         /**
-         *on a click open the shopping list window and allow for list editing
-          */
+         * on a click open the shopping list window and allow for list editing
+         */
         public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.titleText:
-                case R.id.date:
-                case R.id.card_view:
-                case R.id.listIcon:
-            }
-
-
             String newFrag = vTitleText.getText().toString();
             vFM.beginTransaction().replace(R.id.container, new SingleListFragment().newInstance(newFrag)).addToBackStack(null).commit();
         }
 
         /**
-         *  On a long press prompt a window to confirm deletion, if the confirmed the item is deleted
+         * On a long press prompt a window to confirm deletion, if the confirmed the item is deleted
          * and the store list is refreshed
+         *
          * @param v
          * @return true
          */
@@ -122,18 +187,18 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ViewHo
         public boolean onLongClick(View v) {
 
 
-           final AlertDialog alert = new AlertDialog.Builder(vhContext).create();
+            final AlertDialog alert = new AlertDialog.Builder(vhContext).create();
             alert.setTitle("Alert Box");
             alert.setMessage("Are you sure you want to delete?");
-            alert.setButton(Dialog.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener(){
-                       public void onClick(DialogInterface dialog, int which){
-                           DatabaseHelper db = new DatabaseHelper(vhContext);
-                           db.removeList(vTitleText.getText().toString());
-                           vFM.beginTransaction().replace(R.id.container, new MyListFragment().newInstance()).addToBackStack(null).commit();
-                       }
-                    });
-            alert.setButton(Dialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener(){
-                public void onClick(DialogInterface dialog, int which){
+            alert.setButton(Dialog.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    DatabaseHelper db = new DatabaseHelper(vhContext);
+                    db.removeList(vTitleText.getText().toString());
+                    vFM.beginTransaction().replace(R.id.container, new MyListFragment().newInstance()).addToBackStack(null).commit();
+                }
+            });
+            alert.setButton(Dialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
 
                 }
             });
