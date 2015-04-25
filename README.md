@@ -7,6 +7,11 @@ Store GPS App for Senior Project
 Work Remaining:
 ---------------
 
+**ListAdapter.java**
+        Case for foundItem:
+        See TODO within the file, lines 144-147
+
+
  **1. List Page** 
  
         Need to handle sending an item to the found list.
