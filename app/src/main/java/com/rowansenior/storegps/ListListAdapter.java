@@ -103,28 +103,28 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ViewHo
         String colorHex;
         switch (colorInt) {
             case 0:
-                colorHex = "#FF0000";
+                colorHex = context.getString(R.string.color_0);
                 break;
             case 1:
-                colorHex = "#FF9900";
+                colorHex = context.getString(R.string.color_1);
                 break;
             case 2:
-                colorHex = "#33CCCC";
+                colorHex = context.getString(R.string.color_2);
                 break;
             case 3:
-                colorHex = "#3333FF";
+                colorHex = context.getString(R.string.color_3);
                 break;
             case 4:
-                colorHex = "#FF00FF";
+                colorHex = context.getString(R.string.color_4);
                 break;
             case 5:
-                colorHex = "#33CC33";
+                colorHex = context.getString(R.string.color_5);
                 break;
             case 6:
-                colorHex = "#FFFFFF";
+                colorHex = context.getString(R.string.color_6);
                 break;
             default:
-                colorHex = "#000000";
+                colorHex = context.getString(R.string.color_7);
                 break;
         }
         viewHolder.vhCard.setCardBackgroundColor(Color.parseColor(colorHex));

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="color_0">#FF0000</string>
+    <string name="color_1">#FF9900</string>
+    <string name="color_2">#33CCCC</string>
+    <string name="color_3">#3333FF</string>
+    <string name="color_4">#FF00FF</string>
+    <string name="color_5">#33CC33</string>
+    <string name="color_6">#FFFFFF</string>
+    <string name="color_7">#000000</string>
+
+
+</resources>

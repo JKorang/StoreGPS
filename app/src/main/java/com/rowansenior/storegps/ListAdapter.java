@@ -142,6 +142,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                 //The user has located the item.
                 //Set the value in the database, update the dataSet
                 //TODO: Move item to the lower RecyclerView once established
+                //TODO: When an item is marked found, the notifyDataSetChanged causes the counter to reset
+                //TODO: We need to update the items quantity within the entire list of items.
+                //TODO: By doing this, we can eliminate the separate counter and string.
                 case R.id.foundItem:
                     db.itemFound(parentList, vTitleText.getText().toString());
                     CharSequence foundText = "Item Found!";

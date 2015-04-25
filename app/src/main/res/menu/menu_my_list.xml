@@ -4,6 +4,6 @@
     tools:context="com.rowansenior.storegps.MainPage">
     <item android:id="@+id/addNewListButton"
         android:title="@string/addNewListButton"
-        android:icon="@drawable/common_signin_btn_icon_light"
+        android:icon="@drawable/ic_action_name"
         app:showAsAction="ifRoom" />
 </menu>
