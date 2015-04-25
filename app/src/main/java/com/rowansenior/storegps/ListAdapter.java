@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * ListAdapter handles transmission and access of data from fragments associated with it.
- * In this case, LLA handles data access of IndividualListFragments and places the content
+ * In this case, LLA handles data access of ShoppingListItem and places the content
  * within views that the monitor is attached to.
  */
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
@@ -54,7 +54,9 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         viewHolder.vQuantityInt = item.getQuantity();
         viewHolder.vQuantity.setText("Quantity: " + String.valueOf(viewHolder.vQuantityInt));
         viewHolder.thisItem = item;
-        if(viewHolder.vIsNavigated == true) {
+
+        //If the list is generated from a navigation, set its location here.
+        if (viewHolder.vIsNavigated == true) {
             viewHolder.vItemLocation.setText("Yeah this works?");
         }
     }
@@ -65,7 +67,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     }
 
     /**
-     * Capable of holding each item in the LLA.
+     * Object that holds the contents to generate a list view.
      */
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView vTitleText;
@@ -109,29 +111,37 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         }
 
 
-
         public void onClick(View v) {
             DatabaseHelper db = new DatabaseHelper(vhContext);
             switch (v.getId()) {
+                //Increase quantity of an item
+                //Writes to the database, increase local counter and reset textView
                 case R.id.incQuantity:
                     db.increaseQuantity(parentList, vTitleText.getText().toString());
                     vQuantityInt++;
                     vQuantity.setText("Quantity: " + vQuantityInt);
                     break;
+
+                //Decrease the quantity of an item
+                //Verification performed, then decreased in the database.
+                //Decrease local counter and reset textView.
                 case R.id.decQuantity:
-                    if(vQuantityInt < 2)
-                    {
+                    //Ensure that quantity can not drop below 1.
+                    if (vQuantityInt < 2) {
                         CharSequence text = "Quantity must be at least 1!";
                         int duration = Toast.LENGTH_SHORT;
                         Toast toast = Toast.makeText(vhContext, text, duration);
                         toast.show();
-                    }
-                    else {
+                    } else {
                         db.decreaseQuantity(parentList, vTitleText.getText().toString());
                         vQuantityInt--;
                         vQuantity.setText("Quantity: " + vQuantityInt);
                     }
                     break;
+
+                //The user has located the item.
+                //Set the value in the database, update the dataSet
+                //TODO: Move item to the lower RecyclerView once established
                 case R.id.foundItem:
                     db.itemFound(parentList, vTitleText.getText().toString());
                     CharSequence foundText = "Item Found!";
@@ -140,6 +150,10 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                     notifyDataSetChanged();
                     foundToast.show();
                     break;
+
+                //Delete item from the list
+                //Once item is removed from the database, remove from the List
+                //Update data set
                 case R.id.deleteItem:
                     db.removeItem(parentList, vTitleText.getText().toString());
                     items.remove(thisItem);
@@ -150,7 +164,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                     notifyDataSetChanged();
                     break;
             }
-            //vFM.beginTransaction().replace(R.id.container, new IndividualListFragment().newInstance()).commit();
         }
     }
 }
