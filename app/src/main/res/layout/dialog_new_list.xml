@@ -25,45 +25,52 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/blueButton"
+                android:id="@+id/color_0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Button" />
+                android:background="@color/color_0" />
 
             <RadioButton
-                android:id="@+id/redButton"
+                android:id="@+id/color_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/blueButton"
-                android:text="New Button" />
+                android:background="@color/color_1" />
 
             <RadioButton
-                android:id="@+id/greenButton"
+                android:id="@+id/color_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/redButton"
-                android:text="New Button" />
+                android:background="@color/color_2" />
 
             <RadioButton
-                android:id="@+id/yellowButton"
+                android:id="@+id/color_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/greenButton"
-                android:text="New Button" />
+                android:background="@color/color_3" />
 
             <RadioButton
-                android:id="@+id/whiteButton"
+                android:id="@+id/color_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/yellowButton"
-                android:text="New Button" />
+                android:background="@color/color_4" />
 
             <RadioButton
-                android:id="@+id/blackButton"
+                android:id="@+id/color_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/whiteButton"
-                android:text="New Button" />
+                android:background="@color/color_5" />
+
+            <RadioButton
+                android:id="@+id/color_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/color_6" />
+
+            <RadioButton
+                android:id="@+id/color_7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/color_7" />
         </RadioGroup>
 
     </HorizontalScrollView>
@@ -71,7 +78,7 @@
     <HorizontalScrollView
         android:id="@+id/iconView"
         android:layout_width="match_parent"
-        android:layout_height="42dp">
+        android:layout_height="55dp">
 
 
         <RadioGroup
@@ -81,40 +88,53 @@
             android:orientation="horizontal">
 
             <RadioButton
+                android:id="@+id/image0"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:background="@drawable/applications" />
+
+            <RadioButton
                 android:id="@+id/image1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Button" />
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:background="@drawable/computer" />
 
             <RadioButton
                 android:id="@+id/image2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Button" />
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:background="@drawable/coffee_badge" />
 
             <RadioButton
                 android:id="@+id/image3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Button" />
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:background="@drawable/music" />
 
             <RadioButton
                 android:id="@+id/image4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Button" />
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:background="@drawable/pictures" />
 
             <RadioButton
                 android:id="@+id/image5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Button" />
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:background="@drawable/toolbox_badge" />
 
             <RadioButton
                 android:id="@+id/image6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Button" />
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:background="@drawable/favorites" />
         </RadioGroup>
     </HorizontalScrollView>
 
@@ -137,4 +157,5 @@
             android:layout_toRightOf="@+id/btn_accept"
             android:text="@string/cancelButton" />
     </RelativeLayout>
+
 </LinearLayout>

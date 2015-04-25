@@ -192,6 +192,7 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                 exists = false;
                 Editable name = newItem.getText();
 
+                //TODO: Obviously not make this crash anymore.
                 //still crashes program error on line 219
                 for (int i = 0; i < itemList.size(); i++) {
                     System.out.println("NEW ITEM: " + name);

@@ -10,5 +10,13 @@
     <string name="color_6">#FFFFFF</string>
     <string name="color_7">#000000</string>
 
+    <color name="color_0">#FF0000</color>
+    <color name="color_1">#FF9900</color>
+    <color name="color_2">#33CCCC</color>
+    <color name="color_3">#3333FF</color>
+    <color name="color_4">#FF00FF</color>
+    <color name="color_5">#33CC33</color>
+    <color name="color_6">#FFFFFF</color>
+    <color name="color_7">#000000</color>
 
 </resources>
