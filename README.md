@@ -7,88 +7,72 @@ Store GPS App for Senior Project
 Work Remaining:
 ---------------
 
- **1. SQL Queries**
+ **1. List Page** 
  
-        Some SQL commands are not yet written.  Need everything that works with a store locally on the device.
+        Need to handle sending an item to the found list.
         
         
- **2. List Page** 
+
+ **2. Add New List**
  
-        Show all items related to the list, as well as functionality of the list.
-        Items have to be added, removed, marked found, and quantity controlled up and down.
+        Edit RadioButtons to reflect colors/images (ONCE FINALIZED CHOICES MADE)
         
         
- **3. My Stores**
+
+**3. Individual List**
+        Need to add an Action Bar with a button to navigate that list within a store.
+        
+        
+
+ **4. Store Page**
  
-        Port code from MyList page.
+        Need to set a store as Favorite (toggle button)
+        Finish searching a store
         
         
- **4. Add New List**
+
+ **5. Home Page**
  
-        Almost working. Creates a new list. (Runs SQL command)
+        Currently only needs Nearby Stores to fill in information.
         
         
- **5. Store Page**
  
-        Information view for a specific store.
-        Should be name, logo, color, address, phone number, etc.
-        Also has to have a set favorite store
-        
-        
- **6. Set Favorite Store**
+ **6. Store Cards**
  
-        Just an icon, maybe star, that fills when marked as a favorite.
-        When marked as a favorite, added to My Stores (added to Stores SQL)
+        Add/Remove store as a favorite by long pressing card
         
         
- **7. Home Page**
- 
-        Once individual pages completed 100%, pull in portions of their code to generate home page.
-        Home page is just a minimized mirror of the individual pages.
-        
-        
- **8. Card Menu Icon**
- 
-        Drop down/dot menu for the cards to give quick add/remove functionality.
-        
-        
- **9. Settings Page**
+ **7. Settings Page**
  
         Determine what settings need to exist within the app (perhaps just theme selection)
+        ****Still unsure of settings page, if anything besides wiping all databases?
         
         
- **10. Help Page**
+ **8. Help Page**
  
          Once design is nearing completion for this version, a help page needs to be written.
          Very simple and just plain text with images.
          
          
- **11. Iconography**
+ **9. Iconography**
  
          Obtain a set of good icons for use within the app.
          Icons are needed for both navigation menu and the individual lists
          
          
- **12. App Logo/Name**
+ **10. App Logo/Name**
  
          Need a good sounding name for the application and an appicon.
          
          
- **13. Themeing**
+ **11. Themeing**
  
          Currently using MaterialDark/MaterialLight.  
          Some variance is needed to give the application uniqueness.
          
          
- **14. Webpage**
+ **12. Webpage**
  
-         Webpage development is needed yet.
-         A store signs up and is able to edit its store info/profile (number, address etc.)
-         Also need to store images (logo) to display on the application.
-         Website database needs scripts/PHP for the application to obtain information about
-           nearby stores and also for item search functionality.
-           
-           
-
-    
-    
+         Still need access to the remote database to build stores/search items
+         
+         
