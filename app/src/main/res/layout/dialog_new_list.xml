@@ -19,6 +19,7 @@
 
 
         <RadioGroup
+            android:id="@+id/colorGroup"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="horizontal">
@@ -74,6 +75,7 @@
 
 
         <RadioGroup
+            android:id="@+id/imageGroup"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="horizontal">

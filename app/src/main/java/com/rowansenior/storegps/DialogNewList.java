@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 /**
@@ -20,6 +22,10 @@ public class DialogNewList extends DialogFragment implements View.OnClickListene
     Button cancel;
     Button accept;
     EditText listName;
+    RadioGroup colorGroup;
+    RadioGroup imageGroup;
+    Integer colorChosen;
+    Integer imageChosen;
 
     public DialogNewList() {
         mContext = getActivity();
@@ -30,13 +36,36 @@ public class DialogNewList extends DialogFragment implements View.OnClickListene
         listName = (EditText) v.findViewById(R.id.txt_name);
         cancel = (Button) v.findViewById(R.id.btn_cancel);
         accept = (Button) v.findViewById(R.id.btn_accept);
+        colorGroup = (RadioGroup) v.findViewById(R.id.colorGroup);
+        imageGroup = (RadioGroup) v.findViewById(R.id.imageGroup);
 
         getDialog().setTitle("Create A New List");
         cancel.setOnClickListener(this);
         accept.setOnClickListener(this);
+        colorGroup.setOnCheckedChangeListener(radioGroupOnCheckedChangeListener);
+        imageGroup.setOnCheckedChangeListener(radioGroupOnCheckedChangeListener);
 
         return v;
     }
+
+    RadioGroup.OnCheckedChangeListener radioGroupOnCheckedChangeListener = new RadioGroup.OnCheckedChangeListener(){
+
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            //Get the color from the
+            switch (group.getId()) {
+                case R.id.colorGroup:
+                    RadioButton clr = (RadioButton) group.findViewById(checkedId);
+                    colorChosen = group.indexOfChild(clr);
+                    break;
+
+                case R.id.imageGroup:
+                    RadioButton img = (RadioButton) group.findViewById(checkedId);
+                    imageChosen = group.indexOfChild(img);
+                    break;
+            }
+        }
+    };
 
     public void onClick(View v) {
         switch (v.getId()) {
@@ -55,9 +84,27 @@ public class DialogNewList extends DialogFragment implements View.OnClickListene
                     break;
                 }
 
+                //Ensure that a color has been chosen.
+                if(colorChosen == null) {
+                    CharSequence text = "Please choose a color.";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(getActivity(), text, duration);
+                    toast.show();
+                    break;
+                }
+
+                //Ensure that an image has been chosen.
+                if(imageChosen == null) {
+                    CharSequence text = "Please choose an icon.";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(getActivity(), text, duration);
+                    toast.show();
+                    break;
+                }
+
                 //Add list to the database.
                 try {
-                    db.createNewList(name.toString(), 2, 1);
+                    db.createNewList(name.toString(), colorChosen, imageChosen);
                 }
                 //Database addition failed. List exists.
                 //Throw a loaf of bread.
