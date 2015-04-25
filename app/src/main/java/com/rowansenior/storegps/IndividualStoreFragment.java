@@ -16,11 +16,11 @@ import android.widget.TextView;
  * IndividualStoreFragment acts as a fragment for a single store.
  * Eventually, data will be pulled in from a SQL query to a remote database to pull in
  * store data for a store that exists with the apps scope.
- *
+ * <p/>
  * At the moment, the ListStoreAdapter allows pulling the information from an existing
  * fragment of ISF.  This adapter may not be required once SQL queries are implemented,
  * as all data required to display in different modules can be pulled from the SQL database.
- *
+ * <p/>
  * ISF currently acts almost as a custom object to display the name of a store.
  * It will need to be reworked slightly to display all the information for the store it houses
  * when selected from the HomeFragment, MyStoreFragment, or NearbyStoresFragment.
@@ -41,12 +41,18 @@ public class IndividualStoreFragment extends Fragment implements View.OnClickLis
     private Button searchButton;
 
 
+    /**
+     * Required empty public constructor
+     */
+    public IndividualStoreFragment(String store) {
+        this.storeName = store;
+    }
 
     /**
      * Creates a new ISF.
-     *
+     * <p/>
      * Currently requires a single string that is being used to store the name of the store.
-     *
+     * <p/>
      * This functionality will be expanded to pull in more info from a SQL database.
      * That information will need the:
      * name
@@ -54,7 +60,7 @@ public class IndividualStoreFragment extends Fragment implements View.OnClickLis
      * phone number
      * store hours
      * ***More to be decided later.
-     *
+     * <p/>
      * Currently, the string param1 is being passed into the Bundle for use by other fragments.
      *
      * @return
@@ -62,13 +68,6 @@ public class IndividualStoreFragment extends Fragment implements View.OnClickLis
     public static IndividualStoreFragment newInstance(String store) {
         IndividualStoreFragment fragment = new IndividualStoreFragment(store);
         return fragment;
-    }
-
-    /**
-     * Required empty public constructor
-     */
-    public IndividualStoreFragment(String store) {
-        this.storeName = store;
     }
 
     /**
@@ -100,14 +99,14 @@ public class IndividualStoreFragment extends Fragment implements View.OnClickLis
                              Bundle savedInstanceState) {
         storeView = inflater.inflate(R.layout.fragment_individual_store, container, false);
 
-        nameOfStore = (TextView)storeView.findViewById(R.id.storeName);
-        storeDistance = (TextView)storeView.findViewById(R.id.storeDistanceTo);
-        storeAddress = (TextView)storeView.findViewById(R.id.storeAddress);
-        storePhone = (TextView)storeView.findViewById(R.id.storePhoneNumber);
-        storeURL = (TextView)storeView.findViewById(R.id.storeURL);
-        storeHours = (TextView)storeView.findViewById(R.id.storeHours);
-        navigationButton = (Button)storeView.findViewById(R.id.navButton);
-        searchButton = (Button)storeView.findViewById(R.id.performSearch);
+        nameOfStore = (TextView) storeView.findViewById(R.id.storeName);
+        storeDistance = (TextView) storeView.findViewById(R.id.storeDistanceTo);
+        storeAddress = (TextView) storeView.findViewById(R.id.storeAddress);
+        storePhone = (TextView) storeView.findViewById(R.id.storePhoneNumber);
+        storeURL = (TextView) storeView.findViewById(R.id.storeURL);
+        storeHours = (TextView) storeView.findViewById(R.id.storeHours);
+        navigationButton = (Button) storeView.findViewById(R.id.navButton);
+        searchButton = (Button) storeView.findViewById(R.id.performSearch);
         nameOfStore.setText(storeInfo.getName());
         storeAddress.setText(storeInfo.getLocation());
         storePhone.setText(storeInfo.getPhoneNumber());

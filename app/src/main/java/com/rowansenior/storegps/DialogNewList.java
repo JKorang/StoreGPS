@@ -26,6 +26,24 @@ public class DialogNewList extends DialogFragment implements View.OnClickListene
     RadioGroup imageGroup;
     Integer colorChosen;
     Integer imageChosen;
+    RadioGroup.OnCheckedChangeListener radioGroupOnCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {
+
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            //Get the color from the
+            switch (group.getId()) {
+                case R.id.colorGroup:
+                    RadioButton clr = (RadioButton) group.findViewById(checkedId);
+                    colorChosen = group.indexOfChild(clr);
+                    break;
+
+                case R.id.imageGroup:
+                    RadioButton img = (RadioButton) group.findViewById(checkedId);
+                    imageChosen = group.indexOfChild(img);
+                    break;
+            }
+        }
+    };
 
     public DialogNewList() {
         mContext = getActivity();
@@ -48,25 +66,6 @@ public class DialogNewList extends DialogFragment implements View.OnClickListene
         return v;
     }
 
-    RadioGroup.OnCheckedChangeListener radioGroupOnCheckedChangeListener = new RadioGroup.OnCheckedChangeListener(){
-
-        @Override
-        public void onCheckedChanged(RadioGroup group, int checkedId) {
-            //Get the color from the
-            switch (group.getId()) {
-                case R.id.colorGroup:
-                    RadioButton clr = (RadioButton) group.findViewById(checkedId);
-                    colorChosen = group.indexOfChild(clr);
-                    break;
-
-                case R.id.imageGroup:
-                    RadioButton img = (RadioButton) group.findViewById(checkedId);
-                    imageChosen = group.indexOfChild(img);
-                    break;
-            }
-        }
-    };
-
     public void onClick(View v) {
         switch (v.getId()) {
             //Create a new list
@@ -85,7 +84,7 @@ public class DialogNewList extends DialogFragment implements View.OnClickListene
                 }
 
                 //Ensure that a color has been chosen.
-                if(colorChosen == null) {
+                if (colorChosen == null) {
                     CharSequence text = "Please choose a color.";
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(getActivity(), text, duration);
@@ -94,7 +93,7 @@ public class DialogNewList extends DialogFragment implements View.OnClickListene
                 }
 
                 //Ensure that an image has been chosen.
-                if(imageChosen == null) {
+                if (imageChosen == null) {
                     CharSequence text = "Please choose an icon.";
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(getActivity(), text, duration);

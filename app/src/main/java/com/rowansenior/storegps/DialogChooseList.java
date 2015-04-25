@@ -54,7 +54,7 @@ public class DialogChooseList extends DialogFragment implements View.OnClickList
             }
         });
 
-        Button cancel = (Button)v.findViewById(R.id.cancel_choose_list);
+        Button cancel = (Button) v.findViewById(R.id.cancel_choose_list);
         cancel.setOnClickListener(this);
 
         return v;
@@ -73,6 +73,6 @@ public class DialogChooseList extends DialogFragment implements View.OnClickList
             case R.id.cancel_choose_list:
                 getDialog().dismiss();
                 break;
-            }
+        }
     }
 }

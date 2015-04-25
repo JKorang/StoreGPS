@@ -27,7 +27,7 @@ public class HelpActivity extends ActionBarActivity {
     /**
      * Inflates the action bar with menu items.
      * Not sure just yet if we are using the actionbar for anything beyond title.
-     *
+     * <p/>
      * ActionBar is the top bar with the title, icons, drop down menu, etc.
      *
      * @param menu

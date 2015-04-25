@@ -25,11 +25,11 @@ import java.util.List;
  */
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
-    private Context adapterContext;
-    public List<ShoppingListItem> items;
-    private String vhListName;
     public static FragmentManager fragmentManager;
     public static boolean isNavigated;
+    public List<ShoppingListItem> items;
+    private Context adapterContext;
+    private String vhListName;
 
     public ListAdapter(Context context, List items, String listName, boolean isNav) {
         this.items = items;

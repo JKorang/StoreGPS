@@ -3,6 +3,7 @@ package com.rowansenior.storegps;
 /**
  * Created by Joseph on 3/27/2015.
  */
+
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import java.util.List;
 
 /**
@@ -22,9 +24,9 @@ import java.util.List;
  */
 public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.ViewHolder> {
 
+    public static FragmentManager fragmentManager;
     private Context context;
     private List<Store> stores;
-    public static FragmentManager fragmentManager;
 
 
     public ListStoreAdapter(Context context, List stores) {
@@ -74,7 +76,6 @@ public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.View
             vCardView.setOnClickListener(this);
             vImageView.setOnClickListener(this);
         }
-
 
 
         public void onClick(View v) {

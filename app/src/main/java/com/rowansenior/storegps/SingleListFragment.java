@@ -37,18 +37,24 @@ import java.util.ArrayList;
  */
 public class SingleListFragment extends Fragment implements AbsListView.OnItemClickListener, View.OnClickListener {
 
+    private static String listName;
+    private static boolean isNavigated;
     private OnFragmentInteractionListener mListener;
     private ArrayList<ShoppingListItem> itemList;
     private ListAdapter mAdapter;
     private RecyclerView rview;
     private LinearLayoutManager mLayoutManager;
     private View view;
-    private static String listName;
     private Button newList;
     private DatabaseHelper db;
     private EditText newItem;
-    private static boolean isNavigated;
     private boolean exists = false;
+
+    /**
+     * Required empty public constructor
+     */
+    public SingleListFragment() {
+    }
 
     /**
      * Creates a new MLF and establishes its Bundle file.
@@ -101,7 +107,6 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
         mAdapter = new ListAdapter(getActivity(), itemList, listName, isNavigated);
     }
 
-
     /**
      * Inflates the content view of the fragment.
      * Triggers immediately after onCreate
@@ -144,12 +149,6 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
         rview = (RecyclerView) getView().findViewById(R.id.activeList);
         rview.setLayoutManager(mLayoutManager);
         rview.setAdapter(mAdapter);
-    }
-
-    /**
-     * Required empty public constructor
-     */
-    public SingleListFragment() {
     }
 
     /**

@@ -15,13 +15,13 @@ import android.view.ViewGroup;
  * HomeFragment is the "home page" of the application, and the default fragment.
  * This fragment is loaded when clicking "Home" from the Navigation Drawer,
  * or when booting the app.
- *
+ * <p/>
  * HomeFragment will implement a GridView, displaying MyLists, MyStores, and NearbyStores.
  * Each section of HomeFragment will feature 3 items from each of the 3 categories.
- *
+ * <p/>
  * In the event of the system having less than 3 items for a particular category,
  * blank space or an Add button will be shown in its place.
- *
+ * <p/>
  * Each section will also have its own "More" Button to view more items for a particular section.
  */
 public class HomeFragment extends Fragment {
@@ -36,6 +36,12 @@ public class HomeFragment extends Fragment {
     private RecyclerView storegView;
 
     /**
+     * Required empty public constructorR
+     */
+    public HomeFragment() {
+    }
+
+    /**
      * Creates a new unique instance of the fragment.
      * Bundle is used to store all unique data specific to this new instance of the fragment.
      * Bundles allow the data to be passed to other activities/fragments.
@@ -47,12 +53,6 @@ public class HomeFragment extends Fragment {
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    /**
-     * Required empty public constructorR
-     */
-    public HomeFragment() {
     }
 
     /**
@@ -81,7 +81,6 @@ public class HomeFragment extends Fragment {
      * Triggers immediately after onCreate
      * Uses 'fragment_home' from layout/fragment_home.xml
      *
-     *
      * @param inflater
      * @param container
      * @param savedInstanceState
@@ -94,12 +93,12 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         //GridLayoutManager MUST be ran BEFORE _ANY_ references are made to it.
         //RecyclerView does NOT check to see if the LayoutManager has been ran yet.
         //Because of this, calls to LM before creation will null error out.
-        mLayoutManager = new GridLayoutManager(getActivity(),3);
+        mLayoutManager = new GridLayoutManager(getActivity(), 3);
         mStoreManager = new GridLayoutManager(getActivity(), 3);
         gview = (RecyclerView) getView().findViewById(R.id.homeMyListRecycler);
         storegView = (RecyclerView) getView().findViewById(R.id.homeMyStoresRecycler);

@@ -42,9 +42,9 @@ import static android.app.AlertDialog.*;
  */
 public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ViewHolder> {
 
+    public static FragmentManager fragmentManager;
     private Context context;
     private List<ShoppingList> items;
-    public static FragmentManager fragmentManager;
 
 
     public ListListAdapter(Context context, List items) {

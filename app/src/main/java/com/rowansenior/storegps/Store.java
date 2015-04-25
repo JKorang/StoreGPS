@@ -15,7 +15,8 @@ public class Store {
 
 
     public Store(String name, String location) {
-      this.vName = name;       this.vLocation = location;
+        this.vName = name;
+        this.vLocation = location;
     }
 
     public Store(String name, String location, String phone, String url, int hourOpen, int hourClosed) {

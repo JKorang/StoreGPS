@@ -15,15 +15,15 @@ import android.view.MenuItem;
  * THE core and MainActivity of the entire program.
  * Currently assuming that a check will be performed onCreate to verify a login, assuming
  * that we keep the login system at all.  May be pushed back to save time for minor functionality.
- *
+ * <p/>
  * Houses the NavigationDrawer and the main view of the entire program.
  * This activity runs as the base for every other fragment within the application,
  * with the exception of Settings and Help, which will be ran as separate Activities.
  * Those Activities will still be launched through this Activity.
- *
+ * <p/>
  * A switch statement is used within the activity in order to switch the current focus on the
  * application, by creating new fragments and pushing them to the View.
- *
+ * <p/>
  * By default, this will launch the HomeFragment on load.
  */
 
@@ -47,11 +47,11 @@ public class MainPage extends ActionBarActivity
     /**
      * onCreate is the very first actions taken upon launch.
      * Unlike fragments, activities do not attach to anything and stand on their own.
-     *
+     * <p/>
      * Saves previous window state, if any.
      * Set the contentView.
      * Uses 'activity_main_page' from layout/activity_main_page.xml
-     *
+     * <p/>
      * Initializes and attaches the NavigationDrawerFragment to the Activity.
      *
      * @param savedInstanceState
@@ -71,20 +71,21 @@ public class MainPage extends ActionBarActivity
 
     /**
      * Actions to be taken based on the items selected in the NavigationDrawerFragment.
-     *
+     * <p/>
      * This function creates the FragmentManager which handles the actual switching of the
      * fragment within the activity_main_page(container).
      * The manager begins a transaction to replace the existing container (referenced by it's
      * ID) with a new instance of the specific Fragment.
      * Also sets the title of the page based on the fragment chosen.
-     *
+     * <p/>
      * No name is set for Settings or Help, as they are separate Activities
+     *
      * @param position
      */
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         Fragment fragment = null;
-        switch (position+1) {
+        switch (position + 1) {
             case 1:
                 //Home
                 mTitle = getString(R.string.title_section1);
@@ -121,6 +122,7 @@ public class MainPage extends ActionBarActivity
 
     /**
      * Required to allow interaction with fragments loaded in the activity
+     *
      * @param uri
      */
     @Override
@@ -138,10 +140,10 @@ public class MainPage extends ActionBarActivity
         actionBar.setTitle(mTitle);
     }
 
-    public void changeActionBarTitle(String title){
+    public void changeActionBarTitle(String title) {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(title);
     }
 
-    }
+}
 

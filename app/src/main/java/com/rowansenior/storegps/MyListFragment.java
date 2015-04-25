@@ -50,6 +50,12 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
     private Button newList;
 
     /**
+     * Required empty public constructor
+     */
+    public MyListFragment() {
+    }
+
+    /**
      * Creates a new MLF and establishes its Bundle file.
      */
     public static MyListFragment newInstance() {
@@ -170,12 +176,6 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
     }
 
     /**
-     * Required empty public constructor
-     */
-    public MyListFragment() {
-    }
-
-    /**
      * Actions that take place when a button is pressed.
      *
      * @param uri
@@ -215,6 +215,11 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
         }
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_my_list, menu);
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -228,11 +233,6 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_my_list, menu);
     }
 
 
