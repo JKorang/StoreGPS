@@ -77,6 +77,7 @@ public class MyStoreFragment extends Fragment implements AbsListView.OnItemClick
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(false);
         DatabaseHelper db = new DatabaseHelper(getActivity());
 
 

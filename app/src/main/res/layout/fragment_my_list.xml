@@ -4,13 +4,6 @@
     android:id="@+id/vnm">
 
     <!-- TODO: Update blank fragment layout -->
-    <Button
-        android:id="@+id/newList"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:text="Create New List" />
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="wrap_content"

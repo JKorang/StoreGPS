@@ -8,6 +8,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -37,7 +40,7 @@ import java.util.Collections;
  * The fragment? or block of XML code that dictates the card-style view of each list
  * will also need to contain its own small menu button.
  */
-public class MyListFragment extends Fragment implements AbsListView.OnItemClickListener, View.OnClickListener {
+public class MyListFragment extends Fragment implements AbsListView.OnItemClickListener {
 
     private OnFragmentInteractionListener mListener;
     private ListListAdapter mAdapter;
@@ -77,6 +80,7 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         DatabaseHelper db = new DatabaseHelper(getActivity());
 
 /**
@@ -139,9 +143,6 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_my_list, container, false);
-        newList = (Button) view.findViewById(R.id.newList);
-        newList.setOnClickListener(this);
-
         return view;
     }
 
@@ -200,18 +201,19 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
     }
 
+
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.newList:
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.addNewListButton:
                 FragmentManager fragmentManager = getFragmentManager();
                 DialogNewList diagNL = new DialogNewList();
                 diagNL.show(fragmentManager, null);
-                break;
-            case R.id.listIcon:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
-
 
     /**
      * This interface must be implemented by activities that contain this
@@ -226,6 +228,11 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_my_list, menu);
     }
 
 

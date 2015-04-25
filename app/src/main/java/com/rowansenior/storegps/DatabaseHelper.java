@@ -133,7 +133,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void addNewItem(String listName, String itemName) {
         SQLiteDatabase dataBase = this.getReadableDatabase();
 
-        String selectQuery = "INSERT INTO " + listName + TABLE_ITEM + " VALUES(" + '"' + itemName + '"' + ", 1, 0)";
+        String selectQuery = "INSERT INTO " + '"' + listName + TABLE_ITEM + '"' +  " VALUES(" + '"' + itemName + '"' + ", 1, 0)";
         dataBase.execSQL(selectQuery);
     }
 

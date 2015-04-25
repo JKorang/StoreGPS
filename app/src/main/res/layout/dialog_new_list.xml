@@ -70,64 +70,69 @@
     <HorizontalScrollView
         android:id="@+id/iconView"
         android:layout_width="match_parent"
-        android:layout_height="42dp" />
+        android:layout_height="42dp">
 
 
-    <RadioGroup
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="horizontal">
+        <RadioGroup
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/image1"
-            android:layout_width="wrap_content"
+            <RadioButton
+                android:id="@+id/image1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Button" />
+
+            <RadioButton
+                android:id="@+id/image2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Button" />
+
+            <RadioButton
+                android:id="@+id/image3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Button" />
+
+            <RadioButton
+                android:id="@+id/image4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Button" />
+
+            <RadioButton
+                android:id="@+id/image5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Button" />
+
+            <RadioButton
+                android:id="@+id/image6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Button" />
+        </RadioGroup>
+    </HorizontalScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btn_accept"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:text="New Button" />
+            android:text="@string/submitButton" />
 
-        <RadioButton
-            android:id="@+id/image2"
-            android:layout_width="wrap_content"
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:text="New Button" />
-
-        <RadioButton
-            android:id="@+id/image3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Button" />
-
-        <RadioButton
-            android:id="@+id/image4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Button" />
-
-        <RadioButton
-            android:id="@+id/image5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Button" />
-
-        <RadioButton
-            android:id="@+id/image6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Button" />
-    </RadioGroup>
-
-    <Button
-        android:id="@+id/btn_accept"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:text="@string/submitButton" />
-
-    <Button
-        android:id="@+id/btn_cancel"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/btn_accept"
-        android:text="@string/cancelButton" />
-
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/btn_accept"
+            android:text="@string/cancelButton" />
+    </RelativeLayout>
 </LinearLayout>

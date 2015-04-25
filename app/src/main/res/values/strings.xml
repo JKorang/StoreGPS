@@ -32,4 +32,5 @@
     <string name="cancel_choose_list">cancel_choose_list</string>
     <string name="Cancel">Cancel</string>
     <string name="searchButton">Find An Item</string>
+    <string name="addNewListButton">Add New List</string>
 </resources>
