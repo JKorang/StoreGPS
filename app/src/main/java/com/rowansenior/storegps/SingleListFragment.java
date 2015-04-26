@@ -187,18 +187,16 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
      */
     @Override
     public void onClick(View v) {
+        exists = false;
         switch (v.getId()) {
             case R.id.addItemButton:
-                exists = false;
+
                 Editable name = newItem.getText();
 
-                //TODO: Obviously not make this crash anymore.
-                //still crashes program error on line 219
                 for (int i = 0; i < itemList.size(); i++) {
-                    System.out.println("NEW ITEM: " + name);
-                    System.out.println("COMPARING TO: " + itemList.get(i).getName());
-                    if (name.equals((itemList.get(i).getName()))) {
-                        System.out.println("Match");
+
+                    if (name.toString().equals((itemList.get(i).getName().toString()))) {
+
                         CharSequence text = "Item already exists";
                         int duration = Toast.LENGTH_SHORT;
                         Toast toast = Toast.makeText(getActivity(), text, duration);
@@ -207,18 +205,19 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                         break;
                     }
                 }
+                if(exists == false) {
+                    if (name.toString().trim().length() == 0) {
+                        CharSequence text = "Item must have a name!";
+                        int duration = Toast.LENGTH_SHORT;
+                        Toast toast = Toast.makeText(getActivity(), text, duration);
+                        toast.show();
 
-                if (name.toString().trim().length() == 0) {
-                    CharSequence text = "Item must have a name!";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(getActivity(), text, duration);
-                    toast.show();
-
-                } else if (exists == false) {
-                    db.addNewItem(listName, name.toString());
-                    itemList = db.getAllItems(listName);
-                    mAdapter = new ListAdapter(getActivity(), itemList, listName, isNavigated);
-                    rview.setAdapter(mAdapter);
+                    } else{
+                        db.addNewItem(listName, name.toString());
+                        itemList = db.getAllItems(listName);
+                        mAdapter = new ListAdapter(getActivity(), itemList, listName, isNavigated);
+                        rview.setAdapter(mAdapter);
+                    }
                 }
 
                 //NEED TO HANDLE REFRESH OF ELEMENTS
