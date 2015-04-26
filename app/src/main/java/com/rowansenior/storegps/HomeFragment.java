@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
         DatabaseHelper db = new DatabaseHelper(getActivity());
-        mAdapter = new ListListAdapter(getActivity(), db.getLast3Lists());
+        mAdapter = new ListListAdapter(getActivity(), db.getLast3Lists(), "homePage");
         mStoreAdapter = new ListStoreAdapter(getActivity(), db.get3ClosestStores());
     }
 
@@ -74,6 +74,9 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         ((MainPage) getActivity()).changeActionBarTitle("Home");
+        DatabaseHelper db = new DatabaseHelper(getActivity());
+        mAdapter = new ListListAdapter(getActivity(), db.getLast3Lists(), "homePage");
+        mStoreAdapter = new ListStoreAdapter(getActivity(), db.get3ClosestStores());
     }
 
     /**
@@ -158,7 +161,6 @@ public class HomeFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
 

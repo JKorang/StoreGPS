@@ -130,7 +130,7 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
 
  */
 
-        mAdapter = new ListListAdapter(getActivity(), db.getAllLists());
+        mAdapter = new ListListAdapter(getActivity(), db.getAllLists(), "myLists");
 
 
     }
@@ -231,7 +231,6 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
 

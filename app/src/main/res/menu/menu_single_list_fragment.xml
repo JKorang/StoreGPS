@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.rowansenior.storegps.MainPage">
+    <item
+        android:id="@+id/deleteThisList"
+        android:title="@string/deleteThisList"
+        android:icon="@drawable/common_signin_btn_icon_light"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/navigateAStore"
+        android:icon="@drawable/abc_ic_search_api_mtrl_alpha"
+        android:title="@string/navigateAStore"
+        app:showAsAction="ifRoom" />
+</menu>

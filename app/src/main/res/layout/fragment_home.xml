@@ -1,63 +1,69 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="com.rowansenior.storegps.HomeFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.rowansenior.storegps.HomeFragment">
 
     <TableLayout
+        android:id="@+id/homePageTable"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_gravity="left|top"
-        android:orientation="vertical"
-        android:id="@+id/homePageTable">
+        android:orientation="vertical">
 
 
         <TextView
+            android:id="@+id/myListTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/myListTextView"
-            android:id="@+id/myListTextView" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <android.support.v7.widget.RecyclerView
-            android:layout_width="wrap_content"
-            android:layout_height="177dp"
-            android:numColumns="3"
             android:id="@+id/homeMyListRecycler"
-            android:layout_gravity="left|top"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/myStoresTextView"
-            android:id="@+id/myStoresTextView" />
-
-        <android.support.v7.widget.RecyclerView
             android:layout_width="wrap_content"
             android:layout_height="177dp"
-            android:numColumns="3"
-            android:id="@+id/homeMyStoresRecycler"
             android:layout_gravity="left|top"
+            android:numColumns="3"
+            android:overScrollMode="never"
             android:paddingLeft="5dp"
-            android:paddingRight="5dp"/>
+            android:paddingRight="5dp" />
 
         <TextView
+            android:id="@+id/myStoresTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/nearbyStoresTextView"
-            android:id="@+id/homeNearbyStoresRecycler" />
-<!--
+            android:text="@string/myStoresTextView"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/homeMyStoresRecycler"
+            android:layout_width="wrap_content"
+            android:layout_height="177dp"
+            android:layout_gravity="left|top"
+            android:numColumns="3"
+            android:overScrollMode="never"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" />
+
+        <TextView
+            android:id="@+id/homeNearbyStoresRecycler"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:numColumns="3"
-            android:id="@+id/myListRecycler"
-            android:layout_gravity="left|top"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"/>
-            -->
+            android:text="@string/nearbyStoresTextView"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        <!--
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numColumns="3"
+                    android:id="@+id/myListRecycler"
+                    android:layout_gravity="left|top"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:overScrollMode="never"
+        />
+                    -->
     </TableLayout>
 
 </FrameLayout>

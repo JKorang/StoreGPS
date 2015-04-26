@@ -280,22 +280,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void itemFound(String listName, String itemName) {
         SQLiteDatabase database = this.getReadableDatabase();
-        //String selectQuery = " SELECT " + KEY_IF_FOUND + " FROM " + listName + TABLE_ITEM + " WHERE " + KEY_ITEM_NAME + " = " + itemName;
         String selectQuery = " UPDATE " + '"' + listName + TABLE_ITEM + '"' + " SET " + KEY_IF_FOUND + " = 1 WHERE " + KEY_ITEM_NAME + " = " + '"' + itemName + '"';
         database.execSQL(selectQuery);
     }
 
     public void itemNotFound(String listName, String itemName) {
         SQLiteDatabase database = this.getReadableDatabase();
-        //String selectQuery = " SELECT " + KEY_IF_FOUND + " FROM " + listName + TABLE_ITEM + " WHERE " + KEY_ITEM_NAME + " = " + itemName;
         String selectQuery = " UPDATE " + '"' + listName + TABLE_ITEM + '"' + " SET " + KEY_IF_FOUND + " = 0 WHERE " + KEY_ITEM_NAME + " = " + '"' + itemName + '"';
         database.execSQL(selectQuery);
     }
 
     public void addNewFavoriteStore(String storeName, String phoneNumber, String uRL, int open, int closed, String location) {
         SQLiteDatabase dataBase = this.getReadableDatabase();
-
         String selectQuery = "INSERT INTO " + TABLE_STORE + " VALUES(" + '"' + storeName + '"' + ", 1, 1, " + '"' + location + '"' + ", " + '"' + phoneNumber + '"' + ", " + '"' + uRL + '"' + ", " + open + ", " + closed + ")";
+        dataBase.execSQL(selectQuery);
+    }
+
+    public void removeFavoriteStore(String storeName) {
+        SQLiteDatabase dataBase = this.getReadableDatabase();
+        String selectQuery = "DELETE FROM " + TABLE_STORE + " WHERE " + KEY_STORE_NAME + " = " + '"' + storeName + '"';
         dataBase.execSQL(selectQuery);
     }
 

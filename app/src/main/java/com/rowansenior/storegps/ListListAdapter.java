@@ -44,12 +44,13 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ViewHo
 
     public static FragmentManager fragmentManager;
     private Context context;
+    private String originString;
     private List<ShoppingList> items;
 
-
-    public ListListAdapter(Context context, List items) {
+    public ListListAdapter(Context context, List items, String originString) {
         this.items = items;
         this.context = context;
+        this.originString = originString;
         fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
 
     }
@@ -139,7 +140,7 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ViewHo
     /**
      * Capable of holding each item in the LLA.
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, ContextMenuInfo, View.OnLongClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, ContextMenuInfo, View.OnLongClickListener {
         private TextView vTitleText;
         private TextView vDate;
         private CardView vCardView;
@@ -188,13 +189,25 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ViewHo
 
 
             final AlertDialog alert = new AlertDialog.Builder(vhContext).create();
-            alert.setTitle("Alert Box");
+            alert.setTitle("Delete?");
             alert.setMessage("Are you sure you want to delete?");
             alert.setButton(Dialog.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     DatabaseHelper db = new DatabaseHelper(vhContext);
                     db.removeList(vTitleText.getText().toString());
-                    vFM.beginTransaction().replace(R.id.container, new MyListFragment().newInstance()).addToBackStack(null).commit();
+
+                    //Evaluate the origin of the list.
+                    //If the origin for the Adapter is the home page, call 3 items.
+                    //If the origin of the Adapter is the MyLists page, generate all items.
+                    switch (originString) {
+                        case "homePage":
+                            items = db.getLast3Lists();
+                            break;
+                        case "myLists":
+                            items = db.getAllLists();
+                            break;
+                    }
+                    notifyDataSetChanged();
                 }
             });
             alert.setButton(Dialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {

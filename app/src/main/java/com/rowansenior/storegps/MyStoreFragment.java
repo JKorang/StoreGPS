@@ -188,7 +188,6 @@ public class MyStoreFragment extends Fragment implements AbsListView.OnItemClick
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
 

@@ -3,10 +3,14 @@ package com.rowansenior.storegps;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -39,6 +43,7 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
 
     private static String listName;
     private static boolean isNavigated;
+    private static Store storeNav;
     private OnFragmentInteractionListener mListener;
     private ArrayList<ShoppingListItem> itemList;
     private ListAdapter mAdapter;
@@ -71,12 +76,12 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
     /**
      * Creates a new MLF and establishes its Bundle file.
      */
-    public static SingleListFragment newInstance(String ln, boolean isNav) {
+    public static SingleListFragment newInstance(String ln, boolean isNav, Store storeNaved) {
         SingleListFragment fragment = new SingleListFragment();
         Bundle args = new Bundle();
         listName = ln;
         isNavigated = isNav;
-        System.out.print(isNavigated);
+        storeNav = storeNaved;
         fragment.setArguments(args);
         return fragment;
     }
@@ -102,6 +107,7 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         db = new DatabaseHelper(getActivity());
         itemList = db.getAllItems(listName);
         mAdapter = new ListAdapter(getActivity(), itemList, listName, isNavigated);
@@ -151,15 +157,24 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
         rview.setAdapter(mAdapter);
     }
 
-    /**
-     * Actions that take place when a button is pressed.
-     *
-     * @param uri
-     */
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.deleteThisList:
+                FragmentManager fragmentManager = getFragmentManager();
+                //TODO: Throw prompt (like longpress in MyList) to delete current list.
+                fragmentManager.popBackStack();
+                return true;
+            case R.id.navigateAStore:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_single_list_fragment, menu);
     }
 
 
@@ -181,7 +196,6 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
     /**
      * add an item to the shopping list. If the name field is left blank promp a warning
      * if it has a name add it to the list
-     * TODO if the item is already in the list, up the quanity of the item
      *
      * @param v
      */
@@ -240,7 +254,6 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
 

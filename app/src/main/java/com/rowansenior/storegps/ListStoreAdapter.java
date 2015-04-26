@@ -4,11 +4,15 @@ package com.rowansenior.storegps;
  * Created by Joseph on 3/27/2015.
  */
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +42,7 @@ public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_individual_list, viewGroup, false);
-        ViewHolder vh = new ViewHolder(v, fragmentManager);
+        ViewHolder vh = new ViewHolder(v, fragmentManager, context);
         return vh;
     }
 
@@ -57,24 +61,28 @@ public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.View
     /**
      * Capable of holding each item in the LLA.
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, ContextMenu.ContextMenuInfo, View.OnLongClickListener {
         public TextView vTitleText;
         public TextView vLocation;
         public CardView vCardView;
         public ImageView vImageView;
+        private Context vhContext;
         public FragmentManager vFM;
 
-        public ViewHolder(View v, FragmentManager FM) {
+        public ViewHolder(View v, FragmentManager FM, Context context) {
             super(v);
             vTitleText = (TextView) v.findViewById(R.id.titleText);
             vLocation = (TextView) v.findViewById(R.id.date);
             vCardView = (CardView) v.findViewById(R.id.card_view);
             vImageView = (ImageView) v.findViewById(R.id.listIcon);
             vFM = FM;
+            vhContext = context;
             vTitleText.setOnClickListener(this);
             vLocation.setOnClickListener(this);
             vCardView.setOnClickListener(this);
             vImageView.setOnClickListener(this);
+
+            vImageView.setOnLongClickListener(this);
         }
 
 
@@ -88,6 +96,37 @@ public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.View
             String newFrag = vTitleText.getText().toString();
             vFM.beginTransaction().replace(R.id.container, new IndividualStoreFragment(newFrag).newInstance(newFrag)).addToBackStack(null).commit();
 
+        }
+
+        /**
+         * On a long press prompt a window to confirm deletion, if the confirmed the item is deleted
+         * and the store list is refreshed
+         *
+         * @param v
+         * @return true
+         */
+        @Override
+        public boolean onLongClick(View v) {
+
+
+            final AlertDialog alert = new AlertDialog.Builder(vhContext).create();
+            alert.setMessage("Are you sure you want to remove this store from favorites?");
+            alert.setButton(Dialog.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    DatabaseHelper db = new DatabaseHelper(vhContext);
+                    db.removeFavoriteStore(vTitleText.getText().toString());
+                    notifyDataSetChanged();
+                }
+            });
+            alert.setButton(Dialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+
+            alert.show();
+
+            return true;
         }
     }
 }
