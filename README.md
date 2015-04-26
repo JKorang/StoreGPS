@@ -14,6 +14,7 @@ Work Remaining:
         This must be looked at near the end of development. 
 
 **ListAdapter.java**
+        
         Case for foundItem:
         See TODO within the file, lines 144-147
 
