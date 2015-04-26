@@ -25,6 +25,7 @@ Work Remaining:
         
 
 **3. Individual List**
+
         Need to add an Action Bar with a button to navigate that list within a store.
         
         
