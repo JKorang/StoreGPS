@@ -118,6 +118,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                 //Writes to the database, increase local counter and reset textView
                 case R.id.incQuantity:
                     db.increaseQuantity(parentList, vTitleText.getText().toString());
+                    
                     vQuantityInt++;
                     vQuantity.setText("Quantity: " + vQuantityInt);
                     break;
@@ -141,7 +142,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
                 //The user has located the item.
                 //Set the value in the database, update the dataSet
-                //TODO: Move item to the lower RecyclerView once established
                 //TODO: When an item is marked found, the notifyDataSetChanged causes the counter to reset
                 //TODO: We need to update the items quantity within the entire list of items.
                 //TODO: By doing this, we can eliminate the separate counter and string.
@@ -150,8 +150,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                     CharSequence foundText = "Item Found!";
                     int foundDuration = Toast.LENGTH_SHORT;
                     Toast foundToast = Toast.makeText(vhContext, foundText, foundDuration);
-                    notifyDataSetChanged();
                     foundToast.show();
+
+                    //Move item to the bottom of the list
+                    items.remove(thisItem);
+                    items.add(thisItem);
+                    notifyDataSetChanged();
                     break;
 
                 //Delete item from the list

@@ -4,36 +4,26 @@ package com.rowansenior.storegps;
  * Created by Joseph on 3/27/2015.
  */
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
-import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 
-import static android.app.AlertDialog.*;
 
 /**
  * ListListAdapter handles transmission and access of data from fragments associated with it.

@@ -1,5 +1,8 @@
 package com.rowansenior.storegps;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -161,9 +164,24 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.deleteThisList:
-                FragmentManager fragmentManager = getFragmentManager();
                 //TODO: Throw prompt (like longpress in MyList) to delete current list.
-                fragmentManager.popBackStack();
+                final AlertDialog alert = new AlertDialog.Builder(getActivity()).create();
+                alert.setTitle("Delete?");
+                alert.setMessage("Are you sure you want to delete this list?");
+                alert.setButton(Dialog.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        db.removeList(listName);
+                        FragmentManager fragmentManager = getFragmentManager();
+                        fragmentManager.popBackStack();
+                    }
+                });
+                alert.setButton(Dialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                alert.show();
                 return true;
             case R.id.navigateAStore:
                 return true;

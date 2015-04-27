@@ -1,9 +1,13 @@
 package com.rowansenior.storegps;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 
 /**
  * The 'Help' menu option.
@@ -22,6 +26,16 @@ public class HelpActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
+        ImageButton brb = (ImageButton) findViewById(R.id.bigRedButton);
+        brb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent bRB = new Intent(Intent.ACTION_VIEW);
+                bRB.setData(Uri.parse("http://i.imgur.com/YXclEpw.jpg"));
+                startActivity(bRB);
+            }
+        });
+
     }
 
     /**
@@ -55,4 +69,7 @@ public class HelpActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+
 }
