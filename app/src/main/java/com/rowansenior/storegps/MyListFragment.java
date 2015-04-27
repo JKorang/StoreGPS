@@ -207,7 +207,7 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
         switch (item.getItemId()) {
             case R.id.addNewListButton:
                 FragmentManager fragmentManager = getFragmentManager();
-                DialogNewList diagNL = new DialogNewList();
+                DialogNewList diagNL = new DialogNewList("myLists");
                 diagNL.show(fragmentManager, null);
                 return true;
             default:

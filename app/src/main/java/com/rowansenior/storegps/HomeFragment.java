@@ -4,9 +4,13 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -63,8 +67,8 @@ public class HomeFragment extends Fragment {
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         DatabaseHelper db = new DatabaseHelper(getActivity());
         mAdapter = new ListListAdapter(getActivity(), db.getLast3Lists(), "homePage");
         mStoreAdapter = new ListStoreAdapter(getActivity(), db.get3ClosestStores());
@@ -162,6 +166,24 @@ public class HomeFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         public void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.addNewListHomePageButton:
+                FragmentManager fragmentManager = getFragmentManager();
+                DialogNewList diagNL = new DialogNewList("homePage");
+                diagNL.show(fragmentManager, null);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_home_page, menu);
     }
 
 }

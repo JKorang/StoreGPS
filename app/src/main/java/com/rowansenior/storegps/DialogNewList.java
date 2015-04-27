@@ -26,6 +26,8 @@ public class DialogNewList extends DialogFragment implements View.OnClickListene
     RadioGroup imageGroup;
     Integer colorChosen;
     Integer imageChosen;
+    String mOrigin;
+
     RadioGroup.OnCheckedChangeListener radioGroupOnCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {
 
         @Override
@@ -45,7 +47,8 @@ public class DialogNewList extends DialogFragment implements View.OnClickListene
         }
     };
 
-    public DialogNewList() {
+    public DialogNewList(String origin) {
+        mOrigin = origin;
         mContext = getActivity();
     }
 
@@ -115,7 +118,19 @@ public class DialogNewList extends DialogFragment implements View.OnClickListene
                 }
                 getDialog().dismiss();
                 FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.container, new MyListFragment().newInstance()).addToBackStack(null).commit();
+
+                //Evaluate the origin to refresh its page.
+                switch (mOrigin) {
+                    case "homePage":
+                        fragmentManager.beginTransaction().replace(R.id.container, new HomeFragment().newInstance()).addToBackStack(null).commit();
+                        break;
+                    case "myLists" :
+                        fragmentManager.beginTransaction().replace(R.id.container, new MyListFragment().newInstance()).addToBackStack(null).commit();
+                        break;
+                    default:
+                        fragmentManager.beginTransaction().replace(R.id.container, new MyListFragment().newInstance()).addToBackStack(null).commit();
+                        break;
+                }
                 break;
 
             //Cancel list creation.
