@@ -7,7 +7,14 @@ Store GPS App for Senior Project
 Work Remaining:
 ---------------
 
+**BACKSTACK ISSUES**
+        
+        We currently have a lot of issues handling in the backstack.
+        We need to re-evaluate this.  Currently, adding lists ruins the stack.
+        This must be looked at near the end of development. 
+
 **ListAdapter.java**
+        
         Case for foundItem:
         See TODO within the file, lines 144-147
 
