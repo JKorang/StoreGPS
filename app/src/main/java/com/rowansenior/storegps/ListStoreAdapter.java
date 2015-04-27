@@ -94,7 +94,7 @@ public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.View
                 case R.id.listIcon:
             }
             String newFrag = vTitleText.getText().toString();
-            vFM.beginTransaction().replace(R.id.container, new IndividualStoreFragment(newFrag).newInstance(newFrag)).addToBackStack(null).commit();
+            vFM.beginTransaction().replace(R.id.container, new SingleStoreFragment(newFrag).newInstance(newFrag)).addToBackStack(null).commit();
 
         }
 

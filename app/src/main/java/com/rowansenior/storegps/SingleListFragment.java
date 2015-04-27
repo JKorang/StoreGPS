@@ -163,8 +163,9 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            //Delete the currently viewed list.
+            //Returns to the location used to access the list (can be home, MyList, or from a store)
             case R.id.deleteThisList:
-                //TODO: Throw prompt (like longpress in MyList) to delete current list.
                 final AlertDialog alert = new AlertDialog.Builder(getActivity()).create();
                 alert.setTitle("Delete?");
                 alert.setMessage("Are you sure you want to delete this list?");
@@ -183,7 +184,11 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
 
                 alert.show();
                 return true;
+            //Refreshes the list and pulls in information from the selected store.
             case R.id.navigateAStore:
+                FragmentManager fm = getFragmentManager();
+                DialogChooseStore diagCS = new DialogChooseStore(listName);
+                diagCS.show(fm, null);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -7,9 +7,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
 /**
  * THE core and MainActivity of the entire program.
@@ -32,7 +29,7 @@ public class MainPage extends ActionBarActivity
         MyListFragment.OnFragmentInteractionListener,
         HomeFragment.OnFragmentInteractionListener,
         MyStoreFragment.OnFragmentInteractionListener,
-        IndividualStoreFragment.OnFragmentInteractionListener {
+        SingleStoreFragment.OnFragmentInteractionListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.

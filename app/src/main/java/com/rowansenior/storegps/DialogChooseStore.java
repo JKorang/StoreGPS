@@ -20,8 +20,10 @@ import java.util.ArrayList;
 public class DialogChooseStore extends DialogFragment implements View.OnClickListener {
     Context mContext;
     ArrayList<String> listOfStores;
+    String mOrigin;
 
-    public DialogChooseStore() {
+    public DialogChooseStore(String origin) {
+        mOrigin = origin;
         mContext = getActivity();
     }
 
@@ -41,7 +43,7 @@ public class DialogChooseStore extends DialogFragment implements View.OnClickLis
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                fm.beginTransaction().replace(R.id.container, new SingleListFragment().newInstance(storeAdapter.getItem(position), true, null)).addToBackStack(null).commit();
+                fm.beginTransaction().replace(R.id.container, new SingleListFragment().newInstance(mOrigin, true, null)).addToBackStack(null).commit();
                 getDialog().dismiss();
             }
         });

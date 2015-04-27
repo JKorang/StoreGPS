@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 
 /**
- * IndividualStoreFragment acts as a fragment for a single store.
+ * SingleStoreFragment acts as a fragment for a single store.
  * Eventually, data will be pulled in from a SQL query to a remote database to pull in
  * store data for a store that exists with the apps scope.
  * <p/>
@@ -25,7 +25,7 @@ import android.widget.TextView;
  * It will need to be reworked slightly to display all the information for the store it houses
  * when selected from the HomeFragment, MyStoreFragment, or NearbyStoresFragment.
  */
-public class IndividualStoreFragment extends Fragment implements View.OnClickListener {
+public class SingleStoreFragment extends Fragment implements View.OnClickListener {
 
     private OnFragmentInteractionListener mListener;
     private String storeName;
@@ -44,7 +44,7 @@ public class IndividualStoreFragment extends Fragment implements View.OnClickLis
     /**
      * Required empty public constructor
      */
-    public IndividualStoreFragment(String store) {
+    public SingleStoreFragment(String store) {
         this.storeName = store;
     }
 
@@ -65,8 +65,8 @@ public class IndividualStoreFragment extends Fragment implements View.OnClickLis
      *
      * @return
      */
-    public static IndividualStoreFragment newInstance(String store) {
-        IndividualStoreFragment fragment = new IndividualStoreFragment(store);
+    public static SingleStoreFragment newInstance(String store) {
+        SingleStoreFragment fragment = new SingleStoreFragment(store);
         return fragment;
     }
 
