@@ -32,6 +32,10 @@ public class ShoppingListItem {
         return vQuantity;
     }
 
+    public int getFound() {
+        return vIfFound;
+    }
+
     @Override
     public String toString() {
         return "tbd";

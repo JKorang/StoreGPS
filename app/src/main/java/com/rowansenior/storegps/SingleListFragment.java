@@ -23,6 +23,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 /**
@@ -113,6 +115,15 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
         setHasOptionsMenu(true);
         db = new DatabaseHelper(getActivity());
         itemList = db.getAllItems(listName);
+
+        //Sort the list so that found items are at the bottom
+        //Sadly, not 100% state saving, but does reflect the status of the lists contents
+        Collections.sort(itemList, new Comparator<ShoppingListItem>() {
+            @Override
+            public int compare(ShoppingListItem lhs, ShoppingListItem rhs) {
+                return lhs.getFound() - rhs.getFound();
+            }
+        });
         mAdapter = new ListAdapter(getActivity(), itemList, listName, isNavigated);
     }
 

@@ -52,6 +52,16 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         ShoppingListItem item = items.get(i);
         viewHolder.vTitleText.setText(item.getName());
         viewHolder.vQuantityInt = item.getQuantity();
+
+        //Evaluate the state of the found status
+        //If the item is considered found, change it's background color
+        if (item.getFound() == 1) {
+            viewHolder.vCardView.setCardBackgroundColor(adapterContext.getResources().getColor(R.color.tint_color));
+        }
+        else {
+            viewHolder.vCardView.setCardBackgroundColor(adapterContext.getResources().getColor(R.color.white_color));
+        }
+
         viewHolder.vQuantity.setText("Quantity: " + String.valueOf(viewHolder.vQuantityInt));
         viewHolder.thisItem = item;
 
@@ -118,7 +128,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                 //Writes to the database, increase local counter and reset textView
                 case R.id.incQuantity:
                     db.increaseQuantity(parentList, vTitleText.getText().toString());
-                    
+
                     vQuantityInt++;
                     vQuantity.setText("Quantity: " + vQuantityInt);
                     break;
@@ -155,6 +165,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                     //Move item to the bottom of the list
                     items.remove(thisItem);
                     items.add(thisItem);
+
+                    //Update the view
                     notifyDataSetChanged();
                     break;
 

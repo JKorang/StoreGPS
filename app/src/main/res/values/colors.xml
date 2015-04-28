@@ -10,6 +10,7 @@
     <string name="color_6">#FFFFFF</string>
     <string name="color_7">#909090</string>
     <string name="tint_color">#606060</string>
+    <string name="white_color">#FFFFFF</string>
 
 
     <color name="color_0">#A10413</color>
@@ -21,6 +22,7 @@
     <color name="color_6">#FFFFFF</color>
     <color name="color_7">#909090</color>
     <color name="tint_color">#606060</color>
+    <color name="white_color">#FFFFFF</color>
 
     <color name="color_0_trans">#50A10413</color>
     <color name="color_1_trans">#50FF9900</color>
