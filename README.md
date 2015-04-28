@@ -31,12 +31,6 @@ Work Remaining:
         
         
 
-**3. Individual List**
-
-        Need to add an Action Bar with a button to navigate that list within a store.
-        
-        
-
  **4. Store Page**
  
         Need to set a store as Favorite (toggle button)
@@ -53,6 +47,7 @@ Work Remaining:
  **6. Store Cards**
  
         Add/Remove store as a favorite by long pressing card
+        Requires having nearby stores working.
         
         
  **7. Settings Page**
@@ -87,5 +82,13 @@ Work Remaining:
  **12. Webpage**
  
          Still need access to the remote database to build stores/search items
+         
+         
+         
+ **13. Navigation Drawer**
+ 
+         Navigation drawer currently highlights the item selected/chosen and maintains that state.
+         That state must be either updated or the state memory removed from the drawer.
+         Because we bounce between so many functions of the app so frequently, this is never consistent. 
          
          
