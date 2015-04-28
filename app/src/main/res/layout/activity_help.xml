@@ -6,7 +6,36 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.rowansenior.storegps.HelpActivity">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
+    <TextView android:text=
+" LIST FUNCTIONS
+ Create a List:
+    From the home screen:
+        Click the add list button from the navigation bar.
+        From thee select the title of the list an icon and a
+        color.
+
+    From the List page:
+        Click the add list button from the navigation bar.
+        From thee select the title of the list an icon and a
+        color.
+ Add items and edit a list:
+    From the home screen or List screen:
+        Click the list you want to edit. From here items can
+        be added, removed, or marked as found.
+
+        Their quantities can be adjusted by clicking the '+'
+        or '-' buttons.
+
+        Items can be removed by clicking the 'X'
+
+        A list can be deleted by holding down the list card
+        on the List or Home screen.
+
+     STORE FUNCTIONS
+
+     NEED TO FINISH THIS AFTER STORES ARE FINALIZED
+
+ " android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView" />
 
