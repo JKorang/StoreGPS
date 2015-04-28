@@ -6,6 +6,7 @@
     android:layout_width="100dp"
     android:layout_height="175dp"
     card_view:cardCornerRadius="6dp"
+    card_view:cardElevation="6dp"
     android:layout_margin="5dp"
     android:background="@android:drawable/btn_default"
     android:clickable="true"
@@ -14,12 +15,14 @@
 
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="115dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:id="@+id/listIcon"
         android:contentDescription="ImageOfList"
         android:clickable="true"
-        android:longClickable="true" />
+        android:longClickable="true"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal" />
 
     <TextView
         android:id="@+id/titleText"

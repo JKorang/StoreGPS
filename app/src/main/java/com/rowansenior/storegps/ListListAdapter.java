@@ -66,25 +66,34 @@ public class ListListAdapter extends RecyclerView.Adapter<ListListAdapter.ViewHo
         Drawable logoUsed;
         switch (logoInt) {
             case 0:
-                logoUsed = context.getResources().getDrawable(R.drawable.applications);
+                logoUsed = context.getResources().getDrawable(R.drawable.icon_0);
                 break;
             case 1:
-                logoUsed = context.getResources().getDrawable(R.drawable.computer);
+                logoUsed = context.getResources().getDrawable(R.drawable.icon_1);
                 break;
             case 2:
-                logoUsed = context.getResources().getDrawable(R.drawable.coffee_badge);
+                logoUsed = context.getResources().getDrawable(R.drawable.icon_2);
                 break;
             case 3:
-                logoUsed = context.getResources().getDrawable(R.drawable.music);
+                logoUsed = context.getResources().getDrawable(R.drawable.icon_3);
                 break;
             case 4:
-                logoUsed = context.getResources().getDrawable(R.drawable.pictures);
+                logoUsed = context.getResources().getDrawable(R.drawable.icon_4);
                 break;
             case 5:
-                logoUsed = context.getResources().getDrawable(R.drawable.toolbox_badge);
+                logoUsed = context.getResources().getDrawable(R.drawable.icon_5);
+                break;
+            case 6:
+                logoUsed = context.getResources().getDrawable(R.drawable.icon_6);
+                break;
+            case 7:
+                logoUsed = context.getResources().getDrawable(R.drawable.icon_7);
+                break;
+            case 8:
+                logoUsed = context.getResources().getDrawable(R.drawable.icon_8);
                 break;
             default:
-                logoUsed = context.getResources().getDrawable(R.drawable.favorites);
+                logoUsed = context.getResources().getDrawable(R.drawable.icon_0);
                 break;
         }
         imgVw.setBackgroundDrawable(logoUsed);

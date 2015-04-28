@@ -29,56 +29,55 @@
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:background="@drawable/xml_icon_color_0"
-                android:button="@null"
-                android:checked="true"/>
+                android:button="@null" />
 
             <RadioButton
                 android:id="@+id/color_1"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
-                android:background="@color/color_1"
+                android:background="@drawable/xml_icon_color_1"
                 android:button="@null" />
 
             <RadioButton
                 android:id="@+id/color_2"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
-                android:background="@color/color_2"
+                android:background="@drawable/xml_icon_color_2"
                 android:button="@null" />
 
             <RadioButton
                 android:id="@+id/color_3"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
-                android:background="@color/color_3"
+                android:background="@drawable/xml_icon_color_3"
                 android:button="@null" />
 
             <RadioButton
                 android:id="@+id/color_4"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
-                android:background="@color/color_4"
+                android:background="@drawable/xml_icon_color_4"
                 android:button="@null" />
 
             <RadioButton
                 android:id="@+id/color_5"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
-                android:background="@color/color_5"
+                android:background="@drawable/xml_icon_color_5"
                 android:button="@null" />
 
             <RadioButton
                 android:id="@+id/color_6"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
-                android:background="@color/color_6"
+                android:background="@drawable/xml_icon_color_6"
                 android:button="@null" />
 
             <RadioButton
                 android:id="@+id/color_7"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
-                android:background="@color/color_7"
+                android:background="@drawable/xml_icon_color_7"
                 android:button="@null" />
         </RadioGroup>
 
@@ -102,8 +101,7 @@
                 android:layout_height="55dp"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:background="@drawable/xml_icon_button_0"
-                android:button="@null"
-                android:checked="true" />
+                android:button="@null" />
 
             <RadioButton
                 android:id="@+id/image1"

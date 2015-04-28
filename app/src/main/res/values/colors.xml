@@ -1,25 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="color_0">#FF0000</string>
+    <string name="color_0">#A10413</string>
     <string name="color_1">#FF9900</string>
     <string name="color_2">#33CCCC</string>
-    <string name="color_3">#3333FF</string>
-    <string name="color_4">#FF00FF</string>
-    <string name="color_5">#33CC33</string>
+    <string name="color_3">#4E4E90</string>
+    <string name="color_4">#AF6C9E</string>
+    <string name="color_5">#27931C</string>
     <string name="color_6">#FFFFFF</string>
-    <string name="color_7">#000000</string>
+    <string name="color_7">#909090</string>
     <string name="tint_color">#606060</string>
 
 
-    <color name="color_0">#FF0000</color>
+    <color name="color_0">#A10413</color>
     <color name="color_1">#FF9900</color>
     <color name="color_2">#33CCCC</color>
-    <color name="color_3">#3333FF</color>
-    <color name="color_4">#FF00FF</color>
-    <color name="color_5">#33CC33</color>
+    <color name="color_3">#4E4E90</color>
+    <color name="color_4">#AF6C9E</color>
+    <color name="color_5">#27931C</color>
     <color name="color_6">#FFFFFF</color>
-    <color name="color_7">#000000</color>
+    <color name="color_7">#909090</color>
     <color name="tint_color">#606060</color>
+
+    <color name="color_0_trans">#50A10413</color>
+    <color name="color_1_trans">#50FF9900</color>
+    <color name="color_2_trans">#5033CCCC</color>
+    <color name="color_3_trans">#504E4E90</color>
+    <color name="color_4_trans">#50AF6C9E</color>
+    <color name="color_5_trans">#5027931C</color>
+    <color name="color_6_trans">#50FFFFFF</color>
+    <color name="color_7_trans">#50909090</color>
 
 </resources>

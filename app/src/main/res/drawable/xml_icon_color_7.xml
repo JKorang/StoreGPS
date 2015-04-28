@@ -5,7 +5,7 @@
         <shape xmlns:android="http://schemas.android.com/apk/res/android"
             android:shape="oval">
         <solid
-            android:color="@color/color_0"/>
+            android:color="@color/color_7"/>
         <size
             android:width="55dp"
             android:height="55dp"/>
@@ -16,7 +16,7 @@
         <shape xmlns:android="http://schemas.android.com/apk/res/android"
             android:shape="oval">
             <solid
-                android:color="@color/color_0"/>
+                android:color="@color/color_7"/>
             <size
                 android:width="55dp"
                 android:height="55dp"/>
@@ -27,7 +27,7 @@
         <shape xmlns:android="http://schemas.android.com/apk/res/android"
             android:shape="oval" >
             <solid
-                android:color="@color/color_0_trans" />
+                android:color="@color/color_7_trans" />
             <size
                 android:width="55dp"
                 android:height="55dp"/>

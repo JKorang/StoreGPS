@@ -2,15 +2,15 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:state_pressed="true">
-        <bitmap android:src="@drawable/coffee_badge" />
+        <bitmap android:src="@drawable/icon_5" />
     </item>
 
     <item android:state_checked="true">
-        <bitmap android:src="@drawable/coffee_badge" />
+        <bitmap android:src="@drawable/icon_5" />
     </item>
 
     <item>
-        <bitmap android:src="@drawable/coffee_badge"
+        <bitmap android:src="@drawable/icon_5"
             android:tint="@color/tint_color"
             android:tintMode="multiply" />
     </item>
