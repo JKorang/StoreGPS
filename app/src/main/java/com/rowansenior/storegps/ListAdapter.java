@@ -42,7 +42,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_item, viewGroup, false);
-        ViewHolder vh = new ViewHolder(v, fragmentManager, vhListName, adapterContext, isNavigated);
+        ViewHolder vh = new ViewHolder(v, fragmentManager, vhListName, adapterContext, isNavigated, items.get(i).getFound());
         return vh;
     }
 
@@ -50,23 +50,27 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         ShoppingListItem item = items.get(i);
-        viewHolder.vTitleText.setText(item.getName());
-        viewHolder.vQuantityInt = item.getQuantity();
 
-        //Evaluate the state of the found status
-        //If the item is considered found, change it's background color
-        if (item.getFound() == 1) {
+        if (items.get(i).getFound() == 1) {
             viewHolder.vCardView.setCardBackgroundColor(adapterContext.getResources().getColor(R.color.tint_color));
         }
         else {
             viewHolder.vCardView.setCardBackgroundColor(adapterContext.getResources().getColor(R.color.white_color));
         }
 
+        System.out.println("Card#: " + i + ", itemName: " + items.get(i).getName());
+        viewHolder.vTitleText.setText(item.getName());
+        viewHolder.vQuantityInt = item.getQuantity();
+
+        //Evaluate the state of the found status
+        //If the item is considered found, change it's background color
+
         viewHolder.vQuantity.setText("Quantity: " + String.valueOf(viewHolder.vQuantityInt));
         viewHolder.thisItem = item;
 
         //If the list is generated from a navigation, set its location here.
         if (viewHolder.vIsNavigated == true) {
+            //TODO: BUILD THE COLLECTION OF NEARBY STORES INTO THE _ACTIVITY_, NOT THE FRAGMENT
             viewHolder.vItemLocation.setText("Yeah this works?");
         }
     }
@@ -95,7 +99,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         public boolean vIsNavigated;
         public ShoppingListItem thisItem;
 
-        public ViewHolder(View v, FragmentManager FM, String listName, Context context, boolean isNav) {
+        public ViewHolder(View v, FragmentManager FM, String listName, Context context, boolean isNav, int isFound) {
             super(v);
 
             vTitleText = (TextView) v.findViewById(R.id.itemText);
@@ -112,7 +116,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             vFM = FM;
             vIsNavigated = isNav;
             vTitleText.setOnClickListener(this);
-            vQuantity.setOnClickListener(this);
             vCardView.setOnClickListener(this);
             vIncQuantity.setOnClickListener(this);
             vDecQuantity.setOnClickListener(this);
@@ -129,8 +132,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                 case R.id.incQuantity:
                     db.increaseQuantity(parentList, vTitleText.getText().toString());
 
-                    vQuantityInt++;
-                    vQuantity.setText("Quantity: " + vQuantityInt);
+                    thisItem.increaseQuantity();
+                    vQuantity.setText("Quantity: " + thisItem.getQuantity());
                     break;
 
                 //Decrease the quantity of an item
@@ -138,33 +141,51 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                 //Decrease local counter and reset textView.
                 case R.id.decQuantity:
                     //Ensure that quantity can not drop below 1.
-                    if (vQuantityInt < 2) {
+                    if (thisItem.getQuantity() < 2) {
                         CharSequence text = "Quantity must be at least 1!";
                         int duration = Toast.LENGTH_SHORT;
                         Toast toast = Toast.makeText(vhContext, text, duration);
                         toast.show();
                     } else {
                         db.decreaseQuantity(parentList, vTitleText.getText().toString());
-                        vQuantityInt--;
-                        vQuantity.setText("Quantity: " + vQuantityInt);
+                        thisItem.decreaseQuantity();
+                        vQuantity.setText("Quantity: " + thisItem.getQuantity());
                     }
                     break;
 
                 //The user has located the item.
                 //Set the value in the database, update the dataSet
-                //TODO: When an item is marked found, the notifyDataSetChanged causes the counter to reset
-                //TODO: We need to update the items quantity within the entire list of items.
-                //TODO: By doing this, we can eliminate the separate counter and string.
+                //TODO: Need to be able to make an item come back from IfFound status.
                 case R.id.foundItem:
-                    db.itemFound(parentList, vTitleText.getText().toString());
-                    CharSequence foundText = "Item Found!";
-                    int foundDuration = Toast.LENGTH_SHORT;
-                    Toast foundToast = Toast.makeText(vhContext, foundText, foundDuration);
-                    foundToast.show();
+                    //Item is being marked found
+                    if(thisItem.getFound() == 0) {
+                        db.itemFound(parentList, vTitleText.getText().toString());
 
-                    //Move item to the bottom of the list
-                    items.remove(thisItem);
-                    items.add(thisItem);
+                        //Move item to the bottom of the list
+                        //Set the found status
+                        items.remove(thisItem);
+                        thisItem.setFound();
+                        items.add(thisItem);
+
+                        //Set the background to reflect the item having been found
+                        vCardView.setCardBackgroundColor(vhContext.getResources().getColor(R.color.tint_color));
+                    }
+
+                    else {
+                        db.itemNotFound(parentList, vTitleText.getText().toString());
+
+                        //Move item to the bottom of the list
+                        //Set the found status
+                        items.remove(thisItem);
+                        thisItem.setFound();
+                        items.add(0, thisItem);
+
+                        //Set the background to reflect the item having been found
+                        vCardView.setCardBackgroundColor(vhContext.getResources().getColor(R.color.white_color));
+                    }
+
+
+
 
                     //Update the view
                     notifyDataSetChanged();

@@ -5,11 +5,11 @@
     <item
         android:id="@+id/deleteThisList"
         android:title="@string/deleteThisList"
-        android:icon="@drawable/common_signin_btn_icon_light"
+        android:icon="@drawable/action_bar_delete"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/navigateAStore"
-        android:icon="@drawable/abc_ic_search_api_mtrl_alpha"
+        android:icon="@drawable/action_bar_nav"
         android:title="@string/navigateAStore"
         app:showAsAction="ifRoom" />
 </menu>

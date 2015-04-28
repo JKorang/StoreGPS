@@ -32,6 +32,23 @@ public class ShoppingListItem {
         return vQuantity;
     }
 
+    public void setFound() {
+        if (this.vIfFound == 1) {
+            this.vIfFound = 0;
+        }
+        else {
+            this.vIfFound = 1;
+        }
+    }
+
+    public void increaseQuantity(){
+        this.vQuantity++;
+    }
+
+    public void decreaseQuantity() {
+        this.vQuantity--;
+    }
+
     public int getFound() {
         return vIfFound;
     }

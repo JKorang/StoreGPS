@@ -263,6 +263,14 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                     } else{
                         db.addNewItem(listName, name.toString());
                         itemList = db.getAllItems(listName);
+
+                        Collections.sort(itemList, new Comparator<ShoppingListItem>() {
+                            @Override
+                            public int compare(ShoppingListItem lhs, ShoppingListItem rhs) {
+                                return lhs.getFound() - rhs.getFound();
+                            }
+                        });
+
                         mAdapter = new ListAdapter(getActivity(), itemList, listName, isNavigated);
                         rview.setAdapter(mAdapter);
                     }
