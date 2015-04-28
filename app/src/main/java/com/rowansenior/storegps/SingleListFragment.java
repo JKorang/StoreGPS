@@ -275,13 +275,14 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                         rview.setAdapter(mAdapter);
                     }
                 }
-
+                if(exists == false){
                 //NEED TO HANDLE REFRESH OF ELEMENTS
                 rview.refreshDrawableState();
                 mAdapter.notifyDataSetChanged();
                 newItem.clearFocus();
                 newItem.setText("");
                 break;
+                }
         }
     }
 
