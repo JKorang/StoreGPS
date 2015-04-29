@@ -58,7 +58,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             viewHolder.vCardView.setCardBackgroundColor(adapterContext.getResources().getColor(R.color.white_color));
         }
 
-        System.out.println("Card#: " + i + ", itemName: " + items.get(i).getName());
         viewHolder.vTitleText.setText(item.getName());
         viewHolder.vQuantityInt = item.getQuantity();
 

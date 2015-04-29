@@ -160,7 +160,6 @@ public class MyStoreFragment extends Fragment implements AbsListView.OnItemClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.listIcon:
-                System.out.println("Clicked a card");
         }
     }
 

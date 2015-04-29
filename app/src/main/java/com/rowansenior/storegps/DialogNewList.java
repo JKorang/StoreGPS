@@ -42,7 +42,6 @@ public class DialogNewList extends DialogFragment implements View.OnClickListene
                 case R.id.imageGroup:
                     RadioButton img = (RadioButton) group.findViewById(checkedId);
                     imageChosen = group.indexOfChild(img);
-                    System.out.println("COLOR: " + imageChosen);
                     break;
             }
         }

@@ -35,7 +35,6 @@ public class DialogChooseList extends DialogFragment implements View.OnClickList
         generateListOfNames(list);
         final ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, listOfNames);
         ListView listView = (ListView) v.findViewById(R.id.choose_list_view);
-        System.out.println(listView);
         final FragmentManager fm = (getActivity()).getSupportFragmentManager();
         listView.setAdapter(itemsAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

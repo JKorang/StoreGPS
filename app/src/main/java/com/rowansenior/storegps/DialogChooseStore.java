@@ -37,7 +37,6 @@ public class DialogChooseStore extends DialogFragment implements View.OnClickLis
         generateListOfStores(list);
         final ArrayAdapter<String> storeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, listOfStores);
         ListView listView = (ListView) v.findViewById(R.id.choose_list_view);
-        System.out.println(listView);
         final FragmentManager fm = (getActivity()).getSupportFragmentManager();
         listView.setAdapter(storeAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
