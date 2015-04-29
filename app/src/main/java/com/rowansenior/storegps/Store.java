@@ -1,7 +1,5 @@
 package com.rowansenior.storegps;
 
-import java.util.ArrayList;
-
 /**
  * Created by root on 4/6/15.
  */

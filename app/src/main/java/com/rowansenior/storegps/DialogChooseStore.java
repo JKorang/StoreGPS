@@ -31,7 +31,7 @@ public class DialogChooseStore extends DialogFragment implements View.OnClickLis
         View v = inflater.inflate(R.layout.dialog_choose_list, container, false);
 
         //Build dialog
-        getDialog().setTitle("Choose a Store to Navigate");
+        getDialog().setTitle("Navigate A Store");
         DatabaseHelper db = new DatabaseHelper(getActivity());
         ArrayList list = db.getAllStores();
         generateListOfStores(list);
