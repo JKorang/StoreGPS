@@ -108,8 +108,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             vCardView = (CardView) v.findViewById(R.id.itemcardview);
             vIncQuantity = (ImageButton) v.findViewById(R.id.incQuantity);
             vDecQuantity = (ImageButton) v.findViewById(R.id.decQuantity);
-            vFoundItem = (ImageButton) v.findViewById(R.id.foundItem);
-            vDeleteItem = (ImageButton) v.findViewById(R.id.deleteItem);
 
             vhContext = context;
             parentList = listName;
@@ -119,8 +117,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             vCardView.setOnClickListener(this);
             vIncQuantity.setOnClickListener(this);
             vDecQuantity.setOnClickListener(this);
-            vFoundItem.setOnClickListener(this);
-            vDeleteItem.setOnClickListener(this);
         }
 
 
@@ -151,57 +147,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                         thisItem.decreaseQuantity();
                         vQuantity.setText("Quantity: " + thisItem.getQuantity());
                     }
-                    break;
-
-                //The user has located the item.
-                //Set the value in the database, update the dataSet
-                //TODO: Need to be able to make an item come back from IfFound status.
-                case R.id.foundItem:
-                    //Item is being marked found
-                    if(thisItem.getFound() == 0) {
-                        db.itemFound(parentList, vTitleText.getText().toString());
-
-                        //Move item to the bottom of the list
-                        //Set the found status
-                        items.remove(thisItem);
-                        thisItem.setFound();
-                        items.add(thisItem);
-
-                        //Set the background to reflect the item having been found
-                        vCardView.setCardBackgroundColor(vhContext.getResources().getColor(R.color.tint_color));
-                    }
-
-                    else {
-                        db.itemNotFound(parentList, vTitleText.getText().toString());
-
-                        //Move item to the bottom of the list
-                        //Set the found status
-                        items.remove(thisItem);
-                        thisItem.setFound();
-                        items.add(0, thisItem);
-
-                        //Set the background to reflect the item having been found
-                        vCardView.setCardBackgroundColor(vhContext.getResources().getColor(R.color.white_color));
-                    }
-
-
-
-
-                    //Update the view
-                    notifyDataSetChanged();
-                    break;
-
-                //Delete item from the list
-                //Once item is removed from the database, remove from the List
-                //Update data set
-                case R.id.deleteItem:
-                    db.removeItem(parentList, vTitleText.getText().toString());
-                    items.remove(thisItem);
-                    CharSequence delText = "Item Deleted!";
-                    int delDuration = Toast.LENGTH_SHORT;
-                    Toast delToast = Toast.makeText(vhContext, delText, delDuration);
-                    delToast.show();
-                    notifyDataSetChanged();
                     break;
             }
         }

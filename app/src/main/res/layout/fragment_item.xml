@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alignmentMode="alignBounds"
-        android:columnCount="16"
+        android:columnCount="18"
         android:rowCount="5">
 
         <TextView
@@ -48,13 +48,11 @@
             android:id="@+id/incQuantity"
             android:layout_width="55dp"
             android:layout_height="55dp"
-            android:layout_column="12"
+            android:layout_column="16"
             android:layout_row="0"
             android:layout_rowSpan="5"
-            android:contentDescription=""
             android:scaleType="fitXY"
             android:src="@drawable/plus24"
-            android:text="Add Item"
             android:background="#0000"
             android:padding="5dp" />
 
@@ -62,43 +60,13 @@
             android:id="@+id/decQuantity"
             android:layout_width="55dp"
             android:layout_height="55dp"
-            android:layout_column="13"
+            android:layout_column="17"
             android:layout_row="0"
             android:layout_rowSpan="5"
-            android:contentDescription=""
             android:scaleType="fitXY"
             android:src="@drawable/minus24"
-            android:text="Add Item"
             android:background="#0000"
-            android:padding="5dp"/>
-
-        <ImageButton
-            android:id="@+id/foundItem"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_column="14"
-            android:layout_row="0"
-            android:layout_rowSpan="5"
-            android:contentDescription=""
-            android:scaleType="fitXY"
-            android:src="@drawable/checked21"
-            android:text="Add Item"
-            android:background="#0000"
-            android:padding="5dp"/>
-
-        <ImageButton
-            android:id="@+id/deleteItem"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_column="15"
-            android:layout_row="0"
-            android:layout_rowSpan="5"
-            android:contentDescription=""
-            android:scaleType="fitXY"
-            android:src="@drawable/cross93"
-            android:text="Add Item"
-            android:background="#0000"
-            android:padding="5dp"/>
+            android:padding="5dp" />
 
     </GridLayout>
 

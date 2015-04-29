@@ -1,70 +1,88 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.rowansenior.storegps.HelpActivity">
 
-    <TextView android:text="LIST FUNCTIONS\n"
-     android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView android:text="\tCreate a List:\n"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="italic" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LIST FUNCTIONS\n"
+            android:textStyle="bold" />
 
-    <TextView android:text="\tFrom the home screen:\n"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="italic" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\tCreate a List:\n"
+            android:textStyle="italic" />
 
-    <TextView android:text="\t\tClick the add list button from the navigation bar. From thee select the title of the list an icon and a color.\n\n"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\tFrom the home screen:\n"
+            android:textStyle="italic" />
 
-    <TextView android:text="\tFrom the List page:\n"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-        android:textStyle="italic" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\t\tClick the add list button from the navigation bar. From thee select the title of the list an icon and a color.\n\n" />
 
-    <TextView android:text="\t\tClick the add list button from the navigation bar.From thee select the title of the list an icon and a color.\n"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\tFrom the List page:\n"
+            android:textStyle="italic" />
 
-    <TextView android:text="\t\tClick the add list button from the navigation bar.From thee select the title of the list an icon and a color.\n"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\t\tClick the add list button from the navigation bar.From thee select the title of the list an icon and a color.\n" />
 
-    <TextView android:text="\tAdd items and edit a list:\n"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="italic" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\t\tClick the add list button from the navigation bar.From thee select the title of the list an icon and a color.\n" />
 
-    <TextView android:text="\tFrom the home screen or List screen:\n"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="italic" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\tAdd items and edit a list:\n"
+            android:textStyle="italic" />
 
-    <TextView android:text="\t\tClick the list you want to edit. From here items can be added, removed, or marked as found. Their quantities can be adjusted by clicking the '+' or '-' buttons. Items can be removed by clicking the 'X'\n\n"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\tFrom the home screen or List screen:\n"
+            android:textStyle="italic" />
 
-    <TextView android:text="\tA list can be deleted by holding down the list card on the List or Home screen.\n\n"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\t\tClick the list you want to edit. From here items can be added, removed, or marked as found. Their quantities can be adjusted by clicking the '+' or '-' buttons. Items can be removed by clicking the 'X'\n\n" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\tA list can be deleted by holding down the list card on the List or Home screen.\n\n" />
 
 
-    <ImageButton
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:id="@+id/bigRedButton"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_gravity="bottom|left"
-        android:background="#0000"/>
-
-</LinearLayout>
+        <ImageButton
+            android:id="@+id/bigRedButton"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="bottom|left"
+            android:background="#0000" />
+    </LinearLayout>
+</ScrollView>

@@ -169,6 +169,64 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
         rview = (RecyclerView) getView().findViewById(R.id.activeList);
         rview.setLayoutManager(mLayoutManager);
         rview.setAdapter(mAdapter);
+
+        SwipeableRecyclerViewTouchListener swipeTouchListener =
+                new SwipeableRecyclerViewTouchListener(rview,
+                        new SwipeableRecyclerViewTouchListener.SwipeListener() {
+                            @Override
+                            public boolean canSwipe(int position) {
+                                return true;
+                            }
+
+                            //Mark the item found/not found.
+                            //Readd the item to the set.
+                            @Override
+                            public void onDismissedBySwipeLeft(RecyclerView recyclerView, int[] reverseSortedPositions) {
+                                for (int position : reverseSortedPositions) {
+
+                                    ShoppingListItem tempItem = itemList.get(position);
+                                    if(tempItem.getFound() == 0) {
+                                        db.itemFound(listName, tempItem.getName());
+
+                                        //Move item to the bottom of the list
+                                        //Set the found status
+                                        itemList.remove(tempItem);
+                                        tempItem.setFound();
+                                        itemList.add(tempItem);
+                                    }
+
+                                    else {
+                                        db.itemNotFound(listName, tempItem.getName());
+
+                                        //Move item to the bottom of the list
+                                        //Set the found status
+                                        itemList.remove(tempItem);
+                                        tempItem.setFound();
+                                        itemList.add(0, tempItem);
+                                    }
+                                }
+                                mAdapter.notifyDataSetChanged();
+                            }
+
+                            //Delete the item from the list
+                            @Override
+                            public void onDismissedBySwipeRight(RecyclerView recyclerView, int[] reverseSortedPositions) {
+                                for (int position : reverseSortedPositions) {
+                                    ShoppingListItem tempItem = itemList.get(position);
+
+                                    db.removeItem(listName, tempItem.getName());
+                                    itemList.remove(tempItem);
+                                    CharSequence delText = tempItem.getName() + " Deleted!";
+                                    int delDuration = Toast.LENGTH_SHORT;
+                                    Toast delToast = Toast.makeText(getActivity(), delText, delDuration);
+                                    delToast.show();
+                                    mAdapter.notifyItemRemoved(position);
+                                }
+                                mAdapter.notifyDataSetChanged();
+                            }
+                        });
+
+        rview.addOnItemTouchListener(swipeTouchListener);
     }
 
     @Override
