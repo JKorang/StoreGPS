@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Engineering on 4/28/15.
@@ -21,6 +22,7 @@ public class UserLocation {
     Location uLocate = new Location("");
     Location dLocate = new Location("");
     Address dAddress;
+    String strAddress = "9 Puritan Rd, East Brunswick, NJ 08816";
     double userLong;
     double userLat;
 
@@ -55,8 +57,8 @@ public class UserLocation {
                     e.printStackTrace();
                 }
 
-                dLocate.setLatitude(40.426671/*dAddress.getLatitude()*/);
-                dLocate.setLongitude(-74.430390/*dAddress.getLongitude()*/);
+                //dLocate.setLatitude(40.426671/*dAddress.getLatitude()*/);
+                //dLocate.setLongitude(-74.430390/*dAddress.getLongitude()*/);
                 System.out.println(distances(uLocate, dLocate) + " Miles");
             }
         }
@@ -80,7 +82,15 @@ public class UserLocation {
     public void geoLocate(Location location) throws IOException
     {
         Geocoder gc = new Geocoder(context);
-        locationList = gc.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+        locationList = gc.getFromLocationName(strAddress, 1);
+        //locationList = gc.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+
+        //Address aLocation = locationList.get(0);
+        dAddress = locationList.get(0);
+        System.out.println(dAddress);
+        dLocate.setLatitude(dAddress.getLatitude());
+        dLocate.setLongitude(dAddress.getLongitude());
+        System.out.println("Lat: " + dLocate.getLatitude() + " Long: " + dLocate.getLongitude());
     }
 
     public Double distances(Location uLocation, Location dLocation)
