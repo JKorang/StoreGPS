@@ -1,125 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/storeRelView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:rowCount="11"
-        android:columnCount="7"
-        android:id="@+id/storeGridLayout">
+    <ImageView
+        android:id="@+id/storeImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/storeImage"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:src="@mipmap/ic_launcher"
-            android:layout_columnSpan="2"
-            android:layout_rowSpan="2" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/storeImage"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout3">
 
         <TextView
-            android:layout_width="190dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
             android:id="@+id/storeName"
-            android:maxLines="3"
-            android:layout_row="0"
-            android:layout_column="3"
-            android:ellipsize="end" />
-
-        <TextView
             android:layout_width="190dp"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/storeDistanceTo"
-            android:layout_row="1"
-            android:layout_column="3" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text=""
-            android:id="@+id/spacerThing"
-            android:layout_row="3"
-            android:layout_column="0"
-            android:maxLines="2"
-            android:layout_columnSpan="7" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/storeAddress"
-            android:layout_row="7"
-            android:layout_column="0"
-            android:maxLines="2"
-            android:layout_columnSpan="7"
             android:ellipsize="end"
+            android:maxLines="3"
+
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/storeDistanceTo"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/storeImage"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/storeAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:autoLink="map"
             android:clickable="true"
-            />
+
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/storePhoneNumber"
-            android:layout_row="5"
-            android:layout_column="0"
-            android:layout_columnSpan="7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:autoLink="phone"
-            android:clickable="true" />
+
+            android:clickable="true"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/storeURL"
-            android:layout_row="6"
-            android:layout_column="0"
-            android:layout_columnSpan="7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:autoLink="web"
-            android:clickable="true"/>
+
+            android:clickable="true"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/storeHours"
-            android:layout_row="8"
-            android:layout_column="0"
-            android:layout_columnSpan="7" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </LinearLayout>
+
+
+    <ToggleButton
+        android:id="@+id/toggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="New ToggleButton"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_alignParentStart="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentStart="true"
+        android:gravity="center"
+        android:id="@+id/linearLayout2">
 
         <Button
+            android:id="@+id/navButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Begin Navigation"
-            android:id="@+id/navButton"
-            android:layout_row="9"
-            android:layout_column="1" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Search This Store"
-            android:id="@+id/performSearch"
-            android:layout_toRightOf="@+id/navButton"
-            android:layout_row="9"
-            android:layout_column="3" />
-
-        <ToggleButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New ToggleButton"
-            android:id="@+id/toggleButton"
-            android:layout_row="10"
-            android:layout_column="1"
-            android:layout_alignParentRight="true"
             />
 
-    </GridLayout>
-</LinearLayout>
+        <Button
+            android:id="@+id/performSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search This Store" />
+    </LinearLayout>
+
+</RelativeLayout>

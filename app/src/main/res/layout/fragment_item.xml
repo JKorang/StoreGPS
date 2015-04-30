@@ -9,7 +9,8 @@
     android:background="@android:drawable/btn_default"
     android:clickable="true"
     android:focusable="true"
-    card_view:cardCornerRadius="4dp">
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="6dp">
 
     <GridLayout
         android:id="@+id/itemGridLayout"
@@ -41,8 +42,7 @@
             android:layout_column="0"
             android:layout_row="3"
             android:paddingLeft="5dp"
-            android:textColor="@android:color/black"
-/>
+            android:textColor="@android:color/black" />
 
         <ImageButton
             android:id="@+id/incQuantity"
@@ -51,10 +51,10 @@
             android:layout_column="16"
             android:layout_row="0"
             android:layout_rowSpan="5"
-            android:scaleType="fitXY"
-            android:src="@drawable/plus24"
             android:background="#0000"
-            android:padding="5dp" />
+            android:padding="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/plus24" />
 
         <ImageButton
             android:id="@+id/decQuantity"
@@ -63,10 +63,10 @@
             android:layout_column="17"
             android:layout_row="0"
             android:layout_rowSpan="5"
-            android:scaleType="fitXY"
-            android:src="@drawable/minus24"
             android:background="#0000"
-            android:padding="5dp" />
+            android:padding="5dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/minus24" />
 
     </GridLayout>
 
