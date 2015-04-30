@@ -44,8 +44,11 @@ public class DialogSingleItemSearch extends DialogFragment implements View.OnCli
     }
 
     public void onClick(View v) {
+        FragmentManager fragmentManager = getFragmentManager();
         switch (v.getId()) {
             case R.id.searchButton:
+                DialogSearchItem diagSI = new DialogSearchItem();
+                diagSI.show(fragmentManager, null);
                 break;
             case R.id.searchButtonCancel:
                 getDialog().dismiss();

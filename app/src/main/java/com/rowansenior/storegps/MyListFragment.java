@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,11 +15,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.GridView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 
 /**
@@ -172,7 +166,7 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
     @Override
     public void onResume() {
         super.onResume();
-        ((MainPage) getActivity()).changeActionBarTitle("My Lists");
+        ((MainActivity) getActivity()).changeActionBarTitle("My Lists");
     }
 
     /**

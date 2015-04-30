@@ -24,7 +24,7 @@ import android.support.v4.widget.DrawerLayout;
  * By default, this will launch the HomeFragment on load.
  */
 
-public class MainPage extends ActionBarActivity
+public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
         MyListFragment.OnFragmentInteractionListener,
         HomeFragment.OnFragmentInteractionListener,
@@ -100,11 +100,11 @@ public class MainPage extends ActionBarActivity
                 break;
             case 4:
                 //Settings
-                MainPage.this.startActivity(new Intent(MainPage.this, SettingsActivity.class));
+                MainActivity.this.startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                 break;
             case 5:
                 //Help
-                MainPage.this.startActivity(new Intent(MainPage.this, HelpActivity.class));
+                MainActivity.this.startActivity(new Intent(MainActivity.this, HelpActivity.class));
                 break;
         }
         //After case selection, update the title of the ActionBar

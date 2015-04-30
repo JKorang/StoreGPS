@@ -150,7 +150,7 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
     @Override
     public void onResume() {
         super.onResume();
-        ((MainPage) getActivity()).changeActionBarTitle(listName);
+        ((MainActivity) getActivity()).changeActionBarTitle(listName);
     }
 
     /**

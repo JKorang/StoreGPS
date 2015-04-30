@@ -23,6 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_LIST = "list";
     private static final String TABLE_ITEM = "_item";
     private static final String TABLE_STORE = "store";
+    private static final String TABLE_NEARBY_STORE = "nearbystore";
     // Common column names
     private static final String KEY_NAME = "name";
     // LIST Table - column names
@@ -57,6 +58,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + TABLE_STORE + "(" + KEY_STORE_NAME + " STRING PRIMARY KEY," + KEY_STORE_ICON
             + " INTEGER," + KEY_STORE_COLOR + " INTEGER," + KEY_LOCATION + " STRING," + KEY_PHONE_NUMBER +
             " STRING," + KEY_URL + " STRING," + KEY_HOUR_OPEN + " INTEGER," + KEY_HOUR_CLOSED + " INTEGER" + ")";
+
+    private static final String CREATE_TABLE_NEARBY_STORE = "CREATE TABLE "
+            + TABLE_NEARBY_STORE + "(" + KEY_STORE_NAME + " STRING PRIMARY KEY," + KEY_STORE_ICON
+            + " INTEGER," + KEY_STORE_COLOR + " INTEGER," + KEY_LOCATION + " STRING," + KEY_PHONE_NUMBER +
+            " STRING," + KEY_URL + " STRING," + KEY_HOUR_OPEN + " INTEGER," + KEY_HOUR_CLOSED + " INTEGER" + ")";
+
     private static DatabaseHelper instance;
 
     public DatabaseHelper(Context context) {
@@ -84,6 +91,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ITEM);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LIST);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_STORE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NEARBY_STORE);
 
         // create new tables
         onCreate(db);
@@ -214,6 +222,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return allLists;
     }
 
+    //TODO: Currently returns the last 3 stores added to the My Stores page.
+    //TODO: Once we can lock GPS, generate the proper output.
     public ArrayList<Store> get3ClosestStores() {
         SQLiteDatabase dataBase = this.getReadableDatabase();
         ArrayList<Store> allStores = new ArrayList<Store>();
@@ -239,6 +249,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 }
             }
         }
+        return allStores;
+    }
+
+    //TODO: Edit once GPS can be locked.
+    //TODO: Will also need to ping out to the server to pull the stores.
+    //TODO: Once pulled, store them within a local table that we destroy on each create?
+    //TODO: Will refresh those stores OnCreate of the MainActivity Activity, and update OnResume
+    //TODO: Look at OnResume if our location has changed to determine if the page needs refreshing
+    public ArrayList<Store> getNearbyStores() {
+        SQLiteDatabase dataBase = this.getReadableDatabase();
+
+        //Drop the table to ensure all Nearby Stores are accurate
+        String dropTable = "DROP TABLE IF EXISTS " + TABLE_NEARBY_STORE;
+        dataBase.execSQL(dropTable);
+
+        //Build from the remote server
+
+        //Sort by distance to current location
+
+        //Return list
+        ArrayList<Store> allStores = new ArrayList<Store>();
+        String selectQuery = "SELECT  * FROM " + TABLE_NEARBY_STORE;
+
         return allStores;
     }
 

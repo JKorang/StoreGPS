@@ -77,7 +77,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((MainPage) getActivity()).changeActionBarTitle("Home");
+        ((MainActivity) getActivity()).changeActionBarTitle("Home");
         DatabaseHelper db = new DatabaseHelper(getActivity());
         mAdapter = new ListListAdapter(getActivity(), db.getLast3Lists(), "homePage");
         mStoreAdapter = new ListStoreAdapter(getActivity(), db.get3ClosestStores());

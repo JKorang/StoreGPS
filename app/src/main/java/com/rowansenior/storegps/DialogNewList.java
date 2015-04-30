@@ -1,5 +1,6 @@
 package com.rowansenior.storegps;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -8,6 +9,7 @@ import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -52,6 +54,14 @@ public class DialogNewList extends DialogFragment implements View.OnClickListene
         mContext = getActivity();
     }
 
+    //Overriden to hide the title bar inside of the dialog.
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstance) {
+        Dialog dialog = super.onCreateDialog(savedInstance);
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        return dialog;
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.dialog_new_list, container, false);
         listName = (EditText) v.findViewById(R.id.txt_name);
@@ -60,7 +70,6 @@ public class DialogNewList extends DialogFragment implements View.OnClickListene
         colorGroup = (RadioGroup) v.findViewById(R.id.colorGroup);
         imageGroup = (RadioGroup) v.findViewById(R.id.imageGroup);
 
-        getDialog().setTitle("Create A New List");
         cancel.setOnClickListener(this);
         accept.setOnClickListener(this);
         colorGroup.setOnCheckedChangeListener(radioGroupOnCheckedChangeListener);
