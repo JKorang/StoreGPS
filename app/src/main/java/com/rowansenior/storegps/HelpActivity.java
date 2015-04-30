@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
+import java.io.IOException;
+
 /**
  * The 'Help' menu option.
  * Will be a separate activity, not yet developed at all.
@@ -35,6 +37,11 @@ public class HelpActivity extends ActionBarActivity {
                 startActivity(bRB);
             }
         });
+        try {
+            UserLocation ul = new UserLocation(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
