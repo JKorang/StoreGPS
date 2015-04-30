@@ -14,7 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
+
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
 
 /**
  * Created by root on 3/31/15.
@@ -88,57 +90,47 @@ public class DialogNewList extends DialogFragment implements View.OnClickListene
                 //Ensure that the new list created has a name.
                 //Trim to ensure that the name is not blank spaces.
                 if (name.toString().trim().length() == 0) {
-                    CharSequence text = "Please enter a name for the list";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(getActivity(), text, duration);
-                    toast.show();
+                    SnackbarManager.show(Snackbar.with(getActivity()).text("Please enter a name for the list"), (ViewGroup) v.getParent());
                     break;
                 }
 
                 //Ensure that a color has been chosen.
                 if (colorChosen == null) {
-                    CharSequence text = "Please choose a color";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(getActivity(), text, duration);
-                    toast.show();
+                    SnackbarManager.show(Snackbar.with(getActivity()).text("Please choose a color"), (ViewGroup) v.getParent());
+
                     break;
                 }
 
                 //Ensure that an image has been chosen.
                 if (imageChosen == null) {
-                    CharSequence text = "Please choose an icon";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(getActivity(), text, duration);
-                    toast.show();
+                    SnackbarManager.show(Snackbar.with(getActivity()).text("Please choose an icon"), (ViewGroup) v.getParent());
+
                     break;
                 }
 
                 //Add list to the database.
                 try {
                     db.createNewList(name.toString(), colorChosen, imageChosen);
+                    getDialog().dismiss();
+                    FragmentManager fragmentManager = getFragmentManager();
+
+                    //Evaluate the origin to refresh its page.
+                    switch (mOrigin) {
+                        case "homePage":
+                            fragmentManager.beginTransaction().replace(R.id.container, new HomeFragment().newInstance()).addToBackStack(null).commit();
+                            break;
+                        case "myLists" :
+                            fragmentManager.beginTransaction().replace(R.id.container, new MyListFragment().newInstance()).addToBackStack(null).commit();
+                            break;
+                        default:
+                            fragmentManager.beginTransaction().replace(R.id.container, new MyListFragment().newInstance()).addToBackStack(null).commit();
+                            break;
+                    }
                 }
                 //Database addition failed. List exists.
                 //Throw a loaf of bread.
                 catch (Exception e) {
-                    CharSequence text = "List Exists: Please enter a unique name";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(getActivity(), text, duration);
-                    toast.show();
-                }
-                getDialog().dismiss();
-                FragmentManager fragmentManager = getFragmentManager();
-
-                //Evaluate the origin to refresh its page.
-                switch (mOrigin) {
-                    case "homePage":
-                        fragmentManager.beginTransaction().replace(R.id.container, new HomeFragment().newInstance()).addToBackStack(null).commit();
-                        break;
-                    case "myLists" :
-                        fragmentManager.beginTransaction().replace(R.id.container, new MyListFragment().newInstance()).addToBackStack(null).commit();
-                        break;
-                    default:
-                        fragmentManager.beginTransaction().replace(R.id.container, new MyListFragment().newInstance()).addToBackStack(null).commit();
-                        break;
+                    SnackbarManager.show(Snackbar.with(getActivity()).text("List Exists: Please enter a unique name"),  (ViewGroup) v.getParent());
                 }
                 break;
 
