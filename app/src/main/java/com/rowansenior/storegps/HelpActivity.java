@@ -1,5 +1,6 @@
 package com.rowansenior.storegps;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
@@ -8,8 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-
-import java.io.IOException;
 
 /**
  * The 'Help' menu option.
@@ -37,12 +36,8 @@ public class HelpActivity extends ActionBarActivity {
                 startActivity(bRB);
             }
         });
-        try {
-            UserLocation ul = new UserLocation(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+        db.getNearbyStores();
     }
 
     /**

@@ -68,7 +68,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="\t\tClick the list you want to edit. From here items can be added, removed, or marked as found. Their quantities can be adjusted by clicking the '+' or '-' buttons. Items can be removed by clicking the 'X'\n\n" />
+            android:text="\t\tClick the list you want to edit. From here items can be added, removed, or marked as found. Their quantities can be adjusted by clicking the '+' or '-' buttons. Items can be removed by swiping right and marked found by swiping left'\n\n" />
 
         <TextView
             android:layout_width="wrap_content"

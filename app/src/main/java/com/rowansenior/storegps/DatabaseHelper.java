@@ -6,6 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -53,6 +57,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_URL = "url";
     private static final String KEY_HOUR_OPEN = "open";
     private static final String KEY_HOUR_CLOSED = "closed";
+
     // Table Create Statements
     private static final String CREATE_TABLE_STORE = "CREATE TABLE "
             + TABLE_STORE + "(" + KEY_STORE_NAME + " STRING PRIMARY KEY," + KEY_STORE_ICON
@@ -63,6 +68,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + TABLE_NEARBY_STORE + "(" + KEY_STORE_NAME + " STRING PRIMARY KEY," + KEY_STORE_ICON
             + " INTEGER," + KEY_STORE_COLOR + " INTEGER," + KEY_LOCATION + " STRING," + KEY_PHONE_NUMBER +
             " STRING," + KEY_URL + " STRING," + KEY_HOUR_OPEN + " INTEGER," + KEY_HOUR_CLOSED + " INTEGER" + ")";
+
 
     private static DatabaseHelper instance;
 
@@ -265,6 +271,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         dataBase.execSQL(dropTable);
 
         //Build from the remote server
+        //try{
+        dataBase.execSQL(CREATE_TABLE_NEARBY_STORE);
+
+            JSONObject jsonObject = new JSONObject();
+
+            System.out.println(jsonObject);
+
+           // for(int i = 0; i < json.length(); i++)
+           //     storeInfo.add(json.g);
+
+            //for(int j = 0; j < json.length(); i+=8){
+          //     String addStore = "INSERT INTO " + TABLE_STORE + " VALUES(" + '"' + storeName + '"' + ", 1, 1, " + '"' + location + '"' + ", " + '"' + phoneNumber + '"' + ", " + '"' + uRL + '"' + ", " + open + ", " + json.get(j) + ")";
+           // }
+      //  } catch (JSONException e) {
+       //     e.printStackTrace();
+       // }
 
         //Sort by distance to current location
 
