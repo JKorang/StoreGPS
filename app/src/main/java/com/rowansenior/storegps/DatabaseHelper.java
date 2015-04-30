@@ -269,9 +269,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //Sort by distance to current location
 
         //Return list
-        ArrayList<Store> allStores = new ArrayList<Store>();
-        String selectQuery = "SELECT  * FROM " + TABLE_NEARBY_STORE;
 
+
+        ArrayList<Store> allStores = new ArrayList<Store>();
         return allStores;
     }
 

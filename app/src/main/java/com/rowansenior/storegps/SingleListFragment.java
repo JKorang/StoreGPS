@@ -216,7 +216,7 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
 
                                     db.removeItem(listName, tempItem.getName());
                                     itemList.remove(tempItem);
-                                    CharSequence delText = tempItem.getName() + " Deleted!";
+                                    CharSequence delText = tempItem.getName() + " removed";
                                     int delDuration = Toast.LENGTH_SHORT;
                                     Toast delToast = Toast.makeText(getActivity(), delText, delDuration);
                                     delToast.show();
@@ -303,7 +303,7 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
 
                     if (name.toString().equals((itemList.get(i).getName().toString()))) {
 
-                        CharSequence text = "Item already exists";
+                        CharSequence text = name.toString() + " already exists";
                         int duration = Toast.LENGTH_SHORT;
                         Toast toast = Toast.makeText(getActivity(), text, duration);
                         toast.show();
@@ -313,7 +313,7 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                 }
                 if(exists == false) {
                     if (name.toString().trim().length() == 0) {
-                        CharSequence text = "Item must have a name!";
+                        CharSequence text = "Please enter an item name";
                         int duration = Toast.LENGTH_SHORT;
                         Toast toast = Toast.makeText(getActivity(), text, duration);
                         toast.show();

@@ -88,7 +88,7 @@ public class DialogNewList extends DialogFragment implements View.OnClickListene
                 //Ensure that the new list created has a name.
                 //Trim to ensure that the name is not blank spaces.
                 if (name.toString().trim().length() == 0) {
-                    CharSequence text = "List must have a name!";
+                    CharSequence text = "Please enter a name for the list";
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(getActivity(), text, duration);
                     toast.show();
@@ -97,7 +97,7 @@ public class DialogNewList extends DialogFragment implements View.OnClickListene
 
                 //Ensure that a color has been chosen.
                 if (colorChosen == null) {
-                    CharSequence text = "Please choose a color.";
+                    CharSequence text = "Please choose a color";
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(getActivity(), text, duration);
                     toast.show();
@@ -106,7 +106,7 @@ public class DialogNewList extends DialogFragment implements View.OnClickListene
 
                 //Ensure that an image has been chosen.
                 if (imageChosen == null) {
-                    CharSequence text = "Please choose an icon.";
+                    CharSequence text = "Please choose an icon";
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(getActivity(), text, duration);
                     toast.show();
@@ -120,7 +120,7 @@ public class DialogNewList extends DialogFragment implements View.OnClickListene
                 //Database addition failed. List exists.
                 //Throw a loaf of bread.
                 catch (Exception e) {
-                    CharSequence text = "List already exists!";
+                    CharSequence text = "List Exists: Please enter a unique name";
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(getActivity(), text, duration);
                     toast.show();
