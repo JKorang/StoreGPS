@@ -174,7 +174,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <Button
             android:id="@+id/btn_accept"
@@ -190,6 +190,12 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/btn_accept"
             android:text="@string/cancelButton" />
+
     </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"></LinearLayout>
 
 </LinearLayout>

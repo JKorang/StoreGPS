@@ -183,8 +183,6 @@ public class MyListFragment extends Fragment implements AbsListView.OnItemClickL
 
     /**
      * Actions to be taken when an item in the fragment is clicked.
-     * Not yet working, but should display a Toast message.
-     * Toast exists entirely to test functionality.
      *
      * @param parent
      * @param view

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="color_0">#A10413</string>
+    <string name="color_0">#FF3030</string>
     <string name="color_1">#FF9900</string>
     <string name="color_2">#33CCCC</string>
     <string name="color_3">#4E4E90</string>
@@ -12,8 +12,7 @@
     <string name="tint_color">#606060</string>
     <string name="white_color">#FFFFFF</string>
 
-
-    <color name="color_0">#A10413</color>
+    <color name="color_0">#FF3030</color>
     <color name="color_1">#FF9900</color>
     <color name="color_2">#33CCCC</color>
     <color name="color_3">#4E4E90</color>
@@ -24,7 +23,7 @@
     <color name="tint_color">#606060</color>
     <color name="white_color">#FFFFFF</color>
 
-    <color name="color_0_trans">#50A10413</color>
+    <color name="color_0_trans">#50FF3030</color>
     <color name="color_1_trans">#50FF9900</color>
     <color name="color_2_trans">#5033CCCC</color>
     <color name="color_3_trans">#504E4E90</color>

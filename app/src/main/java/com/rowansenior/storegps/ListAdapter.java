@@ -14,7 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
 
 import java.util.List;
 
@@ -90,8 +92,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         public FragmentManager vFM;
         public ImageButton vIncQuantity;
         public ImageButton vDecQuantity;
-        public ImageButton vFoundItem;
-        public ImageButton vDeleteItem;
         public String parentList;
         public Context vhContext;
         public TextView vItemLocation;
@@ -137,10 +137,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                 case R.id.decQuantity:
                     //Ensure that quantity can not drop below 1.
                     if (thisItem.getQuantity() < 2) {
-                        CharSequence text = "Quantity must be at least 1!";
-                        int duration = Toast.LENGTH_SHORT;
-                        Toast toast = Toast.makeText(vhContext, text, duration);
-                        toast.show();
+                        SnackbarManager.show(Snackbar.with(vhContext).text("Quantity is already 1"));
                     } else {
                         db.decreaseQuantity(parentList, vTitleText.getText().toString());
                         thisItem.decreaseQuantity();

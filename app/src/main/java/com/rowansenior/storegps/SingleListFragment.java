@@ -20,7 +20,9 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -216,10 +218,8 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
 
                                     db.removeItem(listName, tempItem.getName());
                                     itemList.remove(tempItem);
-                                    CharSequence delText = tempItem.getName() + " removed";
-                                    int delDuration = Toast.LENGTH_SHORT;
-                                    Toast delToast = Toast.makeText(getActivity(), delText, delDuration);
-                                    delToast.show();
+                                    SnackbarManager.show(Snackbar.with(getActivity()).text(tempItem.getName() + " has been deleted"));
+
                                     mAdapter.notifyItemRemoved(position);
                                 }
                                 mAdapter.notifyDataSetChanged();
@@ -272,8 +272,6 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
 
     /**
      * Actions to be taken when an item in the fragment is clicked.
-     * Not yet working, but should display a Toast message.
-     * Toast exists entirely to test functionality.
      *
      * @param parent
      * @param view
@@ -302,22 +300,14 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                 for (int i = 0; i < itemList.size(); i++) {
 
                     if (name.toString().equals((itemList.get(i).getName().toString()))) {
-
-                        CharSequence text = name.toString() + " already exists";
-                        int duration = Toast.LENGTH_SHORT;
-                        Toast toast = Toast.makeText(getActivity(), text, duration);
-                        toast.show();
+                        SnackbarManager.show(Snackbar.with(getActivity()).text(name.toString() + " already exists"));
                         exists = true;
                         break;
                     }
                 }
                 if(exists == false) {
                     if (name.toString().trim().length() == 0) {
-                        CharSequence text = "Please enter an item name";
-                        int duration = Toast.LENGTH_SHORT;
-                        Toast toast = Toast.makeText(getActivity(), text, duration);
-                        toast.show();
-
+                        SnackbarManager.show(Snackbar.with(getActivity()).text("Please enter an item name"));
                     } else{
                         db.addNewItem(listName, name.toString());
                         itemList = db.getAllItems(listName);
