@@ -82,6 +82,7 @@ public class SingleStoreFragment extends Fragment implements View.OnClickListene
         super.onCreate(savedInstanceState);
         DatabaseHelper db = new DatabaseHelper(getActivity());
         storeInfo = db.getStoreInfo(storeName);
+        ((MainActivity) getActivity()).changeActionBarTitle("");
     }
 
     /**
