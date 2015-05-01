@@ -43,52 +43,15 @@ public class RemoteDatabaseHelper extends SQLiteOpenHelper {
             + " INTEGER," + KEY_STORE_COLOR + " INTEGER," + KEY_LOCATION + " STRING," + KEY_PHONE_NUMBER +
             " STRING," + KEY_URL + " STRING," + KEY_HOUR_OPEN + " INTEGER," + KEY_HOUR_CLOSED + " INTEGER" + ")";
 
+    Context dbContext;
+
     public RemoteDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        dbContext = context;
     }
 
     public void getNearbyStores() {
-        Runnable run = new Runnable() {
-
-            @Override
-            public void run() {
-                JSONObject json = null;
-                String str = "";
-                HttpResponse response;
-                HttpClient myClient = new DefaultHttpClient();
-
-                //LAN
-                //HttpPost myConnection = new HttpPost("http://192.168.29.12:9050//accessStores.php");
-
-                //WAN
-                HttpPost myConnection = new HttpPost("http://www.jkorang.com/accessStores.php");
-
-
-                try {
-                    response = myClient.execute(myConnection);
-                    str = EntityUtils.toString(response.getEntity(), "UTF-8");
-
-                } catch (ClientProtocolException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                try {
-                    JSONArray jArray = new JSONArray(str);
-                    for (int i = 0; i < jArray.length(); i++) {
-                        System.out.println(jArray.get(i));
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-
-        //TODO: Need to set while loop to help break the thread
-        Thread thrd = new Thread(run);
-        thrd.start();
+        new getStoresAsync().execute();
     }
 
     @Override
@@ -101,4 +64,56 @@ public class RemoteDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NEARBY_STORE);
         onCreate(db);
     }
+
+    private class getStoresAsync extends AsyncTask<String, String, JSONArray> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected JSONArray doInBackground(String... params) {
+            String str = "";
+            HttpResponse response;
+            HttpClient client = new DefaultHttpClient();
+
+            //LAN
+            HttpPost address = new HttpPost("http://192.168.29.12:9050//accessStores.php");
+
+            //WAN
+            //HttpPost address = new HttpPost("http://www.jkorang.com/accessStores.php");
+
+            try {
+                response = client.execute(address);
+                str = EntityUtils.toString(response.getEntity(), "UTF-8");
+
+            } catch (ClientProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            JSONArray jArray;
+            try {
+                jArray = new JSONArray(str);
+            } catch (JSONException e) {
+                jArray = null;
+                e.printStackTrace();
+            }
+            return jArray;
+        }
+
+        @Override
+        protected void onPostExecute(JSONArray jArray) {
+            for (int i = 0; i < jArray.length(); i++) {
+                try {
+                    System.out.println(jArray.get(i));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
 }
