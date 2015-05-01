@@ -5,11 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,7 +22,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_LIST = "list";
     private static final String TABLE_ITEM = "_item";
     private static final String TABLE_STORE = "store";
-    private static final String TABLE_NEARBY_STORE = "nearbystore";
     // Common column names
     private static final String KEY_NAME = "name";
     // LIST Table - column names
@@ -64,12 +58,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + " INTEGER," + KEY_STORE_COLOR + " INTEGER," + KEY_LOCATION + " STRING," + KEY_PHONE_NUMBER +
             " STRING," + KEY_URL + " STRING," + KEY_HOUR_OPEN + " INTEGER," + KEY_HOUR_CLOSED + " INTEGER" + ")";
 
-    private static final String CREATE_TABLE_NEARBY_STORE = "CREATE TABLE "
-            + TABLE_NEARBY_STORE + "(" + KEY_STORE_NAME + " STRING PRIMARY KEY," + KEY_STORE_ICON
-            + " INTEGER," + KEY_STORE_COLOR + " INTEGER," + KEY_LOCATION + " STRING," + KEY_PHONE_NUMBER +
-            " STRING," + KEY_URL + " STRING," + KEY_HOUR_OPEN + " INTEGER," + KEY_HOUR_CLOSED + " INTEGER" + ")";
-
-
     private static DatabaseHelper instance;
 
     public DatabaseHelper(Context context) {
@@ -97,7 +85,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ITEM);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LIST);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_STORE);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NEARBY_STORE);
 
         // create new tables
         onCreate(db);
@@ -258,6 +245,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return allStores;
     }
 
+/**
     //TODO: Edit once GPS can be locked.
     //TODO: Will also need to ping out to the server to pull the stores.
     //TODO: Once pulled, store them within a local table that we destroy on each create?
@@ -296,6 +284,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<Store> allStores = new ArrayList<Store>();
         return allStores;
     }
+
+    */
 
     /**
      * Grabs all items from the TABLE_ITEM that match the name of the list.

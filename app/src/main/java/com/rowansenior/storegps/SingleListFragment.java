@@ -23,6 +23,7 @@ import android.widget.EditText;
 
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
+import com.nispok.snackbar.listeners.ActionClickListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -187,7 +188,7 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                                 for (int position : reverseSortedPositions) {
 
                                     ShoppingListItem tempItem = itemList.get(position);
-                                    if(tempItem.getFound() == 0) {
+                                    if (tempItem.getFound() == 0) {
                                         db.itemFound(listName, tempItem.getName());
 
                                         //Move item to the bottom of the list
@@ -195,9 +196,7 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                                         itemList.remove(tempItem);
                                         tempItem.setFound();
                                         itemList.add(tempItem);
-                                    }
-
-                                    else {
+                                    } else {
                                         db.itemNotFound(listName, tempItem.getName());
 
                                         //Move item to the bottom of the list
@@ -218,14 +217,22 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
 
                                     db.removeItem(listName, tempItem.getName());
                                     itemList.remove(tempItem);
-                                    SnackbarManager.show(Snackbar.with(getActivity()).text(tempItem.getName() + " has been deleted"));
+                                    SnackbarManager.show(Snackbar.with(getActivity())
+                                            .text(tempItem.getName() + " has been deleted")
+                                            .actionLabel("Undo")
+                                            .actionListener(new ActionClickListener() {
+                                                                @Override
+                                                                public void onActionClicked(Snackbar snackbar) {
+                                                                    //PUT THE UNDO HERE
+                                                                    //TODO: THAT ^
+                                                                }
 
-                                    mAdapter.notifyItemRemoved(position);
+                                                            }
+                                            ));
                                 }
                                 mAdapter.notifyDataSetChanged();
                             }
                         });
-
         rview.addOnItemTouchListener(swipeTouchListener);
     }
 
@@ -236,7 +243,6 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
             //Returns to the location used to access the list (can be home, MyList, or from a store)
             case R.id.deleteThisList:
                 final AlertDialog alert = new AlertDialog.Builder(getActivity()).create();
-                alert.setTitle("Delete?");
                 alert.setMessage("Are you sure you want to delete this list?");
                 alert.setButton(Dialog.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -305,10 +311,10 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                         break;
                     }
                 }
-                if(exists == false) {
+                if (exists == false) {
                     if (name.toString().trim().length() == 0) {
                         SnackbarManager.show(Snackbar.with(getActivity()).text("Please enter an item name"));
-                    } else{
+                    } else {
                         db.addNewItem(listName, name.toString());
                         itemList = db.getAllItems(listName);
 
@@ -323,13 +329,13 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                         rview.setAdapter(mAdapter);
                     }
                 }
-                if(exists == false){
-                //NEED TO HANDLE REFRESH OF ELEMENTS
-                rview.refreshDrawableState();
-                mAdapter.notifyDataSetChanged();
-                newItem.clearFocus();
-                newItem.setText("");
-                break;
+                if (exists == false) {
+                    //NEED TO HANDLE REFRESH OF ELEMENTS
+                    rview.refreshDrawableState();
+                    mAdapter.notifyDataSetChanged();
+                    newItem.clearFocus();
+                    newItem.setText("");
+                    break;
                 }
         }
     }
