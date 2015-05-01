@@ -1,6 +1,9 @@
 package com.rowansenior.storegps;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -14,6 +17,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.AsyncTask;
 import android.os.StrictMode;
 
 public class RemoteDatabaseHelper extends SQLiteOpenHelper {
@@ -44,49 +48,48 @@ public class RemoteDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void getNearbyStores() {
-        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                .detectAll()
-                .penaltyLog()
-                .penaltyDialog()
-                .build());
+        Runnable run = new Runnable() {
 
-        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll()
-                .penaltyLog()
-                .build());
+            @Override
+            public void run() {
+                JSONObject json = null;
+                String str = "";
+                HttpResponse response;
+                HttpClient myClient = new DefaultHttpClient();
 
-        JSONObject json = null;
-        String str = "";
-        HttpResponse response;
-        HttpClient myClient = new DefaultHttpClient();
-        HttpPost myConnection = new HttpPost("http://www.jkorang.com/accessStores.php");
+                //LAN
+                //HttpPost myConnection = new HttpPost("http://192.168.29.12:9050//accessStores.php");
 
-        try {
-            response = myClient.execute(myConnection);
-            str = EntityUtils.toString(response.getEntity(), "UTF-8");
-
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try{
-            JSONArray jArray = new JSONArray(str);
-            json = jArray.getJSONObject(0);
-            System.out.println(json);
-
-        } catch ( JSONException e) {
-            e.printStackTrace();
-        }
+                //WAN
+                HttpPost myConnection = new HttpPost("http://www.jkorang.com/accessStores.php");
 
 
+                try {
+                    response = myClient.execute(myConnection);
+                    str = EntityUtils.toString(response.getEntity(), "UTF-8");
+
+                } catch (ClientProtocolException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    JSONArray jArray = new JSONArray(str);
+                    for (int i = 0; i < jArray.length(); i++) {
+                        System.out.println(jArray.get(i));
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        //TODO: Need to set while loop to help break the thread
+        Thread thrd = new Thread(run);
+        thrd.start();
     }
-
-
-
-
-
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {
