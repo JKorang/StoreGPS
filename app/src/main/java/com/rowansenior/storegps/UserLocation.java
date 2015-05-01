@@ -85,7 +85,6 @@ public class UserLocation {
         locationList = gc.getFromLocationName(strAddress, 1);
         //locationList = gc.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
 
-        //Address aLocation = locationList.get(0);
         dAddress = locationList.get(0);
         System.out.println(dAddress);
         dLocate.setLatitude(dAddress.getLatitude());
