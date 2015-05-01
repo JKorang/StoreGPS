@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -31,7 +32,6 @@ public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.View
     public static FragmentManager fragmentManager;
     private Context context;
     private List<Store> stores;
-
 
     public ListStoreAdapter(Context context, List stores) {
         this.stores = stores;
@@ -50,7 +50,13 @@ public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.View
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         Store store = stores.get(i);
         viewHolder.vTitleText.setText(store.getName());
-        viewHolder.vLocation.setText(store.getLocation());
+        try {
+            UserLocation ul = new UserLocation(context);
+            viewHolder.vLocation.setText(ul.getDistances().toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //viewHolder.vLocation.setText(store.getLocation());
     }
 
     @Override

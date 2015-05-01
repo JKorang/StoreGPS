@@ -59,7 +59,7 @@ public class UserLocation {
 
                 //dLocate.setLatitude(40.426671/*dAddress.getLatitude()*/);
                 //dLocate.setLongitude(-74.430390/*dAddress.getLongitude()*/);
-                System.out.println(distances(uLocate, dLocate) + " Miles");
+                System.out.println(getDistances() + " Miles");
             }
         }
 
@@ -92,9 +92,9 @@ public class UserLocation {
         System.out.println("Lat: " + dLocate.getLatitude() + " Long: " + dLocate.getLongitude());
     }
 
-    public Double distances(Location uLocation, Location dLocation)
+    public Double getDistances()
     {
-        double mtDistance = uLocation.distanceTo(dLocation);
+        double mtDistance = uLocate.distanceTo(dLocate);
         double mlDistance = mtDistance * 0.000621371;
         return mlDistance;
     }

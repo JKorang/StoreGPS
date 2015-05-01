@@ -6,6 +6,12 @@
         <option name="GRADLE_PROJECT_PATH" value=":snackbar-2.9.1" />
       </configuration>
     </facet>
+    <facet type="java-gradle" name="Java-Gradle">
+      <configuration>
+        <option name="BUILD_FOLDER_PATH" value="$MODULE_DIR$/build" />
+        <option name="BUILDABLE" value="false" />
+      </configuration>
+    </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
@@ -17,4 +23,3 @@
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
-
