@@ -21,6 +21,7 @@ public class UserLocation {
     List<Address> locationList;
     Location uLocate = new Location("");
     Location dLocate = new Location("");
+    Location tempULocate = new Location("");
     Address dAddress;
     String strAddress = "9 Puritan Rd, East Brunswick, NJ 08816";
     double userLong;
@@ -33,8 +34,16 @@ public class UserLocation {
 
     public void onCreate() throws IOException {
         LocationManager lm = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
-        LocationListener ll = new myLocationListener();
-        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, ll);
+        uLocate = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        while(uLocate == tempULocate)
+        {
+            LocationListener ll = new myLocationListener();
+            lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, ll);
+            ll.onLocationChanged(uLocate);
+        }
+        tempULocate = uLocate;
+        geoLocate();
+        System.out.println("I'm creating yo!");
 
         //dAddress = locationList.get(0);
     }
@@ -43,23 +52,14 @@ public class UserLocation {
         @Override
         public void onLocationChanged(Location location) {
             if (location != null) {
-                System.out.println(location);
                 userLong = location.getLongitude();
                 userLat = location.getLatitude();
-                System.out.println("Lat: " + userLat + "Long: " +userLong);
 
                 uLocate.setLatitude(userLat);
                 uLocate.setLongitude(userLong);
 
-                try {
-                    geoLocate(uLocate);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
                 //dLocate.setLatitude(40.426671/*dAddress.getLatitude()*/);
                 //dLocate.setLongitude(-74.430390/*dAddress.getLongitude()*/);
-                System.out.println(getDistances() + " Miles");
             }
         }
 
@@ -79,22 +79,30 @@ public class UserLocation {
         }
     }
 
-    public void geoLocate(Location location) throws IOException
+    public Location getUserLocation()
+    {
+        return uLocate;
+    }
+
+    public Location getDestinationLocation()
+    {
+        return dLocate;
+    }
+
+    public void geoLocate() throws IOException
     {
         Geocoder gc = new Geocoder(context);
         locationList = gc.getFromLocationName(strAddress, 1);
-        //locationList = gc.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
 
         dAddress = locationList.get(0);
         System.out.println(dAddress);
         dLocate.setLatitude(dAddress.getLatitude());
         dLocate.setLongitude(dAddress.getLongitude());
-        System.out.println("Lat: " + dLocate.getLatitude() + " Long: " + dLocate.getLongitude());
     }
 
-    public Double getDistances()
+    public Double getDistances(Location uLocation, Location dLocation)
     {
-        double mtDistance = uLocate.distanceTo(dLocate);
+        double mtDistance = uLocation.distanceTo(dLocation);
         double mlDistance = mtDistance * 0.000621371;
         return mlDistance;
     }

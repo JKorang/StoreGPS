@@ -52,7 +52,7 @@ public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.View
         viewHolder.vTitleText.setText(store.getName());
         try {
             UserLocation ul = new UserLocation(context);
-            viewHolder.vLocation.setText(ul.getDistances().toString());
+            viewHolder.vLocation.setText(ul.getDistances(ul.getUserLocation(), ul.getDestinationLocation()).toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
