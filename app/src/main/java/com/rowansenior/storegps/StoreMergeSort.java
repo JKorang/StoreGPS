@@ -19,11 +19,12 @@ public class StoreMergeSort {
         this.context = context;
     }
 
-    public void sort(ArrayList<Store> unsortedStores) throws IOException {
+    public ArrayList<Store> sort(ArrayList<Store> unsortedStores) throws IOException {
         sortStore = unsortedStores;
         size = unsortedStores.size();
         tempSortStore = new ArrayList<>(size);
         doMergeSort(0, size - 1);
+        return sortStore;
     }
 
     private void doMergeSort(int lowNDX, int highNDX) throws IOException {

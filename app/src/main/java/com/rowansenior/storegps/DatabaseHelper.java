@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,6 +16,8 @@ import java.util.Date;
  * Created by root on 3/29/15.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
+
+    Context myContext;
 
     // Database Version
     private static final int DATABASE_VERSION = 14;
@@ -84,6 +89,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        myContext = context;
     }
 
     public static synchronized DatabaseHelper getHelper(Context context) {
@@ -241,32 +247,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //TODO: Currently returns the last 3 stores added to the My Stores page.
     //TODO: Once we can lock GPS, generate the proper output.
-    public ArrayList<Store> get3ClosestStores() {
-        SQLiteDatabase dataBase = this.getReadableDatabase();
+    public ArrayList<Store> get3ClosestStores() throws IOException {
+        /*SQLiteDatabase dataBase = this.getReadableDatabase();
         ArrayList<Store> allStores = new ArrayList<Store>();
         String selectQuery = "SELECT  * FROM " + TABLE_STORE;
 
         Cursor c = dataBase.rawQuery(selectQuery, null);
 
-        if (c.moveToLast()) {
-            int lastPosition = c.getPosition();
-            for (int i = lastPosition; i > (lastPosition - 3); i--) {
-
-                if (i < 0) {
-                    break;
-                } else {
-                    Store sl = new Store(c.getString(c.getColumnIndex(KEY_STORE_NAME)),
-                            c.getString(c.getColumnIndex(KEY_LOCATION)),
-                            c.getString(c.getColumnIndex(KEY_PHONE_NUMBER)),
-                            c.getString(c.getColumnIndex(KEY_URL)),
-                            c.getInt(c.getColumnIndex(KEY_HOUR_OPEN)),
-                            c.getInt(c.getColumnIndex(KEY_HOUR_CLOSED)));
-                    allStores.add(sl);
-                    c.moveToPrevious();
-                }
+        if (c.moveToFirst()) {
+            int firstPosition = c.getPosition();
+            for (int i = 0; i < allStores.size(); i++) {
+                Store sl = new Store(c.getString(c.getColumnIndex(KEY_STORE_NAME)),
+                        c.getString(c.getColumnIndex(KEY_LOCATION)),
+                        c.getString(c.getColumnIndex(KEY_PHONE_NUMBER)),
+                        c.getString(c.getColumnIndex(KEY_URL)),
+                        c.getInt(c.getColumnIndex(KEY_HOUR_OPEN)),
+                        c.getInt(c.getColumnIndex(KEY_HOUR_CLOSED)));
+                allStores.add(sl);
+                c.moveToNext();
             }
+        }*/
+        ArrayList<Store> allStores = new ArrayList<Store>();
+        allStores = getAllStores();
+        StoreMergeSort sms = new StoreMergeSort(myContext);
+        sms.sort(allStores);
+        ArrayList<Store> top3 = new ArrayList<>();
+        for(int i = 0; i < 3; i++)
+        {
+            top3.add(i, allStores.get(i));
         }
-        return allStores;
+        return top3;
     }
 
     //TODO: Edit once GPS can be locked.

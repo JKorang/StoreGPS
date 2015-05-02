@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.IOException;
+
 
 /**
  * HomeFragment is the "home page" of the application, and the default fragment.
@@ -70,14 +72,18 @@ public class HomeFragment extends Fragment {
      * @param savedInstanceState
      */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         RemoteDatabaseHelper rDB = new RemoteDatabaseHelper(getActivity());
         rDB.getNearbyStores();
         DatabaseHelper db = new DatabaseHelper(getActivity());
         mAdapter = new ListListAdapter(getActivity(), db.getLast3Lists(), "homePage");
-        mStoreAdapter = new ListStoreAdapter(getActivity(), db.get3ClosestStores(), 0);
+        try {
+            mStoreAdapter = new ListStoreAdapter(getActivity(), db.get3ClosestStores(), 0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         mNearbyAdapter = new ListStoreAdapter(getActivity(), db.getNearbyStores(), 1);
     }
 
