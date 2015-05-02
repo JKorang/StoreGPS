@@ -129,7 +129,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                 //Writes to the database, increase local counter and reset textView
                 case R.id.incQuantity:
                     db.increaseQuantity(parentList, vTitleText.getText().toString());
-
                     thisItem.increaseQuantity();
                     vQuantity.setText("Quantity: " + thisItem.getQuantity());
                     break;
