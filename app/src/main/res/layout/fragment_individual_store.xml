@@ -6,50 +6,62 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/store_image_LL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linearLayout4">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/store_gradient"
+        android:orientation="horizontal">
+
+
         <ImageView
             android:id="@+id/storeImage"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher" />
+            android:maxHeight="90dp"
+            android:maxWidth="90dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/deleteme"
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/storeImage"
-            android:orientation="vertical"
-            android:id="@+id/linearLayout3">
+            />
 
-            <TextView
-                android:id="@+id/storeName"
-                android:layout_width="190dp"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="3"
-
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <TextView
-                android:id="@+id/storeDistanceTo"
-                android:layout_width="190dp"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </LinearLayout>
-        </LinearLayout>
-
-
+    </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/store_button_LL"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/store_name_LL"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/storePhoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoLink="phone"
+            android:clickable="true"
+            android:text="Call"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Button
+            android:id="@+id/storeURL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:clickable="true"
+            android:text="Website"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/store_info_LL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/linearLayout"
-        android:layout_below="@+id/linearLayout4"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/store_button_LL"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/storeAddress"
@@ -62,23 +74,6 @@
             android:maxLines="2"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <TextView
-            android:id="@+id/storePhoneNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autoLink="phone"
-
-            android:clickable="true"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/storeURL"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autoLink="web"
-
-            android:clickable="true"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/storeHours"
@@ -86,6 +81,30 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/store_name_LL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/store_image_LL"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/storeName"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="3"
+
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/storeDistanceTo"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
 
 
