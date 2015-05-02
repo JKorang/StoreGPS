@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -32,6 +33,7 @@ public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.View
     public static FragmentManager fragmentManager;
     private Context context;
     private List<Store> stores;
+    private DecimalFormat df = new DecimalFormat("#.##");
 
     public ListStoreAdapter(Context context, List stores) {
         this.stores = stores;
@@ -51,8 +53,9 @@ public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.View
         Store store = stores.get(i);
         viewHolder.vTitleText.setText(store.getName());
         try {
-            UserLocation ul = new UserLocation(context);
-            viewHolder.vLocation.setText(ul.getDistances(ul.getUserLocation(), ul.getDestinationLocation()).toString());
+            UserLocation ul = new UserLocation(context, store.getLocation());
+            Double location = ul.getDistances(ul.getUserLocation(), ul.getDestinationLocation());
+            viewHolder.vLocation.setText(df.format(location).toString() + " miles");
         } catch (IOException e) {
             e.printStackTrace();
         }

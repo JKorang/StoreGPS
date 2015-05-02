@@ -42,11 +42,6 @@ public class HelpActivity extends ActionBarActivity {
         db.getNearbyStores();
         db.getNearbyItems();
 
-        try {
-            UserLocation ul = new UserLocation(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**

@@ -23,7 +23,7 @@ public class UserLocation {
     Location dLocate = new Location("");
     Location tempULocate = new Location("");
     Address dAddress;
-    String strAddress = "9 Puritan Rd, East Brunswick, NJ 08816";
+    String strAddress;
     double userLong;
     double userLat;
 
@@ -32,18 +32,25 @@ public class UserLocation {
         onCreate();
     }
 
+    public UserLocation(Context context, String address) throws IOException
+    {
+        this.context = context;
+        strAddress = address;
+        onCreate();
+    }
+
     public void onCreate() throws IOException {
         LocationManager lm = (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
         uLocate = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        //LocationListener ll = new myLocationListener();
+        //lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 60000, 150, ll);
         while(uLocate == tempULocate)
         {
             LocationListener ll = new myLocationListener();
             lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, ll);
-            ll.onLocationChanged(uLocate);
         }
         tempULocate = uLocate;
         geoLocate();
-        System.out.println("I'm creating yo!");
 
         //dAddress = locationList.get(0);
     }
@@ -95,7 +102,6 @@ public class UserLocation {
         locationList = gc.getFromLocationName(strAddress, 1);
 
         dAddress = locationList.get(0);
-        System.out.println(dAddress);
         dLocate.setLatitude(dAddress.getLatitude());
         dLocate.setLongitude(dAddress.getLongitude());
     }
