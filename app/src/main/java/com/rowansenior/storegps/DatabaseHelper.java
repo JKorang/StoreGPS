@@ -267,14 +267,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 c.moveToNext();
             }
         }*/
-        ArrayList<Store> allStores = new ArrayList<Store>();
+        ArrayList<Store> allStores;
         allStores = getAllStores();
         StoreMergeSort sms = new StoreMergeSort(myContext);
         sms.sort(allStores);
+        System.out.println(allStores.toString());
         ArrayList<Store> top3 = new ArrayList<>();
         for(int i = 0; i < 3; i++)
         {
-            top3.add(i, allStores.get(i));
+            if(i >= allStores.size())
+            {
+                break;
+            }
+            else
+            {
+                top3.add(i, allStores.get(i));
+            }
         }
         return top3;
     }
