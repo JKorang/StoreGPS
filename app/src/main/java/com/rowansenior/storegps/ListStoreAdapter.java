@@ -34,10 +34,12 @@ public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.View
     private Context context;
     private List<Store> stores;
     private DecimalFormat df = new DecimalFormat("#.##");
+    private int isNearby;
 
-    public ListStoreAdapter(Context context, List stores) {
+    public ListStoreAdapter(Context context, List stores, int nearby) {
         this.stores = stores;
         this.context = context;
+        this.isNearby = nearby;
         fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
     }
 
@@ -103,8 +105,12 @@ public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.View
                 case R.id.listIcon:
             }
             String newFrag = vTitleText.getText().toString();
-            vFM.beginTransaction().replace(R.id.container, new SingleStoreFragment(newFrag).newInstance(newFrag)).addToBackStack(null).commit();
-
+            if (isNearby == 0) {
+                vFM.beginTransaction().replace(R.id.container, new SingleStoreFragment(newFrag).newInstance(newFrag)).addToBackStack(null).commit();
+            }
+            else {
+                vFM.beginTransaction().replace(R.id.container, new SingleStoreFragment(newFrag).newInstance(newFrag)).addToBackStack(null).commit();
+            }
         }
 
         /**

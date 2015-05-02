@@ -77,6 +77,7 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
         Bundle args = new Bundle();
         listName = ln;
         isNavigated = false;
+        storeNav = null;
         fragment.setArguments(args);
         return fragment;
     }
@@ -84,12 +85,12 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
     /**
      * Creates a new MLF and establishes its Bundle file.
      */
-    public static SingleListFragment newInstance(String ln, boolean isNav, Store storeNaved) {
+    public static SingleListFragment newInstance(String ln, boolean isNav, Store store) {
         SingleListFragment fragment = new SingleListFragment();
         Bundle args = new Bundle();
         listName = ln;
         isNavigated = isNav;
-        storeNav = storeNaved;
+        storeNav = store;
         fragment.setArguments(args);
         return fragment;
     }
@@ -153,7 +154,12 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity) getActivity()).changeActionBarTitle(listName);
+        if (storeNav == null) {
+            ((MainActivity) getActivity()).changeActionBarTitle(listName);
+        }
+        else {
+            ((MainActivity) getActivity()).changeActionBarTitle(listName + " : " + storeNav.getName());
+        }
     }
 
     /**

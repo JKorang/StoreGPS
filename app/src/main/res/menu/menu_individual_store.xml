@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.rowansenior.storegps.MainActivity">
+    <item android:id="@+id/individual_store_search"
+        android:title="@string/individual_store_search"
+        android:icon="@drawable/action_bar_search"
+        app:showAsAction="ifRoom" />
+    <item android:id="@+id/individual_store_navigate"
+        android:title="@string/individual_store_navigate"
+        android:icon="@drawable/action_bar_nav"
+        app:showAsAction="ifRoom" />
+    <item android:id="@+id/individual_store_favorite"
+        android:title="@string/individual_store_favorite"
+        app:showAsAction="ifRoom" />
+</menu>

@@ -89,36 +89,4 @@
     </LinearLayout>
 
 
-    <ToggleButton
-        android:id="@+id/toggleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:text="New ToggleButton"
-        android:layout_below="@+id/linearLayout2"
-        android:layout_alignParentStart="true" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/linearLayout"
-        android:layout_alignParentStart="true"
-        android:gravity="center"
-        android:id="@+id/linearLayout2">
-
-        <Button
-            android:id="@+id/navButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Begin Navigation"
-            />
-
-        <Button
-            android:id="@+id/performSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Search This Store" />
-    </LinearLayout>
-
 </RelativeLayout>

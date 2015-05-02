@@ -34,4 +34,7 @@
     <string name="addNewListButton">Add New List</string>
     <string name="navigateAStore">Navigate A Store</string>
     <string name="deleteThisList">Delete This List</string>
+    <string name="individual_store_search">Search This Store</string>
+    <string name="individual_store_navigate">Navigate This Store</string>
+    <string name="individual_store_favorite">Add To Favorites</string>
 </resources>

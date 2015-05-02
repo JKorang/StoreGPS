@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -43,6 +46,8 @@ public class SingleStoreFragment extends Fragment implements View.OnClickListene
     private Button navigationButton;
     private Button searchButton;
     private DecimalFormat df = new DecimalFormat("#.##");
+    private DatabaseHelper db;
+    private Menu menuRef;
 
 
     /**
@@ -84,9 +89,10 @@ public class SingleStoreFragment extends Fragment implements View.OnClickListene
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DatabaseHelper db = new DatabaseHelper(getActivity());
+        db = new DatabaseHelper(getActivity());
         storeInfo = db.getStoreInfo(storeName);
         ((MainActivity) getActivity()).changeActionBarTitle("");
+        setHasOptionsMenu(true);
     }
 
     /**
@@ -110,16 +116,11 @@ public class SingleStoreFragment extends Fragment implements View.OnClickListene
         storePhone = (TextView) storeView.findViewById(R.id.storePhoneNumber);
         storeURL = (TextView) storeView.findViewById(R.id.storeURL);
         storeHours = (TextView) storeView.findViewById(R.id.storeHours);
-        navigationButton = (Button) storeView.findViewById(R.id.navButton);
-        searchButton = (Button) storeView.findViewById(R.id.performSearch);
 
         nameOfStore.setText(storeInfo.getName());
         storeAddress.setText(storeInfo.getLocation());
         storePhone.setText(storeInfo.getPhoneNumber());
         storeURL.setText(storeInfo.getURL());
-
-        navigationButton.setOnClickListener(this);
-        searchButton.setOnClickListener(this);
 
         String openTime = String.valueOf(storeInfo.getHoursOpen());
         String closedTime = String.valueOf(storeInfo.getHoursClosed());
@@ -134,18 +135,6 @@ public class SingleStoreFragment extends Fragment implements View.OnClickListene
         }
 
         return storeView;
-    }
-
-
-    /**
-     * Actions that take place when a button is pressed.
-     *
-     * @param uri
-     */
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     /**
@@ -177,17 +166,6 @@ public class SingleStoreFragment extends Fragment implements View.OnClickListene
     }
 
     public void onClick(View v) {
-        FragmentManager fragmentManager = getFragmentManager();
-        switch (v.getId()) {
-            case R.id.navButton:
-                DialogChooseList diagNL = new DialogChooseList();
-                diagNL.show(fragmentManager, null);
-                break;
-            case R.id.performSearch:
-                DialogSingleItemSearch sIS = new DialogSingleItemSearch();
-                sIS.show(fragmentManager, null);
-                break;
-        }
     }
 
     /**
@@ -202,5 +180,47 @@ public class SingleStoreFragment extends Fragment implements View.OnClickListene
      */
     public interface OnFragmentInteractionListener {
         public void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        FragmentManager fragmentManager = getFragmentManager();
+        switch (item.getItemId()) {
+            case R.id.individual_store_favorite:
+                if(db.isStoreFavorited(storeInfo) == true) {
+                    menuRef.findItem(R.id.individual_store_favorite).setIcon(R.drawable.action_bar_not_favorited);
+                    db.removeFavoriteStore(storeName);
+                }
+                else {
+                    menuRef.findItem(R.id.individual_store_favorite).setIcon(R.drawable.action_bar_favorited);
+                    db.addNewFavoriteStore(storeInfo.getName(), storeInfo.getPhoneNumber(), storeInfo.getURL(), storeInfo.getHoursOpen(), storeInfo.getHoursClosed(), storeInfo.getLocation());
+                }
+                return true;
+
+            case R.id.individual_store_navigate:
+                DialogChooseList diagNL = new DialogChooseList(storeName);
+                diagNL.show(fragmentManager, null);
+                return true;
+
+            case R.id.individual_store_search:
+                DialogSingleItemSearch sIS = new DialogSingleItemSearch();
+                sIS.show(fragmentManager, null);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_individual_store, menu);
+        menuRef = menu;
+        if(db.isStoreFavorited(storeInfo) == true) {
+            menu.findItem(R.id.individual_store_favorite).setIcon(R.drawable.action_bar_favorited);
+        }
+        else {
+            menu.findItem(R.id.individual_store_favorite).setIcon(R.drawable.action_bar_not_favorited);
+        }
     }
 }

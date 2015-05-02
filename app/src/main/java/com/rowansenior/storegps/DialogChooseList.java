@@ -20,9 +20,11 @@ import java.util.ArrayList;
 public class DialogChooseList extends DialogFragment implements View.OnClickListener {
     Context mContext;
     ArrayList<String> listOfNames;
+    String storeName;
 
-    public DialogChooseList() {
+    public DialogChooseList(String name) {
         mContext = getActivity();
+        this.storeName = name;
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,7 +32,7 @@ public class DialogChooseList extends DialogFragment implements View.OnClickList
 
         //Build dialog
         getDialog().setTitle("Choose A List To Navigate");
-        DatabaseHelper db = new DatabaseHelper(getActivity());
+        final DatabaseHelper db = new DatabaseHelper(getActivity());
         ArrayList list = db.getAllLists();
         generateListOfNames(list);
         final ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, listOfNames);
@@ -40,7 +42,8 @@ public class DialogChooseList extends DialogFragment implements View.OnClickList
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                fm.beginTransaction().replace(R.id.container, new SingleListFragment().newInstance(itemsAdapter.getItem(position), true, null)).addToBackStack(null).commit();
+                final Store store = db.getStoreInfo(storeName);
+                fm.beginTransaction().replace(R.id.container, new SingleListFragment().newInstance(itemsAdapter.getItem(position), true, store)).addToBackStack(null).commit();
                 getDialog().dismiss();
             }
         });

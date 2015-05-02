@@ -73,18 +73,19 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        DatabaseHelper db = new DatabaseHelper(getActivity());
         RemoteDatabaseHelper rDB = new RemoteDatabaseHelper(getActivity());
         rDB.getNearbyStores();
+        DatabaseHelper db = new DatabaseHelper(getActivity());
         mAdapter = new ListListAdapter(getActivity(), db.getLast3Lists(), "homePage");
-        mStoreAdapter = new ListStoreAdapter(getActivity(), db.get3ClosestStores());
-        mNearbyAdapter = new ListStoreAdapter(getActivity(), db.getNearbyStores());
+        mStoreAdapter = new ListStoreAdapter(getActivity(), db.get3ClosestStores(), 0);
+        mNearbyAdapter = new ListStoreAdapter(getActivity(), db.getNearbyStores(), 1);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         ((MainActivity) getActivity()).changeActionBarTitle("Home");
+
         mAdapter.notifyDataSetChanged();
         mStoreAdapter.notifyDataSetChanged();
         mNearbyAdapter.notifyDataSetChanged();

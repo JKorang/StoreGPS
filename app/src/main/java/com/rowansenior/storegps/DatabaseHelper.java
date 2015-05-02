@@ -60,11 +60,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_HOUR_OPEN = "open";
     private static final String KEY_HOUR_CLOSED = "closed";
 
+    private static final String KEY_ITEM_TAG = "tags";
+    private static final String KEY_ITEM_PRICE = "price";
+    private static final String KEY_ITEM_LOCATION = "location";
+    private static final String KEY_STORE = "store";
+
     // Table Create Statements
     private static final String CREATE_TABLE_STORE = "CREATE TABLE "
             + TABLE_STORE + "(" + KEY_STORE_NAME + " STRING PRIMARY KEY," + KEY_STORE_ICON
             + " INTEGER," + KEY_STORE_COLOR + " INTEGER," + KEY_LOCATION + " STRING," + KEY_PHONE_NUMBER +
             " STRING," + KEY_URL + " STRING," + KEY_HOUR_OPEN + " INTEGER," + KEY_HOUR_CLOSED + " INTEGER" + ")";
+
+    private static final String CREATE_TABLE_NEARBY_STORE = "CREATE TABLE "
+            + TABLE_NEARBY_STORE + "(" + KEY_STORE_NAME + " STRING PRIMARY KEY," + KEY_STORE_ICON
+            + " INTEGER," + KEY_STORE_COLOR + " INTEGER," + KEY_LOCATION + " STRING," + KEY_PHONE_NUMBER +
+            " STRING," + KEY_URL + " STRING," + KEY_HOUR_OPEN + " STRING," + KEY_HOUR_CLOSED + " STRING" + ")";
+
+    private static final String CREATE_TABLE_STORE_ITEM = "CREATE TABLE " + TABLE_STORE_ITEM + "(" + KEY_ITEM_NAME
+            + " STRING NOT NULL, " + KEY_STORE + " STRING NOT NULL, " + KEY_ITEM_TAG + " STRING, " + KEY_ITEM_PRICE + " STRING, " +
+            KEY_ITEM_LOCATION + " STRING, PRIMARY KEY(" + KEY_ITEM_NAME + ", " + KEY_STORE + "))";
 
     private static DatabaseHelper instance;
 
@@ -84,6 +98,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // creating required tables
         db.execSQL(CREATE_TABLE_LIST);
         db.execSQL(CREATE_TABLE_STORE);
+        db.execSQL(CREATE_TABLE_STORE_ITEM);
+        db.execSQL(CREATE_TABLE_NEARBY_STORE);
     }
 
     @Override
@@ -261,27 +277,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<Store> getNearbyStores() {
         SQLiteDatabase dataBase = this.getReadableDatabase();
         ArrayList<Store> allStores = new ArrayList<Store>();
-        String selectQuery = "SELECT  * FROM " + TABLE_NEARBY_STORE;
+        try {
+            String selectQuery = "SELECT  * FROM " + TABLE_NEARBY_STORE;
 
-        Cursor c = dataBase.rawQuery(selectQuery, null);
+            Cursor c = dataBase.rawQuery(selectQuery, null);
 
-        if (c.moveToLast()) {
-            int lastPosition = c.getPosition();
-            for (int i = lastPosition; i > (lastPosition - 3); i--) {
+            if (c.moveToLast()) {
+                int lastPosition = c.getPosition();
+                for (int i = lastPosition; i > (lastPosition - 3); i--) {
 
-                if (i < 0) {
-                    break;
-                } else {
-                    Store sl = new Store(c.getString(c.getColumnIndex(KEY_STORE_NAME)),
-                            c.getString(c.getColumnIndex(KEY_LOCATION)),
-                            c.getString(c.getColumnIndex(KEY_PHONE_NUMBER)),
-                            c.getString(c.getColumnIndex(KEY_URL)),
-                            c.getInt(c.getColumnIndex(KEY_HOUR_OPEN)),
-                            c.getInt(c.getColumnIndex(KEY_HOUR_CLOSED)));
-                    allStores.add(sl);
-                    c.moveToPrevious();
+                    if (i < 0) {
+                        break;
+                    } else {
+                        Store sl = new Store(c.getString(c.getColumnIndex(KEY_STORE_NAME)),
+                                c.getString(c.getColumnIndex(KEY_LOCATION)),
+                                c.getString(c.getColumnIndex(KEY_PHONE_NUMBER)),
+                                c.getString(c.getColumnIndex(KEY_URL)),
+                                c.getInt(c.getColumnIndex(KEY_HOUR_OPEN)),
+                                c.getInt(c.getColumnIndex(KEY_HOUR_CLOSED)));
+                        allStores.add(sl);
+                        c.moveToPrevious();
+                    }
                 }
             }
+        }
+        catch (Exception e) {
+
         }
         return allStores;
     }
@@ -368,10 +389,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return allStores;
     }
 
+    public boolean isStoreFavorited(Store store) {
+        boolean exitState;
+        SQLiteDatabase database = this.getReadableDatabase();
+        String selectQuery = "SELECT EXISTS(SELECT 1 FROM " + TABLE_STORE + " WHERE " + KEY_STORE_NAME + "=" + '"' + store.getName() + '"' + " LIMIT 1)";
+        Cursor c = database.rawQuery(selectQuery, null);
+        c.moveToFirst();
+        if(c.getInt(0) == 0) {
+            exitState = false;
+        }
+        else {
+            exitState = true;
+        }
+        return exitState;
+    }
+
     public Store getStoreInfo(String storeName) {
         SQLiteDatabase dataBase = this.getReadableDatabase();
-        String selectQuery = "SELECT  * FROM " + TABLE_STORE + " WHERE " + '"' + KEY_STORE_NAME + '"' + " = " + '"' + storeName + '"';
-        Cursor c = dataBase.rawQuery(selectQuery, null);
+        String selectQuery;
+        Cursor c = null;
+        try {
+            System.out.println("Favorited?");
+            selectQuery = "SELECT  * FROM " + TABLE_STORE + " WHERE " + '"' + KEY_STORE_NAME + '"' + " = " + '"' + storeName + '"';
+            c = dataBase.rawQuery(selectQuery, null);
+            if(c.getCount() == 0) {
+                System.out.println("Not stored");
+                selectQuery = "SELECT  * FROM " + TABLE_NEARBY_STORE + " WHERE " + '"' + KEY_STORE_NAME + '"' + " = " + '"' + storeName + '"';
+                c = dataBase.rawQuery(selectQuery, null);
+            }
+        }
+        catch (Exception e) {
+        }
         c.moveToFirst();
         Store storeToReturn = new Store(c.getString(c.getColumnIndex(KEY_STORE_NAME)),
                 c.getString(c.getColumnIndex(KEY_LOCATION)),
