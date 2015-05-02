@@ -32,7 +32,7 @@ public class DialogChooseStore extends DialogFragment implements View.OnClickLis
 
         //Build dialog
         getDialog().setTitle("Navigate A Store");
-        DatabaseHelper db = new DatabaseHelper(getActivity());
+        final DatabaseHelper db = new DatabaseHelper(getActivity());
         ArrayList list = db.getAllStores();
         generateListOfStores(list);
         final ArrayAdapter<String> storeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, listOfStores);
@@ -42,7 +42,8 @@ public class DialogChooseStore extends DialogFragment implements View.OnClickLis
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                fm.beginTransaction().replace(R.id.container, new SingleListFragment().newInstance(mOrigin, true, null)).addToBackStack(null).commit();
+                final Store store = db.getStoreInfo(listOfStores.get(position));
+                fm.beginTransaction().replace(R.id.container, new SingleListFragment().newInstance(mOrigin, true, store)).addToBackStack(null).commit();
                 getDialog().dismiss();
             }
         });

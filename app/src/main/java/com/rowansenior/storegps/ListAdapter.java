@@ -92,6 +92,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         public FragmentManager vFM;
         public ImageButton vIncQuantity;
         public ImageButton vDecQuantity;
+        public ImageButton vItemInfo;
         public String parentList;
         public Context vhContext;
         public TextView vItemLocation;
@@ -107,6 +108,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             vCardView = (CardView) v.findViewById(R.id.itemcardview);
             vIncQuantity = (ImageButton) v.findViewById(R.id.incQuantity);
             vDecQuantity = (ImageButton) v.findViewById(R.id.decQuantity);
+            vItemInfo = (ImageButton) v.findViewById(R.id.itemInfo);
 
             vhContext = context;
             parentList = listName;
@@ -116,6 +118,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
             vCardView.setOnClickListener(this);
             vIncQuantity.setOnClickListener(this);
             vDecQuantity.setOnClickListener(this);
+            vItemInfo.setOnClickListener(this);
         }
 
 
@@ -143,6 +146,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                         thisItem.decreaseQuantity();
                         vQuantity.setText("Quantity: " + thisItem.getQuantity());
                     }
+                    break;
+
+                case R.id.itemInfo:
+                    DialogSearchItem diagSI = new DialogSearchItem();
+                    diagSI.show(fragmentManager, null);
                     break;
             }
         }

@@ -12,63 +12,78 @@
     card_view:cardCornerRadius="4dp"
     card_view:cardElevation="6dp">
 
-    <GridLayout
-        android:id="@+id/itemGridLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alignmentMode="alignBounds"
-        android:columnCount="18"
-        android:rowCount="5">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/itemText"
-            android:layout_width="120dp"
-            android:layout_column="0"
-            android:layout_row="0"
-            android:paddingLeft="5dp"
-            android:textColor="@android:color/black" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/QuantityText"
-            android:layout_width="120dp"
-            android:layout_column="0"
-            android:layout_row="1"
-            android:paddingLeft="5dp"
-            android:textColor="@android:color/black" />
+            <TextView
+                android:id="@+id/itemText"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:textColor="@android:color/black" />
 
-        <TextView
-            android:id="@+id/locationText"
-            android:layout_width="120dp"
-            android:layout_column="0"
-            android:layout_row="3"
-            android:paddingLeft="5dp"
-            android:textColor="@android:color/black" />
+            <TextView
+                android:id="@+id/QuantityText"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:textColor="@android:color/black" />
 
-        <ImageButton
-            android:id="@+id/incQuantity"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_column="16"
-            android:layout_row="0"
-            android:layout_rowSpan="5"
-            android:background="#0000"
-            android:padding="5dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/plus24" />
+            <TextView
+                android:id="@+id/locationText"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/decQuantity"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_column="17"
-            android:layout_row="0"
-            android:layout_rowSpan="5"
-            android:background="#0000"
-            android:padding="5dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/minus24" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
 
-    </GridLayout>
+            <ImageButton
+                android:id="@+id/incQuantity"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="#0000"
+                android:padding="5dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/plus24" />
+
+            <ImageButton
+                android:id="@+id/decQuantity"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="#0000"
+                android:padding="5dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/minus24" />
+
+            <ImageButton
+                android:id="@+id/itemInfo"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="#0000"
+                android:padding="5dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/info4" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>
 
