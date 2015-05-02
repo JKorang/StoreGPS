@@ -52,18 +52,17 @@
             android:layout_height="wrap_content"
             android:text="@string/nearbyStoresTextView"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-        <!--
-                <android.support.v7.widget.RecyclerView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:numColumns="3"
-                    android:id="@+id/myListRecycler"
-                    android:layout_gravity="left|top"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:overScrollMode="never"
-        />
-                    -->
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/myListRecycler"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|top"
+            android:numColumns="3"
+            android:overScrollMode="never"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" />
+
     </TableLayout>
 
 </FrameLayout>

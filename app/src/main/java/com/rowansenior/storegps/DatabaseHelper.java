@@ -22,26 +22,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_LIST = "list";
     private static final String TABLE_ITEM = "_item";
     private static final String TABLE_STORE = "store";
+    private static final String TABLE_NEARBY_STORE = "nearbystore";
+    private static final String TABLE_STORE_ITEM = "storeitems";
+
     // Common column names
     private static final String KEY_NAME = "name";
+
     // LIST Table - column names
     private static final String KEY_ICON = "icon";
     private static final String KEY_COLOR = "color";
     private static final String KEY_ACTIVE = "active";
     private static final String KEY_DATE = "date";
+
     // LIST Table Create Statements
     private static final String CREATE_TABLE_LIST = "CREATE TABLE "
             + TABLE_LIST + "(" + KEY_NAME + " STRING PRIMARY KEY," + KEY_ICON
             + " INTEGER," + KEY_COLOR + " INTEGER," + KEY_ACTIVE + " INTEGER," + KEY_DATE
             + " STRING" + ")";
+
     // ITEM Table - column names
     private static final String KEY_ITEM_NAME = "item_name";
     private static final String KEY_QUANTITY = "quantity";
     private static final String KEY_IF_FOUND = "if_found";
+
     // Table Create Statements
     private static final String CREATE_TABLE_ITEM = "CREATE TABLE "
             + KEY_NAME + TABLE_ITEM + "(" + KEY_NAME + " STRING," + KEY_ITEM_NAME
             + " STRING," + KEY_QUANTITY + " INTEGER," + KEY_IF_FOUND + " INTEGER" + ")";
+
     // STORE Table - column names
     private static final String KEY_STORE_NAME = "store_name";
     private static final String KEY_LOCATION = "location";
@@ -245,7 +253,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return allStores;
     }
 
-/**
     //TODO: Edit once GPS can be locked.
     //TODO: Will also need to ping out to the server to pull the stores.
     //TODO: Once pulled, store them within a local table that we destroy on each create?
@@ -253,39 +260,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //TODO: Look at OnResume if our location has changed to determine if the page needs refreshing
     public ArrayList<Store> getNearbyStores() {
         SQLiteDatabase dataBase = this.getReadableDatabase();
-
-        //Drop the table to ensure all Nearby Stores are accurate
-        String dropTable = "DROP TABLE IF EXISTS " + TABLE_NEARBY_STORE;
-        dataBase.execSQL(dropTable);
-
-        //Build from the remote server
-        //try{
-        dataBase.execSQL(CREATE_TABLE_NEARBY_STORE);
-
-            JSONObject jsonObject = new JSONObject();
-
-            System.out.println(jsonObject);
-
-           // for(int i = 0; i < json.length(); i++)
-           //     storeInfo.add(json.g);
-
-            //for(int j = 0; j < json.length(); i+=8){
-          //     String addStore = "INSERT INTO " + TABLE_STORE + " VALUES(" + '"' + storeName + '"' + ", 1, 1, " + '"' + location + '"' + ", " + '"' + phoneNumber + '"' + ", " + '"' + uRL + '"' + ", " + open + ", " + json.get(j) + ")";
-           // }
-      //  } catch (JSONException e) {
-       //     e.printStackTrace();
-       // }
-
-        //Sort by distance to current location
-
-        //Return list
-
-
         ArrayList<Store> allStores = new ArrayList<Store>();
+        String selectQuery = "SELECT  * FROM " + TABLE_NEARBY_STORE;
+
+        Cursor c = dataBase.rawQuery(selectQuery, null);
+
+        if (c.moveToLast()) {
+            int lastPosition = c.getPosition();
+            for (int i = lastPosition; i > (lastPosition - 3); i--) {
+
+                if (i < 0) {
+                    break;
+                } else {
+                    Store sl = new Store(c.getString(c.getColumnIndex(KEY_STORE_NAME)),
+                            c.getString(c.getColumnIndex(KEY_LOCATION)),
+                            c.getString(c.getColumnIndex(KEY_PHONE_NUMBER)),
+                            c.getString(c.getColumnIndex(KEY_URL)),
+                            c.getInt(c.getColumnIndex(KEY_HOUR_OPEN)),
+                            c.getInt(c.getColumnIndex(KEY_HOUR_CLOSED)));
+                    allStores.add(sl);
+                    c.moveToPrevious();
+                }
+            }
+        }
         return allStores;
     }
-
-    */
 
     /**
      * Grabs all items from the TABLE_ITEM that match the name of the list.

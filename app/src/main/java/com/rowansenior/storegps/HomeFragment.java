@@ -33,11 +33,15 @@ public class HomeFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private ListListAdapter mAdapter;
     private ListStoreAdapter mStoreAdapter;
+    private ListStoreAdapter mNearbyAdapter;
     private GridLayoutManager mLayoutManager;
     private GridLayoutManager mStoreManager;
+    private GridLayoutManager mNearbyManager;
     private View view;
     private RecyclerView gview;
     private RecyclerView storegView;
+    private RecyclerView nearbygView;
+
 
     /**
      * Required empty public constructorR
@@ -70,17 +74,20 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         DatabaseHelper db = new DatabaseHelper(getActivity());
+        RemoteDatabaseHelper rDB = new RemoteDatabaseHelper(getActivity());
+        rDB.getNearbyStores();
         mAdapter = new ListListAdapter(getActivity(), db.getLast3Lists(), "homePage");
         mStoreAdapter = new ListStoreAdapter(getActivity(), db.get3ClosestStores());
+        mNearbyAdapter = new ListStoreAdapter(getActivity(), db.getNearbyStores());
     }
 
     @Override
     public void onResume() {
         super.onResume();
         ((MainActivity) getActivity()).changeActionBarTitle("Home");
-        DatabaseHelper db = new DatabaseHelper(getActivity());
-        mAdapter = new ListListAdapter(getActivity(), db.getLast3Lists(), "homePage");
-        mStoreAdapter = new ListStoreAdapter(getActivity(), db.get3ClosestStores());
+        mAdapter.notifyDataSetChanged();
+        mStoreAdapter.notifyDataSetChanged();
+        mNearbyAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -107,12 +114,16 @@ public class HomeFragment extends Fragment {
         //Because of this, calls to LM before creation will null error out.
         mLayoutManager = new GridLayoutManager(getActivity(), 3);
         mStoreManager = new GridLayoutManager(getActivity(), 3);
+        mNearbyManager = new GridLayoutManager(getActivity(), 3);
         gview = (RecyclerView) getView().findViewById(R.id.homeMyListRecycler);
         storegView = (RecyclerView) getView().findViewById(R.id.homeMyStoresRecycler);
+        nearbygView = (RecyclerView) getView().findViewById(R.id.myListRecycler);
         gview.setLayoutManager(mLayoutManager);
         storegView.setLayoutManager(mStoreManager);
+        nearbygView.setLayoutManager(mNearbyManager);
         gview.setAdapter(mAdapter);
         storegView.setAdapter(mStoreAdapter);
+        nearbygView.setAdapter(mNearbyAdapter);
     }
 
     /**

@@ -213,18 +213,16 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                             @Override
                             public void onDismissedBySwipeRight(RecyclerView recyclerView, int[] reverseSortedPositions) {
                                 for (int position : reverseSortedPositions) {
-                                    ShoppingListItem tempItem = itemList.get(position);
+                                    final ShoppingListItem tempItem = itemList.get(position);
 
-                                    db.removeItem(listName, tempItem.getName());
-                                    itemList.remove(tempItem);
+                                     itemList.remove(tempItem);
                                     SnackbarManager.show(Snackbar.with(getActivity())
                                             .text(tempItem.getName() + " has been deleted")
                                             .actionLabel("Undo")
                                             .actionListener(new ActionClickListener() {
                                                                 @Override
                                                                 public void onActionClicked(Snackbar snackbar) {
-                                                                    //PUT THE UNDO HERE
-                                                                    //TODO: THAT ^
+                                                                    itemList.add(tempItem);
                                                                 }
 
                                                             }
