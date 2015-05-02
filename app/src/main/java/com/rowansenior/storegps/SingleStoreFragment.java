@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.text.DecimalFormat;
+
 
 /**
  * SingleStoreFragment acts as a fragment for a single store.
@@ -39,6 +42,7 @@ public class SingleStoreFragment extends Fragment implements View.OnClickListene
     private TextView storeHours;
     private Button navigationButton;
     private Button searchButton;
+    private DecimalFormat df = new DecimalFormat("#.##");
 
 
     /**
@@ -108,6 +112,7 @@ public class SingleStoreFragment extends Fragment implements View.OnClickListene
         storeHours = (TextView) storeView.findViewById(R.id.storeHours);
         navigationButton = (Button) storeView.findViewById(R.id.navButton);
         searchButton = (Button) storeView.findViewById(R.id.performSearch);
+
         nameOfStore.setText(storeInfo.getName());
         storeAddress.setText(storeInfo.getLocation());
         storePhone.setText(storeInfo.getPhoneNumber());
@@ -119,6 +124,14 @@ public class SingleStoreFragment extends Fragment implements View.OnClickListene
         String openTime = String.valueOf(storeInfo.getHoursOpen());
         String closedTime = String.valueOf(storeInfo.getHoursClosed());
         storeHours.setText("Open from " + openTime + " to " + closedTime);
+
+        try {
+            UserLocation ul = new UserLocation(this.getActivity(), storeInfo.getLocation());
+            Double location = ul.getDistances(ul.getUserLocation(), ul.getDestinationLocation());
+            storeDistance.setText(df.format(location).toString() + " Miles Away");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return storeView;
     }
