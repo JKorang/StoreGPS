@@ -204,9 +204,13 @@ public class HomeFragment extends Fragment {
      */
     private class getMyListsAsync extends AsyncTask<Boolean, ArrayList, ArrayList> {
 
+        TextView loadingText = (TextView) getView().findViewById(R.id.mylists_loading_text);
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            loadingText.setText("Loading, please wait...");
+            gview.setVisibility(View.INVISIBLE);
         }
 
         @Override
@@ -221,6 +225,8 @@ public class HomeFragment extends Fragment {
         protected void onPostExecute(ArrayList threeLists) {
             mAdapter = new ListListAdapter(getActivity(), threeLists, "homePage");
             gview.setAdapter(mAdapter);
+            loadingText.setText("");
+            gview.setVisibility(View.VISIBLE);
         }
     }
     /**
@@ -229,9 +235,13 @@ public class HomeFragment extends Fragment {
      */
     private class getMyStoresAsync extends AsyncTask<Boolean, ArrayList, ArrayList> {
 
+        TextView loadingText = (TextView) getView().findViewById(R.id.mystores_loading_text);
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            loadingText.setText("Loading, please wait...");
+            storegView.setVisibility(View.INVISIBLE);
         }
 
         @Override
@@ -250,6 +260,8 @@ public class HomeFragment extends Fragment {
         protected void onPostExecute(ArrayList closestFav) {
             mStoreAdapter = new ListStoreAdapter(getActivity(), closestFav, 1);
             storegView.setAdapter(mStoreAdapter);
+            loadingText.setText("");
+            storegView.setVisibility(View.VISIBLE);
         }
     }
 
