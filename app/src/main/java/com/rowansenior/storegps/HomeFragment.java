@@ -276,7 +276,11 @@ public class HomeFragment extends Fragment {
         @Override
         protected void onPostExecute(Boolean bool) {
             DatabaseHelper db = new DatabaseHelper(getActivity());
-            mNearbyAdapter = new ListStoreAdapter(getActivity(), db.getNearbyStores(), 1);
+            try {
+                mNearbyAdapter = new ListStoreAdapter(getActivity(), db.get3NearbyStores(), 1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             nearbygView.setAdapter(mNearbyAdapter);
         }
     }
