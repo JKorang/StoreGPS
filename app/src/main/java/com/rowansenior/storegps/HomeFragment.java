@@ -15,8 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.json.JSONArray;
-
 import java.io.IOException;
 
 
@@ -80,11 +78,6 @@ public class HomeFragment extends Fragment {
         setHasOptionsMenu(true);
         DatabaseHelper db = new DatabaseHelper(getActivity());
         mAdapter = new ListListAdapter(getActivity(), db.getLast3Lists(), "homePage");
-        try {
-            mStoreAdapter = new ListStoreAdapter(getActivity(), db.get3ClosestStores(), 0);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         }
 
     @Override
@@ -93,8 +86,9 @@ public class HomeFragment extends Fragment {
         ((MainActivity) getActivity()).changeActionBarTitle("Home");
 
         mAdapter.notifyDataSetChanged();
-        mStoreAdapter.notifyDataSetChanged();
-        getStoresAsync gSA = new getStoresAsync();
+        getMyStoresAsync mSA = new getMyStoresAsync();
+        mSA.execute(true);
+        getNearbyStoresAsync gSA = new getNearbyStoresAsync();
         gSA.execute(true);
     }
 
@@ -204,7 +198,34 @@ public class HomeFragment extends Fragment {
         inflater.inflate(R.menu.menu_home_page, menu);
     }
 
-    private class getStoresAsync extends AsyncTask<Boolean, Boolean, Boolean> {
+    private class getMyStoresAsync extends AsyncTask<Boolean, Boolean, Boolean> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Boolean doInBackground(Boolean... params) {
+            DatabaseHelper db = new DatabaseHelper(getActivity());
+            try {
+                db.get3ClosestStores();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean bool) {
+            DatabaseHelper db = new DatabaseHelper(getActivity());
+            mStoreAdapter = new ListStoreAdapter(getActivity(), db.getNearbyStores(), 1);
+            storegView.setAdapter(mStoreAdapter);
+        }
+    }
+
+
+    private class getNearbyStoresAsync extends AsyncTask<Boolean, Boolean, Boolean> {
 
         @Override
         protected void onPreExecute() {
