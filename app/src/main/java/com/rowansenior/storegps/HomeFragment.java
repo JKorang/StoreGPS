@@ -78,8 +78,6 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        DatabaseHelper db = new DatabaseHelper(getActivity());
-        mAdapter = new ListListAdapter(getActivity(), db.getLast3Lists(), "homePage");
         }
 
     @Override
