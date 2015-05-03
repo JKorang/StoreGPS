@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -88,7 +89,14 @@ public class MyStoreFragment extends Fragment implements AbsListView.OnItemClick
          db.addNewFavoriteStore("Shop Rite of Turnersville", "(856) 728-5600", "http://www.shoprite.com", 7, 23, "382 Egg Harbor Road Sewell, NJ 08080");
          db.addNewFavoriteStore("CVS Pharmacy", "856-582-0020", "http://www.cvs.com", 7, 22, "1050 N Delsea Dr, Glassboro, NJ 08028");
         */
-        mAdapter = new ListStoreAdapter(getActivity(), db.getAllStores(), 0);
+        ArrayList<Store> stores = db.getAllStores();
+        StoreMergeSort sms = new StoreMergeSort(getActivity());
+        try {
+            sms.mergeSort(stores);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mAdapter = new ListStoreAdapter(getActivity(), stores, 0);
     }
 
     /**
