@@ -2,6 +2,7 @@ package com.rowansenior.storegps;
 
 import android.app.Activity;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import org.json.JSONArray;
 
 import java.io.IOException;
 
@@ -72,11 +75,9 @@ public class HomeFragment extends Fragment {
      * @param savedInstanceState
      */
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        RemoteDatabaseHelper rDB = new RemoteDatabaseHelper(getActivity());
-        rDB.getNearbyStores();
         DatabaseHelper db = new DatabaseHelper(getActivity());
         mAdapter = new ListListAdapter(getActivity(), db.getLast3Lists(), "homePage");
         try {
@@ -84,8 +85,7 @@ public class HomeFragment extends Fragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        mNearbyAdapter = new ListStoreAdapter(getActivity(), db.getNearbyStores(), 1);
-    }
+        }
 
     @Override
     public void onResume() {
@@ -94,7 +94,8 @@ public class HomeFragment extends Fragment {
 
         mAdapter.notifyDataSetChanged();
         mStoreAdapter.notifyDataSetChanged();
-        mNearbyAdapter.notifyDataSetChanged();
+        getStoresAsync gSA = new getStoresAsync();
+        gSA.execute(true);
     }
 
     /**
@@ -130,7 +131,6 @@ public class HomeFragment extends Fragment {
         nearbygView.setLayoutManager(mNearbyManager);
         gview.setAdapter(mAdapter);
         storegView.setAdapter(mStoreAdapter);
-        nearbygView.setAdapter(mNearbyAdapter);
     }
 
     /**
@@ -204,4 +204,25 @@ public class HomeFragment extends Fragment {
         inflater.inflate(R.menu.menu_home_page, menu);
     }
 
+    private class getStoresAsync extends AsyncTask<Boolean, Boolean, Boolean> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Boolean doInBackground(Boolean... params) {
+            RemoteDatabaseHelper rDB = new RemoteDatabaseHelper(getActivity());
+            rDB.getNearbyStores();
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean bool) {
+            DatabaseHelper db = new DatabaseHelper(getActivity());
+            mNearbyAdapter = new ListStoreAdapter(getActivity(), db.getNearbyStores(), 1);
+            nearbygView.setAdapter(mNearbyAdapter);
+        }
+    }
 }

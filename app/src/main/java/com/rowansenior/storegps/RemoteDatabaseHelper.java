@@ -55,7 +55,45 @@ public class RemoteDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void getNearbyStores() {
-        new getStoresAsync().execute();
+        String str = "";
+        HttpResponse response;
+        HttpClient client = new DefaultHttpClient();
+
+        //LAN
+        //HttpPost address = new HttpPost("http://192.168.29.12:9050//accessStores.php");
+
+        //WAN
+        HttpPost address = new HttpPost("http://www.jkorang.com/accessStores.php");
+
+        try {
+            response = client.execute(address);
+            str = EntityUtils.toString(response.getEntity(), "UTF-8");
+
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JSONArray jArray;
+        try {
+            jArray = new JSONArray(str);
+        } catch (JSONException e) {
+            jArray = null;
+            e.printStackTrace();
+        }
+
+        SQLiteDatabase db = getReadableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NEARBY_STORE);
+        db.execSQL(CREATE_TABLE_NEARBY_STORE);
+        for (int i = 0; i < jArray.length(); i = i + 8) {
+            try {
+                System.out.println("Store Name: " + jArray.get(i));
+                String insertQuery = "INSERT INTO " + TABLE_NEARBY_STORE + " VALUES(" + '"' + jArray.get(i) + '"' + ", 1, 1, " + '"' + jArray.get(i + 1) + '"' + ", " + '"' + jArray.get(i + 2) + '"' + ", " + '"' + jArray.get(i + 5) + '"' + ", " + '"' + jArray.get(i + 6) + '"' + ", " + '"' + jArray.get(i + 7) + '"' + ")";
+                db.execSQL(insertQuery);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void getNearbyItems() {
@@ -74,7 +112,7 @@ public class RemoteDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    private class getStoresAsync extends AsyncTask<String, String, JSONArray> {
+    private class getStoresAsync extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {
@@ -82,50 +120,9 @@ public class RemoteDatabaseHelper extends SQLiteOpenHelper {
         }
 
         @Override
-        protected JSONArray doInBackground(String... params) {
-            String str = "";
-            HttpResponse response;
-            HttpClient client = new DefaultHttpClient();
+        protected Void doInBackground(Void... params) {
 
-            //LAN
-            //HttpPost address = new HttpPost("http://192.168.29.12:9050//accessStores.php");
-
-            //WAN
-            HttpPost address = new HttpPost("http://www.jkorang.com/accessStores.php");
-
-            try {
-                response = client.execute(address);
-                str = EntityUtils.toString(response.getEntity(), "UTF-8");
-
-            } catch (ClientProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            JSONArray jArray;
-            try {
-                jArray = new JSONArray(str);
-            } catch (JSONException e) {
-                jArray = null;
-                e.printStackTrace();
-            }
-            return jArray;
-        }
-
-        @Override
-        protected void onPostExecute(JSONArray jArray) {
-            SQLiteDatabase db = getReadableDatabase();
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_NEARBY_STORE);
-            db.execSQL(CREATE_TABLE_NEARBY_STORE);
-            for (int i = 0; i < jArray.length(); i = i + 8) {
-                try {
-                    System.out.println("Store Name: " + jArray.get(i));
-                    String insertQuery = "INSERT INTO " + TABLE_NEARBY_STORE + " VALUES(" + '"' + jArray.get(i) + '"' + ", 1, 1, " + '"' + jArray.get(i + 1) + '"' + ", " + '"' + jArray.get(i + 2) + '"' + ", " + '"' + jArray.get(i + 5) + '"' + ", " + '"' + jArray.get(i + 6) + '"' + ", " + '"' + jArray.get(i + 7) + '"' + ")";
-                    db.execSQL(insertQuery);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
+            return null;
         }
     }
 
