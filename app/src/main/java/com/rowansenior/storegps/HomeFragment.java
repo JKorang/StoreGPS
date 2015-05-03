@@ -78,8 +78,6 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        DatabaseHelper db = new DatabaseHelper(getActivity());
-        mAdapter = new ListListAdapter(getActivity(), db.getLast3Lists(), "homePage");
         }
 
     @Override
@@ -201,6 +199,10 @@ public class HomeFragment extends Fragment {
         inflater.inflate(R.menu.menu_home_page, menu);
     }
 
+    /**
+     * Threaded execution to access lists.
+     * Sort and pull only the 3 most recently created lists.
+     */
     private class getMyListsAsync extends AsyncTask<Boolean, ArrayList, ArrayList> {
 
         @Override
@@ -222,8 +224,10 @@ public class HomeFragment extends Fragment {
             gview.setAdapter(mAdapter);
         }
     }
-
-
+    /**
+     * Threaded execution to access the database of favorite stores.
+     * Sort and pull the 3 closest based on location.
+     */
     private class getMyStoresAsync extends AsyncTask<Boolean, ArrayList, ArrayList> {
 
         @Override
