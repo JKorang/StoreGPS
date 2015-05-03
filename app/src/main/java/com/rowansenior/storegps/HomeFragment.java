@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 
 /**
@@ -85,7 +87,8 @@ public class HomeFragment extends Fragment {
         super.onResume();
         ((MainActivity) getActivity()).changeActionBarTitle("Home");
 
-        mAdapter.notifyDataSetChanged();
+        getMyListsAsync mlSA = new getMyListsAsync();
+        mlSA.execute(true);
         getMyStoresAsync mSA = new getMyStoresAsync();
         mSA.execute(true);
         getNearbyStoresAsync gSA = new getNearbyStoresAsync();
@@ -198,7 +201,7 @@ public class HomeFragment extends Fragment {
         inflater.inflate(R.menu.menu_home_page, menu);
     }
 
-    private class getMyStoresAsync extends AsyncTask<Boolean, Boolean, Boolean> {
+    private class getMyListsAsync extends AsyncTask<Boolean, ArrayList, ArrayList> {
 
         @Override
         protected void onPreExecute() {
@@ -206,25 +209,52 @@ public class HomeFragment extends Fragment {
         }
 
         @Override
-        protected Boolean doInBackground(Boolean... params) {
+        protected ArrayList<ShoppingList> doInBackground(Boolean... params) {
+            ArrayList<ShoppingList> closestFavs;
             DatabaseHelper db = new DatabaseHelper(getActivity());
-            try {
-                db.get3ClosestStores();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return true;
+            closestFavs = db.getLast3Lists();
+            return closestFavs;
         }
 
         @Override
-        protected void onPostExecute(Boolean bool) {
-            DatabaseHelper db = new DatabaseHelper(getActivity());
-            mStoreAdapter = new ListStoreAdapter(getActivity(), db.getNearbyStores(), 1);
-            storegView.setAdapter(mStoreAdapter);
+        protected void onPostExecute(ArrayList threeLists) {
+            mAdapter = new ListListAdapter(getActivity(), threeLists, "homePage");
+            gview.setAdapter(mAdapter);
         }
     }
 
 
+    private class getMyStoresAsync extends AsyncTask<Boolean, ArrayList, ArrayList> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected ArrayList<Store> doInBackground(Boolean... params) {
+            DatabaseHelper db = new DatabaseHelper(getActivity());
+            ArrayList<Store> closestFavs = null;
+            try {
+                closestFavs = db.get3ClosestStores();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return closestFavs;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList closestFav) {
+            mStoreAdapter = new ListStoreAdapter(getActivity(), closestFav, 1);
+            storegView.setAdapter(mStoreAdapter);
+        }
+    }
+
+    /**
+     * Threaded execution to build database of stores.
+     * Access remote database, fill the local database.
+     * Generate the closest stores after the fact.
+     */
     private class getNearbyStoresAsync extends AsyncTask<Boolean, Boolean, Boolean> {
 
         @Override
