@@ -9,70 +9,89 @@ import java.util.ArrayList;
  * Created by Engineering on 5/2/15.
  */
 public class StoreMergeSort {
-    ArrayList<Store> sortStore = new ArrayList<>();
-    ArrayList<Store> tempSortStore;
     Context context;
-    int size;
 
     public StoreMergeSort(Context context)
     {
         this.context = context;
     }
 
-    public ArrayList<Store> sort(ArrayList<Store> unsortedStores) throws IOException {
-        sortStore = unsortedStores;
-        size = unsortedStores.size();
-        tempSortStore = new ArrayList<>(size);
-        doMergeSort(0, size - 1);
-        return sortStore;
-    }
+    public ArrayList<Store> mergeSort(ArrayList<Store> myStores) throws IOException {
+        ArrayList<Store> leftHand = new ArrayList<>();
+        ArrayList<Store> rightHand = new ArrayList<>();
+        int mid;
 
-    private void doMergeSort(int lowNDX, int highNDX) throws IOException {
-
-        if (lowNDX < highNDX) {
-            int middle = lowNDX + (highNDX - lowNDX) / 2;
-            // Below step sorts the left side of the array
-            doMergeSort(lowNDX, middle);
-            // Below step sorts the right side of the array
-            doMergeSort(middle + 1, highNDX);
-            // Now merge both sides
-            mergeParts(lowNDX, middle, highNDX);
+        if(myStores.size() <= 1)
+        {
+            return myStores;
         }
-    }
+        else
+        {
+            mid = myStores.size()/2;
 
-    private void mergeParts(int low, int middle, int high) throws IOException {
-
-        for (int i = low; i <= high; i++) {
-            Store temp = sortStore.get(i);
-            tempSortStore.add(temp);
-        }
-        int i = low;
-        int j = middle + 1;
-        int k = low;
-        while (i <= middle && j <= high) {
-            String strAddress = tempSortStore.get(i).getLocation();
-            String tempAddress = tempSortStore.get(j).getLocation();
-            UserLocation ul = new UserLocation(context, strAddress);
-            UserLocation tempUL = new UserLocation(context, tempAddress);
-            Double locate1 = ul.getDistances(ul.getUserLocation(), ul.getDestinationLocation()); //i
-            Double locate2 = tempUL.getDistances(tempUL.getUserLocation(), tempUL.getDestinationLocation()); //j
-            if (locate1 <= locate2) {
-                Store tempStore = tempSortStore.get(i);
-                sortStore.add(tempStore);
-                i++;
-            } else {
-                Store tempStore = tempSortStore.get(j);
-                sortStore.add(tempStore);
-                j++;
+            for(int i = 0; i < mid; i++)
+            {
+                leftHand.add(myStores.get(i));
             }
-            k++;
+            for(int i = mid; i < myStores.size(); i++)
+            {
+                rightHand.add(myStores.get(i));
+            }
+
+            rightHand = mergeSort(rightHand);
+            leftHand = mergeSort(leftHand);
+
+            merge(leftHand, rightHand, myStores);
         }
-        while (i <= middle) {
-            Store tempStore = tempSortStore.get(i);
-            sortStore.add(tempStore);
-            k++;
-            i++;
+        return myStores;
+    }
+
+    private ArrayList<Store> merge(ArrayList<Store> left, ArrayList<Store> right, ArrayList<Store> myStores) throws IOException {
+        int leftNDX = 0;
+        int rightNDX = 0;
+        int storeNDX = 0;
+
+        while(leftNDX < left.size() && rightNDX < right.size())
+        {
+            String leftAddress = left.get(leftNDX).getLocation();
+            String rightAddress = right.get(rightNDX).getLocation();
+            UserLocation ul = new UserLocation(context, leftAddress);
+            UserLocation tempUL = new UserLocation(context, rightAddress);
+            Double locate1 = ul.getDistances(ul.getUserLocation(), ul.getDestinationLocation()); //left
+            Double locate2 = tempUL.getDistances(tempUL.getUserLocation(), tempUL.getDestinationLocation()); //right
+
+            if(locate1.compareTo(locate2) < 0)
+            {
+                myStores.set(storeNDX, left.get(leftNDX));
+                leftNDX++;
+            }
+            else
+            {
+                myStores.set(storeNDX, right.get(rightNDX));
+                rightNDX++;
+            }
+            storeNDX++;
         }
 
+        ArrayList<Store> extra;
+        int extraNDX;
+        if(leftNDX >= left.size())
+        {
+            extra = right;
+            extraNDX = rightNDX;
+        }
+        else
+        {
+            extra = left;
+            extraNDX = leftNDX;
+        }
+
+        for(int i =extraNDX; i < extra.size(); i++)
+        {
+            myStores.set(storeNDX, extra.get(i));
+            storeNDX++;
+        }
+
+        return myStores;
     }
 }

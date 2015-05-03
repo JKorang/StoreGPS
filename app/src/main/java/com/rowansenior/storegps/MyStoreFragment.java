@@ -82,12 +82,12 @@ public class MyStoreFragment extends Fragment implements AbsListView.OnItemClick
         DatabaseHelper db = new DatabaseHelper(getActivity());
 
 
-            /**
-         db.addNewFavoriteStore("This is an obnoxiously long store name but you only care about our prices", "856-256-4942", "http://www.americaneagles.com", 6, 18, "1 Mullica Hill Road Glassboro, NJ 08028");
+
+         /*db.addNewFavoriteStore("This is an obnoxiously long store name but you only care about our prices", "856-256-4942", "http://www.americaneagles.com", 6, 18, "1 Mullica Hill Road Glassboro, NJ 08028");
          db.addNewFavoriteStore("Shop Rite of Williamstown", "(856) 728-5600", "http://www.shoprite.com", 7, 23, "100 S Black Horse Pike Williamstown, NJ 08094");
          db.addNewFavoriteStore("Shop Rite of Turnersville", "(856) 728-5600", "http://www.shoprite.com", 7, 23, "382 Egg Harbor Road Sewell, NJ 08080");
          db.addNewFavoriteStore("CVS Pharmacy", "856-582-0020", "http://www.cvs.com", 7, 22, "1050 N Delsea Dr, Glassboro, NJ 08028");
-        **/
+        */
         mAdapter = new ListStoreAdapter(getActivity(), db.getAllStores(), 0);
     }
 

@@ -248,42 +248,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //TODO: Currently returns the last 3 stores added to the My Stores page.
     //TODO: Once we can lock GPS, generate the proper output.
     public ArrayList<Store> get3ClosestStores() throws IOException {
-        /*SQLiteDatabase dataBase = this.getReadableDatabase();
-        ArrayList<Store> allStores = new ArrayList<Store>();
-        String selectQuery = "SELECT  * FROM " + TABLE_STORE;
-
-        Cursor c = dataBase.rawQuery(selectQuery, null);
-
-        if (c.moveToFirst()) {
-            int firstPosition = c.getPosition();
-            for (int i = 0; i < allStores.size(); i++) {
-                Store sl = new Store(c.getString(c.getColumnIndex(KEY_STORE_NAME)),
-                        c.getString(c.getColumnIndex(KEY_LOCATION)),
-                        c.getString(c.getColumnIndex(KEY_PHONE_NUMBER)),
-                        c.getString(c.getColumnIndex(KEY_URL)),
-                        c.getInt(c.getColumnIndex(KEY_HOUR_OPEN)),
-                        c.getInt(c.getColumnIndex(KEY_HOUR_CLOSED)));
-                allStores.add(sl);
-                c.moveToNext();
-            }
-        }*/
         ArrayList<Store> allStores;
         allStores = getAllStores();
         StoreMergeSort sms = new StoreMergeSort(myContext);
-        sms.sort(allStores);
-        System.out.println(allStores.toString());
+        sms.mergeSort(allStores);
         ArrayList<Store> top3 = new ArrayList<>();
-        for(int i = 0; i < 3; i++)
+        if(allStores.size() < 3)
         {
-            if(i >= allStores.size())
-            {
-                break;
-            }
-            else
+            for(int i = 0; i < allStores.size(); i++)
             {
                 top3.add(i, allStores.get(i));
             }
         }
+        else
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                top3.add(i, allStores.get(i));
+            }
+        }
+        
         return top3;
     }
 
