@@ -72,7 +72,6 @@ public class MainActivity extends ActionBarActivity
 
         if (isFirstRun) {
             //show start activity
-
             startActivity(new Intent(MainActivity.this, HelpActivity.class));
             Toast.makeText(MainActivity.this, "First Run", Toast.LENGTH_LONG)
                     .show();

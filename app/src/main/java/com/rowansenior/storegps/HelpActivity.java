@@ -38,10 +38,6 @@ public class HelpActivity extends ActionBarActivity {
                 startActivity(bRB);
             }
         });
-        RemoteDatabaseHelper db = new RemoteDatabaseHelper(getApplicationContext());
-        db.getNearbyStores();
-        db.getNearbyItems();
-
     }
 
     /**
