@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -124,8 +125,6 @@ public class HomeFragment extends Fragment {
         gview.setLayoutManager(mLayoutManager);
         storegView.setLayoutManager(mStoreManager);
         nearbygView.setLayoutManager(mNearbyManager);
-        gview.setAdapter(mAdapter);
-        storegView.setAdapter(mStoreAdapter);
     }
 
     /**
@@ -261,9 +260,13 @@ public class HomeFragment extends Fragment {
      */
     private class getNearbyStoresAsync extends AsyncTask<Boolean, Boolean, Boolean> {
 
+        TextView loadingText = (TextView) getView().findViewById(R.id.nearby_loading_text);
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            loadingText.setText("Loading, please wait...");
+            nearbygView.setVisibility(View.INVISIBLE);
         }
 
         @Override
@@ -280,7 +283,10 @@ public class HomeFragment extends Fragment {
                 mNearbyAdapter = new ListStoreAdapter(getActivity(), db.get3NearbyStores(), 1);
             } catch (IOException e) {
                 e.printStackTrace();
+                loadingText.setText("An error has occurred");
             }
+            loadingText.setText("");
+            nearbygView.setVisibility(View.VISIBLE);
             nearbygView.setAdapter(mNearbyAdapter);
         }
     }

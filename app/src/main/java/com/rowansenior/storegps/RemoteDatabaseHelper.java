@@ -85,9 +85,8 @@ public class RemoteDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NEARBY_STORE);
         db.execSQL(CREATE_TABLE_NEARBY_STORE);
-        for (int i = 0; i < jArray.length(); i = i + 8) {
+        for (int i = 0; i < jArray.length()-1; i = i + 8) {
             try {
-                System.out.println("Store Name: " + jArray.get(i));
                 String insertQuery = "INSERT INTO " + TABLE_NEARBY_STORE + " VALUES(" + '"' + jArray.get(i) + '"' + ", 1, 1, " + '"' + jArray.get(i + 1) + '"' + ", " + '"' + jArray.get(i + 2) + '"' + ", " + '"' + jArray.get(i + 5) + '"' + ", " + '"' + jArray.get(i + 6) + '"' + ", " + '"' + jArray.get(i + 7) + '"' + ")";
                 db.execSQL(insertQuery);
             } catch (JSONException e) {
