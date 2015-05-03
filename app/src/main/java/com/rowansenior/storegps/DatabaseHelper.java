@@ -245,8 +245,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return allLists;
     }
 
-    //TODO: Currently returns the last 3 stores added to the My Stores page.
-    //TODO: Once we can lock GPS, generate the proper output.
     public ArrayList<Store> get3ClosestStores() throws IOException {
         ArrayList<Store> allStores;
         allStores = getAllStores();
@@ -285,22 +283,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             Cursor c = dataBase.rawQuery(selectQuery, null);
 
             if (c.moveToLast()) {
-                int lastPosition = c.getPosition();
-                for (int i = lastPosition; i > (lastPosition - 3); i--) {
-
-                    if (i < 0) {
-                        break;
-                    } else {
-                        Store sl = new Store(c.getString(c.getColumnIndex(KEY_STORE_NAME)),
-                                c.getString(c.getColumnIndex(KEY_LOCATION)),
-                                c.getString(c.getColumnIndex(KEY_PHONE_NUMBER)),
-                                c.getString(c.getColumnIndex(KEY_URL)),
-                                c.getInt(c.getColumnIndex(KEY_HOUR_OPEN)),
-                                c.getInt(c.getColumnIndex(KEY_HOUR_CLOSED)));
-                        allStores.add(sl);
-                        c.moveToPrevious();
-                    }
-                }
+                do {
+                    Store sl = new Store(c.getString(c.getColumnIndex(KEY_STORE_NAME)),
+                            c.getString(c.getColumnIndex(KEY_LOCATION)),
+                            c.getString(c.getColumnIndex(KEY_PHONE_NUMBER)),
+                            c.getString(c.getColumnIndex(KEY_URL)),
+                            c.getInt(c.getColumnIndex(KEY_HOUR_OPEN)),
+                            c.getInt(c.getColumnIndex(KEY_HOUR_CLOSED)));
+                    allStores.add(sl);
+                } while (c.moveToPrevious());
             }
         }
         catch (Exception e) {
