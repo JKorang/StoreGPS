@@ -269,11 +269,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return top3;
     }
 
-    //TODO: Edit once GPS can be locked.
-    //TODO: Will also need to ping out to the server to pull the stores.
-    //TODO: Once pulled, store them within a local table that we destroy on each create?
-    //TODO: Will refresh those stores OnCreate of the MainActivity Activity, and update OnResume
-    //TODO: Look at OnResume if our location has changed to determine if the page needs refreshing
     public ArrayList<Store> getNearbyStores() {
         SQLiteDatabase dataBase = this.getReadableDatabase();
         ArrayList<Store> allStores = new ArrayList<Store>();
