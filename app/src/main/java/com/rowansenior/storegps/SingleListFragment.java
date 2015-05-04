@@ -228,9 +228,10 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                                                                 @Override
                                                                 public void onActionClicked(Snackbar snackbar) {
                                                                     if(!itemList.contains(tempItem)) {
-                                                                        itemList.add(position, tempItem);
+                                                                        //itemList.add(position, tempItem);
                                                                         try {
                                                                             db.undoDeleteItem(listName, tempItem.getName(), tempItem.getQuantity(), tempItem.getFound());
+                                                                            itemList.add(position, tempItem);
                                                                         } catch (Exception e) {
 
                                                                         }
