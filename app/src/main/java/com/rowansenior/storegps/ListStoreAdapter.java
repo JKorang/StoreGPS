@@ -54,14 +54,7 @@ public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.View
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         Store store = stores.get(i);
         viewHolder.vTitleText.setText(store.getName());
-        try {
-            UserLocation ul = new UserLocation(context, store.getLocation());
-            Double location = ul.getDistances(ul.getUserLocation(), ul.getDestinationLocation());
-            viewHolder.vLocation.setText(df.format(location).toString() + " miles");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //viewHolder.vLocation.setText(store.getLocation());
+        viewHolder.vLocation.setText(df.format(store.getvDistanceTo()) + " miles");
     }
 
     @Override

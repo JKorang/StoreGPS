@@ -285,10 +285,8 @@ public class HomeFragment extends Fragment {
         protected Boolean doInBackground(Boolean... params) {
             RemoteDatabaseHelper rDB = new RemoteDatabaseHelper(getActivity());
             if(rDB.getRemoteVersion()) {
-                System.out.println("Have newest version");
             }
             else {
-                System.out.println("Need to update");
                 rDB.getNearbyStores();
             }
             return true;
@@ -299,6 +297,7 @@ public class HomeFragment extends Fragment {
             DatabaseHelper db = new DatabaseHelper(getActivity());
             try {
                 mNearbyAdapter = new ListStoreAdapter(getActivity(), db.get3NearbyStores(), 1);
+
             } catch (Exception e) {
                 e.printStackTrace();
                 loadingText.setText("An error has occurred");

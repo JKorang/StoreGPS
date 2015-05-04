@@ -86,11 +86,6 @@ public class RemoteDatabaseHelper extends SQLiteOpenHelper {
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(dbContext);
         try {
-            System.out.println("0 : " + jArray.get(0));
-            System.out.println("1 : " + jArray.get(1));
-            System.out.println("0 : " + sp.getInt("numItems", 0));
-            System.out.println("1 : " + sp.getString("lastRef", ""));
-
             if((jArray.get(0) == sp.getInt("numItems", 0)) && (jArray.get(1).equals(sp.getString("lastRef", "")))) {
                 return true;
             }

@@ -10,6 +10,7 @@ import java.util.ArrayList;
  */
 public class StoreMergeSort {
     Context context;
+    Boolean distCalcd = false;
 
     public StoreMergeSort(Context context)
     {
@@ -17,6 +18,10 @@ public class StoreMergeSort {
     }
 
     public ArrayList<Store> mergeSort(ArrayList<Store> myStores) throws IOException {
+        if(distCalcd == false) {
+                calcDistances(myStores);
+                distCalcd = true;
+            }
         ArrayList<Store> leftHand = new ArrayList<>();
         ArrayList<Store> rightHand = new ArrayList<>();
         int mid;
@@ -53,12 +58,8 @@ public class StoreMergeSort {
 
         while(leftNDX < left.size() && rightNDX < right.size())
         {
-            String leftAddress = left.get(leftNDX).getLocation();
-            String rightAddress = right.get(rightNDX).getLocation();
-            UserLocation ul = new UserLocation(context, leftAddress);
-            UserLocation tempUL = new UserLocation(context, rightAddress);
-            Double locate1 = ul.getDistances(ul.getUserLocation(), ul.getDestinationLocation()); //left
-            Double locate2 = tempUL.getDistances(tempUL.getUserLocation(), tempUL.getDestinationLocation()); //right
+            Double locate1 = left.get(leftNDX).getvDistanceTo(); //left
+            Double locate2 = right.get(rightNDX).getvDistanceTo(); //right
 
             if(locate1.compareTo(locate2) < 0)
             {
@@ -93,5 +94,18 @@ public class StoreMergeSort {
         }
 
         return myStores;
+    }
+
+    public ArrayList<Store> calcDistances(ArrayList<Store> aLS) {
+        UserLocation ul;
+        for(int i = 0; i < aLS.size(); i++) {
+            try {
+                ul = new UserLocation(context, aLS.get(i).getLocation());
+                aLS.get(i).setvDistanceTo(ul.getDistances(ul.getUserLocation(), ul.getDestinationLocation()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return aLS;
     }
 }

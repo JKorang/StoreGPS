@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Debug;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -420,11 +421,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String selectQuery;
         Cursor c = null;
         try {
-            System.out.println("Favorited?");
             selectQuery = "SELECT  * FROM " + TABLE_STORE + " WHERE " + '"' + KEY_STORE_NAME + '"' + " = " + '"' + storeName + '"';
             c = dataBase.rawQuery(selectQuery, null);
             if(c.getCount() == 0) {
-                System.out.println("Not stored");
                 selectQuery = "SELECT  * FROM " + TABLE_NEARBY_STORE + " WHERE " + '"' + KEY_STORE_NAME + '"' + " = " + '"' + storeName + '"';
                 c = dataBase.rawQuery(selectQuery, null);
             }

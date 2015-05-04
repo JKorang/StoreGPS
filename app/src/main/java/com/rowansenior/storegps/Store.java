@@ -10,6 +10,7 @@ public class Store {
     private int vHourOpen;
     private int vHourClosed;
     private String vPhoneNumber;
+    private double vDistanceTo;
 
 
     public Store(String name, String location) {
@@ -49,6 +50,14 @@ public class Store {
 
     public String getPhoneNumber() {
         return vPhoneNumber;
+    }
+
+    public double getvDistanceTo() {
+        return vDistanceTo;
+    }
+
+    public void setvDistanceTo(double dist) {
+        this.vDistanceTo = dist;
     }
 
 }
