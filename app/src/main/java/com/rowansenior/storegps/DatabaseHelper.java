@@ -158,6 +158,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         dataBase.execSQL(selectQuery);
     }
 
+    public void undoDeleteItem(String listName, String itemName, int quantity, int itemFound) {
+        SQLiteDatabase dataBase = this.getReadableDatabase();
+
+        String selectQuery = "INSERT INTO " + '"' + listName + TABLE_ITEM + '"' + " VALUES(" + '"' + itemName + '"' + ", " + quantity + ", " + itemFound + ")";
+        dataBase.execSQL(selectQuery);
+    }
+
     /**
      * Removes row from the TABLE_ITEM.
      * Finds only rows with the same list name and item name.

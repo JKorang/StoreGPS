@@ -156,8 +156,7 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
         super.onResume();
         if (storeNav == null) {
             ((MainActivity) getActivity()).changeActionBarTitle(listName);
-        }
-        else {
+        } else {
             ((MainActivity) getActivity()).changeActionBarTitle(listName + " : " + storeNav.getName());
         }
     }
@@ -218,19 +217,27 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                             //Delete the item from the list
                             @Override
                             public void onDismissedBySwipeRight(RecyclerView recyclerView, int[] reverseSortedPositions) {
-                                for (int position : reverseSortedPositions) {
+                                for (final int position : reverseSortedPositions) {
                                     final ShoppingListItem tempItem = itemList.get(position);
-
-                                     itemList.remove(tempItem);
+                                    itemList.remove(tempItem);
+                                    db.removeItem(listName, tempItem.getName());
                                     SnackbarManager.show(Snackbar.with(getActivity())
                                             .text(tempItem.getName() + " has been deleted")
                                             .actionLabel("Undo")
                                             .actionListener(new ActionClickListener() {
                                                                 @Override
                                                                 public void onActionClicked(Snackbar snackbar) {
-                                                                    itemList.add(tempItem);
-                                                                }
+                                                                    if(!itemList.contains(tempItem)) {
+                                                                        itemList.add(position, tempItem);
+                                                                        try {
+                                                                            db.undoDeleteItem(listName, tempItem.getName(), tempItem.getQuantity(), tempItem.getFound());
+                                                                        } catch (Exception e) {
 
+                                                                        }
+                                                                        System.out.println("its reaching this");
+                                                                        mAdapter.notifyDataSetChanged();
+                                                                    }
+                                                                }
                                                             }
                                             ));
                                 }
