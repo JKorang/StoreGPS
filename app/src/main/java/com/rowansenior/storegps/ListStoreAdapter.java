@@ -53,6 +53,7 @@ public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         Store store = stores.get(i);
+        viewHolder.vStore = store;
         viewHolder.vTitleText.setText(store.getName());
         viewHolder.vLocation.setText(df.format(store.getvDistanceTo()) + " miles");
     }
@@ -72,6 +73,7 @@ public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.View
         public ImageView vImageView;
         private Context vhContext;
         public FragmentManager vFM;
+        private Store vStore;
 
         public ViewHolder(View v, FragmentManager FM, Context context) {
             super(v);
@@ -116,13 +118,17 @@ public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.View
         @Override
         public boolean onLongClick(View v) {
 
-
             final AlertDialog alert = new AlertDialog.Builder(vhContext).create();
             alert.setMessage("Are you sure you want to remove this store from favorites?");
             alert.setButton(Dialog.BUTTON_POSITIVE, "Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     DatabaseHelper db = new DatabaseHelper(vhContext);
                     db.removeFavoriteStore(vTitleText.getText().toString());
+                    try {
+                        stores = db.get3ClosestStores();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     notifyDataSetChanged();
                 }
             });
@@ -131,9 +137,7 @@ public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.View
 
                 }
             });
-
             alert.show();
-
             return true;
         }
     }
