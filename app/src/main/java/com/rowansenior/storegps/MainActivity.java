@@ -72,15 +72,16 @@ public class MainActivity extends ActionBarActivity
 
         if (isFirstRun) {
             //show start activity
+
             startActivity(new Intent(MainActivity.this, HelpActivity.class));
             Toast.makeText(MainActivity.this, "First Run", Toast.LENGTH_LONG)
                     .show();
+
+            //Set remote database version# to init/0.
+            getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putInt("numItems", 0).commit();
+            getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("lastRef", "").commit();
+            getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putBoolean("isFirstRun", false).commit();
         }
-
-
-        getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
-                .putBoolean("isFirstRun", false).commit();
-
     }
 
     /**

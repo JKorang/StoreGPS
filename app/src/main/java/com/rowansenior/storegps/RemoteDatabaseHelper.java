@@ -10,9 +10,11 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 
 public class RemoteDatabaseHelper extends SQLiteOpenHelper {
 
@@ -52,6 +54,57 @@ public class RemoteDatabaseHelper extends SQLiteOpenHelper {
     public RemoteDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         dbContext = context;
+    }
+
+    public Boolean getRemoteVersion() {
+        String str = "";
+        HttpResponse response;
+        HttpClient client = new DefaultHttpClient();
+
+        //LAN
+        //HttpPost address = new HttpPost("http://192.168.29.12:9050//accessVersion.php");
+
+        //WAN
+        HttpPost address = new HttpPost("http://www.jkorang.com/accessVersion.php");
+
+        try {
+            response = client.execute(address);
+            str = EntityUtils.toString(response.getEntity(), "UTF-8");
+
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JSONArray jArray;
+        try {
+            jArray = new JSONArray(str);
+        } catch (JSONException e) {
+            jArray = null;
+            e.printStackTrace();
+        }
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(dbContext);
+        try {
+            System.out.println("0 : " + jArray.get(0));
+            System.out.println("1 : " + jArray.get(1));
+            System.out.println("0 : " + sp.getInt("numItems", 0));
+            System.out.println("1 : " + sp.getString("lastRef", ""));
+
+            if((jArray.get(0) == sp.getInt("numItems", 0)) && (jArray.get(1).equals(sp.getString("lastRef", "")))) {
+                return true;
+            }
+            else {
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("lastRef", (String) jArray.get(1));
+                editor.putInt("numItems", (Integer) jArray.get(0));
+                editor.commit();
+                return false;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public void getNearbyStores() {
