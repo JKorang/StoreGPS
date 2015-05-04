@@ -90,7 +90,7 @@ public class MyStoreFragment extends Fragment implements AbsListView.OnItemClick
          db.addNewFavoriteStore("CVS Pharmacy", "856-582-0020", "http://www.cvs.com", 7, 22, "1050 N Delsea Dr, Glassboro, NJ 08028");
        * */
         ArrayList<Store> stores = db.getAllStores();
-        StoreMergeSort sms = new StoreMergeSort(getActivity());
+        StoreMergeSort sms = new StoreMergeSort(getActivity(), false);
         try {
             sms.mergeSort(stores);
         } catch (IOException e) {

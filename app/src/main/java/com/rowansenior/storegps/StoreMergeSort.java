@@ -10,11 +10,12 @@ import java.util.ArrayList;
  */
 public class StoreMergeSort {
     Context context;
-    Boolean distCalcd = false;
+    Boolean distCalcd;
 
-    public StoreMergeSort(Context context)
+    public StoreMergeSort(Context context, Boolean jawn)
     {
         this.context = context;
+        this.distCalcd = jawn;
     }
 
     public ArrayList<Store> mergeSort(ArrayList<Store> myStores) throws IOException {
@@ -43,8 +44,8 @@ public class StoreMergeSort {
                 rightHand.add(myStores.get(i));
             }
 
-            rightHand = mergeSort(rightHand);
             leftHand = mergeSort(leftHand);
+            rightHand = mergeSort(rightHand);
 
             merge(leftHand, rightHand, myStores);
         }

@@ -249,7 +249,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<Store> get3ClosestStores() throws IOException {
         ArrayList<Store> allStores;
         allStores = getAllStores();
-        StoreMergeSort sms = new StoreMergeSort(myContext);
+        StoreMergeSort sms = new StoreMergeSort(myContext, false);
         sms.mergeSort(allStores);
         ArrayList<Store> top3 = new ArrayList<>();
         if(allStores.size() < 3)
@@ -273,7 +273,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<Store> get3NearbyStores() throws IOException {
         ArrayList<Store> allNearbyStores;
         allNearbyStores = getNearbyStores();
-        StoreMergeSort sms = new StoreMergeSort(myContext);
+        StoreMergeSort sms = new StoreMergeSort(myContext, false);
         sms.mergeSort(allNearbyStores);
         ArrayList<Store> nearby3 = new ArrayList<>();
         if(allNearbyStores.size() < 3)

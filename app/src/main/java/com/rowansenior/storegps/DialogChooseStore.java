@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -33,8 +34,13 @@ public class DialogChooseStore extends DialogFragment implements View.OnClickLis
         //Build dialog
         getDialog().setTitle("Navigate A Store");
         final DatabaseHelper db = new DatabaseHelper(getActivity());
-        ArrayList list = db.getAllStores();
-        generateListOfStores(list);
+        ArrayList<Store> favList = db.getAllStores();
+        ArrayList<Store> nearList = db.getNearbyStores();
+        try {
+            generateListOfStores(favList, nearList);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         final ArrayAdapter<String> storeAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, listOfStores);
         ListView listView = (ListView) v.findViewById(R.id.choose_list_view);
         final FragmentManager fm = (getActivity()).getSupportFragmentManager();
@@ -54,10 +60,24 @@ public class DialogChooseStore extends DialogFragment implements View.OnClickLis
         return v;
     }
 
-    public void generateListOfStores(ArrayList tempList) {
+    public void generateListOfStores(ArrayList<Store> tempFavList, ArrayList<Store> tempNearList) throws IOException {
+        ArrayList<Store> allStores = new ArrayList<>();
+        for(int i = 0; i < tempFavList.size(); i++)
+        {
+            allStores.add(tempFavList.get(i));
+        }
+        for(int i = 0; i < tempNearList.size(); i++)
+        {
+            if(!allStores.contains(tempNearList.get(i)))
+            {
+                allStores.add(tempNearList.get(i));
+            }
+        }
+        StoreMergeSort sms = new StoreMergeSort(getActivity(), false);
+        sms.mergeSort(allStores);
         listOfStores = new ArrayList<String>();
-        for (int i = 0; i < tempList.size(); i++) {
-            Store temp = (Store) tempList.get(i);
+        for (int i = 0; i < allStores.size(); i++) {
+            Store temp = allStores.get(i);
             listOfStores.add(temp.getName());
         }
     }
