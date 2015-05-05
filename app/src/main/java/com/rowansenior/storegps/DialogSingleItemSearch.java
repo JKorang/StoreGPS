@@ -4,11 +4,18 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
+
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by root on 3/31/15.
@@ -18,9 +25,11 @@ public class DialogSingleItemSearch extends DialogFragment implements View.OnCli
     Button cancel;
     Button search;
     EditText searchBox;
+    String storeName;
 
-    public DialogSingleItemSearch() {
+    public DialogSingleItemSearch(String store) {
         mContext = getActivity();
+        storeName = store;
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,10 +47,18 @@ public class DialogSingleItemSearch extends DialogFragment implements View.OnCli
 
     public void onClick(View v) {
         FragmentManager fragmentManager = getFragmentManager();
+        DatabaseHelper db = DatabaseHelper.getHelper(getActivity());
         switch (v.getId()) {
             case R.id.searchButton:
-                DialogSearchItem diagSI = new DialogSearchItem();
-                diagSI.show(fragmentManager, null);
+                Editable tempTerm = searchBox.getText();
+                String searchTerm = tempTerm.toString();
+
+                    if (searchTerm.trim().length() == 0) {
+                        SnackbarManager.show(Snackbar.with(getActivity()).text("Please enter a search term"));
+                    } else {
+                        DialogSearchResults diagSI = new DialogSearchResults(storeName, searchTerm);
+                        diagSI.show(fragmentManager, null);
+                    }
                 break;
             case R.id.searchButtonCancel:
                 getDialog().dismiss();

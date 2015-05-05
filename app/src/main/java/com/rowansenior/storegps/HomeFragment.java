@@ -39,7 +39,7 @@ public class HomeFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private ListListAdapter mAdapter;
     private ListStoreAdapter mStoreAdapter;
-    private ListStoreAdapter mNearbyAdapter;
+    private RemoteStoreAdapter mNearbyAdapter;
     private GridLayoutManager mLayoutManager;
     private GridLayoutManager mStoreManager;
     private GridLayoutManager mNearbyManager;
@@ -296,7 +296,7 @@ public class HomeFragment extends Fragment {
         protected void onPostExecute(Boolean bool) {
             DatabaseHelper db = new DatabaseHelper(getActivity());
             try {
-                mNearbyAdapter = new ListStoreAdapter(getActivity(), db.get3NearbyStores(), 1);
+                mNearbyAdapter = new RemoteStoreAdapter(getActivity(), db.get3NearbyStores(), 1);
 
             } catch (Exception e) {
                 e.printStackTrace();

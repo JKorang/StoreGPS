@@ -143,7 +143,7 @@ public class RemoteDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void getNearbyItems() {
+    public void getNearbyItems(String storeName) {
         String str = "";
         HttpResponse response;
         HttpClient client = new DefaultHttpClient();
@@ -152,7 +152,7 @@ public class RemoteDatabaseHelper extends SQLiteOpenHelper {
         //HttpPost address = new HttpPost("http://192.168.29.12:9050//accessItems.php");
 
         //WAN
-        HttpPost address = new HttpPost("http://www.jkorang.com/accessItems.php");
+        HttpPost address = new HttpPost("http://jkorang.com/accessItems2.php?store=" + storeName);
 
         try {
             response = client.execute(address);

@@ -203,7 +203,7 @@ public class SingleStoreFragment extends Fragment implements View.OnClickListene
                 return true;
 
             case R.id.individual_store_search:
-                DialogSingleItemSearch sIS = new DialogSingleItemSearch();
+                DialogSingleItemSearch sIS = new DialogSingleItemSearch(storeName);
                 sIS.show(fragmentManager, null);
                 return true;
 
