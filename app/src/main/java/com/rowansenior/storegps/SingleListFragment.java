@@ -219,7 +219,8 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                             public void onDismissedBySwipeRight(RecyclerView recyclerView, int[] reverseSortedPositions) {
                                 for (final int position : reverseSortedPositions) {
                                     final ShoppingListItem tempItem = itemList.get(position);
-                                    itemList.remove(tempItem);
+                                    final int size = itemList.size()
+;                                    itemList.remove(tempItem);
                                     db.removeItem(listName, tempItem.getName());
                                     SnackbarManager.show(Snackbar.with(getActivity())
                                             .text(tempItem.getName() + " has been deleted")
@@ -228,9 +229,16 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                                                                 @Override
                                                                 public void onActionClicked(Snackbar snackbar) {
                                                                     if(!itemList.contains(tempItem)) {
-                                                                        itemList.add(position, tempItem);
+                                                                        //itemList.add(position, tempItem);
                                                                         try {
                                                                             db.undoDeleteItem(listName, tempItem.getName(), tempItem.getQuantity(), tempItem.getFound());
+                                                                            if(itemList.size() == size) {
+                                                                                itemList.add(position + 1, tempItem);
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                itemList.add(position, tempItem);
+                                                                            }
                                                                         } catch (Exception e) {
 
                                                                         }
