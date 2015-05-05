@@ -143,6 +143,48 @@ public class RemoteDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void getAllNearbyItems() {
+        String str = "";
+        HttpResponse response;
+        HttpClient client = new DefaultHttpClient();
+
+        //LAN
+        //HttpPost address = new HttpPost("http://192.168.29.12:9050//accessItems.php");
+
+        //WAN
+        HttpPost address = new HttpPost("http://jkorang.com/accessItems.php");
+
+        try {
+            response = client.execute(address);
+            str = EntityUtils.toString(response.getEntity(), "UTF-8");
+
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JSONArray jArray;
+        try {
+            jArray = new JSONArray(str);
+        } catch (JSONException e) {
+            jArray = null;
+            e.printStackTrace();
+        }
+
+        SQLiteDatabase db = getReadableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_STORE_ITEM);
+        db.execSQL(CREATE_TABLE_STORE_ITEM);
+        for (int i = 0; i < jArray.length(); i = i + 5) {
+            try {
+                String insertQuery = "INSERT INTO " + TABLE_STORE_ITEM + " VALUES(" + '"' + jArray.get(i) + '"' + ", " + '"' + jArray.get(i + 2) + '"' + ", " + '"' + jArray.get(i + 3) + '"' + ", " + '"' + jArray.get(i + 4) + '"' + ", " + '"' + jArray.get(i + 1) + '"' + ")";
+                db.execSQL(insertQuery);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
     public void getNearbyItems(String storeName) {
         String str = "";
         HttpResponse response;
