@@ -78,7 +78,9 @@ public class DialogChooseStore extends DialogFragment implements View.OnClickLis
         listOfStores = new ArrayList<String>();
         for (int i = 0; i < allStores.size(); i++) {
             Store temp = allStores.get(i);
-            listOfStores.add(temp.getName());
+            if(!listOfStores.contains(temp.getName())) {
+                listOfStores.add(temp.getName());
+            }
         }
     }
 
