@@ -62,6 +62,7 @@ public class DialogChooseStore extends DialogFragment implements View.OnClickLis
 
     public void generateListOfStores(ArrayList<Store> tempFavList, ArrayList<Store> tempNearList) throws IOException {
         ArrayList<Store> allStores = new ArrayList<>();
+        Store temp;
         for(int i = 0; i < tempFavList.size(); i++)
         {
             allStores.add(tempFavList.get(i));
@@ -77,7 +78,7 @@ public class DialogChooseStore extends DialogFragment implements View.OnClickLis
         sms.mergeSort(allStores);
         listOfStores = new ArrayList<String>();
         for (int i = 0; i < allStores.size(); i++) {
-            Store temp = allStores.get(i);
+            temp = allStores.get(i);
             if(!listOfStores.contains(temp.getName())) {
                 listOfStores.add(temp.getName());
             }
