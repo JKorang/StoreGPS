@@ -3,13 +3,13 @@
     <!-- These settings headers are only used on tablets. -->
 
     <header android:fragment="com.rowansenior.storegps.SettingsActivity$GeneralPreferenceFragment"
-        android:title="@string/pref_header_general" />
+        android:title="Where is this 1" />
 
     <header
         android:fragment="com.rowansenior.storegps.SettingsActivity$NotificationPreferenceFragment"
-        android:title="@string/pref_header_notifications" />
+        android:title="Where is this 2" />
 
     <header android:fragment="com.rowansenior.storegps.SettingsActivity$DataSyncPreferenceFragment"
-        android:title="@string/pref_header_data_sync" />
+        android:title="Where is this 3" />
 
 </preference-headers>

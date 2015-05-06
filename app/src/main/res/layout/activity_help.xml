@@ -75,6 +75,38 @@
             android:layout_height="wrap_content"
             android:text="\tA list can be deleted by holding down the list card on the List or Home screen.\n\n" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="STORE FUNCTIONS\n"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\tAdd a nearby store to my stores\n"
+            android:textStyle="italic" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\t\tFrom the store screen click the star icon in the action bar. This will add the store to my stores for easier access\n\n" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\tShop a store\n"
+            android:textStyle="italic" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\t\tClick the navigate button from the navigation bar, this will open up the lists you can shop. Click on the one you would like to shop and begin shopping\n\n" />
+
 
         <ImageButton
             android:id="@+id/bigRedButton"
@@ -84,5 +116,6 @@
             android:layout_alignParentLeft="true"
             android:layout_gravity="bottom|left"
             android:background="#0000" />
+
     </LinearLayout>
 </ScrollView>

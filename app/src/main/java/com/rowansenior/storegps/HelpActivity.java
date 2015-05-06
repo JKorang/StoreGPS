@@ -36,6 +36,7 @@ public class HelpActivity extends ActionBarActivity {
                 Intent bRB = new Intent(Intent.ACTION_VIEW);
                 bRB.setData(Uri.parse("http://i.imgur.com/YXclEpw.jpg"));
                 startActivity(bRB);
+
             }
         });
     }
