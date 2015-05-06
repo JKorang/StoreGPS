@@ -42,12 +42,12 @@ public class RemoteDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_NEARBY_STORE = "CREATE TABLE "
             + TABLE_NEARBY_STORE + "(" + KEY_STORE_NAME + " STRING PRIMARY KEY," + KEY_STORE_ICON
-            + " INTEGER," + KEY_STORE_COLOR + " INTEGER," + KEY_LOCATION + " STRING," + KEY_PHONE_NUMBER +
+            + " STRING," + KEY_STORE_COLOR + " STRING," + KEY_LOCATION + " STRING," + KEY_PHONE_NUMBER +
             " STRING," + KEY_URL + " STRING," + KEY_HOUR_OPEN + " STRING," + KEY_HOUR_CLOSED + " STRING" + ")";
 
     private static final String CREATE_TABLE_STORE_ITEM = "CREATE TABLE " + TABLE_STORE_ITEM + "(" + KEY_ITEM_NAME
-            + " STRING NOT NULL, " + KEY_STORE + " STRING NOT NULL, " + KEY_ITEM_TAG + " STRING, " + KEY_ITEM_PRICE + " STRING, " +
-            KEY_ITEM_LOCATION + " STRING, PRIMARY KEY(" + KEY_ITEM_NAME + ", " + KEY_STORE + "))";
+            + " STRING NOT NULL, " + KEY_STORE_NAME + " STRING NOT NULL, " + KEY_ITEM_TAG + " STRING, " + KEY_ITEM_PRICE + " STRING, " +
+            KEY_ITEM_LOCATION + " STRING, PRIMARY KEY(" + KEY_ITEM_NAME + ", " + KEY_STORE_NAME + "))";
 
     Context dbContext;
 
@@ -135,7 +135,7 @@ public class RemoteDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_NEARBY_STORE);
         for (int i = 0; i < jArray.length()-1; i = i + 8) {
             try {
-                String insertQuery = "INSERT INTO " + TABLE_NEARBY_STORE + " VALUES(" + '"' + jArray.get(i) + '"' + ", 1, 1, " + '"' + jArray.get(i + 1) + '"' + ", " + '"' + jArray.get(i + 2) + '"' + ", " + '"' + jArray.get(i + 5) + '"' + ", " + '"' + jArray.get(i + 6) + '"' + ", " + '"' + jArray.get(i + 7) + '"' + ")";
+                String insertQuery = "INSERT INTO " + TABLE_NEARBY_STORE + " VALUES(" + '"' + jArray.get(i) + '"' + ", '" + jArray.get(i + 3) +"', '" + jArray.get(i + 4) + "', " + '"' + jArray.get(i + 1) + '"' + ", " + '"' + jArray.get(i + 2) + '"' + ", " + '"' + jArray.get(i + 5) + '"' + ", " + '"' + jArray.get(i + 6) + '"' + ", " + '"' + jArray.get(i + 7) + '"' + ")";
                 db.execSQL(insertQuery);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -219,7 +219,7 @@ public class RemoteDatabaseHelper extends SQLiteOpenHelper {
         for (int i = 0; i < jArray.length(); i = i + 5) {
             try {
                 System.out.println("Item Name: " + jArray.get(i).toString());
-                String insertQuery = "INSERT INTO " + TABLE_STORE_ITEM + " VALUES(" + '"' + jArray.get(i) + '"' + ", " + '"' + jArray.get(i + 2) + '"' + ", " + '"' + jArray.get(i + 3) + '"' + ", " + '"' + jArray.get(i + 4) + '"' + ", " + '"' + jArray.get(i + 1) + '"' + ")";
+                String insertQuery = "INSERT INTO " + TABLE_STORE_ITEM + " VALUES(" + '"' + jArray.get(i) + '"' + ", " + '"' + jArray.get(i + 4) + '"' + ", " + '"' + jArray.get(i + 1) + '"' + ", " + '"' + jArray.get(i + 2) + '"' + ", " + '"' + jArray.get(i + 3) + '"' + ")";
                 db.execSQL(insertQuery);
             } catch (JSONException e) {
                 e.printStackTrace();

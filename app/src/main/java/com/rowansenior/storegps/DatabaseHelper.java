@@ -74,12 +74,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Table Create Statements
     private static final String CREATE_TABLE_STORE = "CREATE TABLE "
             + TABLE_STORE + "(" + KEY_STORE_NAME + " STRING PRIMARY KEY," + KEY_STORE_ICON
-            + " INTEGER," + KEY_STORE_COLOR + " INTEGER," + KEY_LOCATION + " STRING," + KEY_PHONE_NUMBER +
-            " STRING," + KEY_URL + " STRING," + KEY_HOUR_OPEN + " INTEGER," + KEY_HOUR_CLOSED + " INTEGER" + ")";
+            + " STRING," + KEY_STORE_COLOR + " STRING," + KEY_LOCATION + " STRING," + KEY_PHONE_NUMBER +
+            " STRING," + KEY_URL + " STRING," + KEY_HOUR_OPEN + " STRING," + KEY_HOUR_CLOSED + " STRING" + ")";
 
     private static final String CREATE_TABLE_NEARBY_STORE = "CREATE TABLE "
             + TABLE_NEARBY_STORE + "(" + KEY_STORE_NAME + " STRING PRIMARY KEY," + KEY_STORE_ICON
-            + " INTEGER," + KEY_STORE_COLOR + " INTEGER," + KEY_LOCATION + " STRING," + KEY_PHONE_NUMBER +
+            + " STRING," + KEY_STORE_COLOR + " STRING," + KEY_LOCATION + " STRING," + KEY_PHONE_NUMBER +
             " STRING," + KEY_URL + " STRING," + KEY_HOUR_OPEN + " STRING," + KEY_HOUR_CLOSED + " STRING" + ")";
 
     private static final String CREATE_TABLE_STORE_ITEM = "CREATE TABLE " + TABLE_STORE_ITEM + "(" + KEY_ITEM_NAME
@@ -123,8 +123,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Create a new ShoppingList within the database
-     * <p/>
-     * NEED TO HANDLE ERRORS FOR EXISTING LISTS
      */
     public long createNewList(String name, int color, int icon) {
         SimpleDateFormat s = new SimpleDateFormat("MM/dd/yyyy");
@@ -148,8 +146,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * Not sure if sqlite will reject each item after the first for a list.
      * Might need to give item name column PK in the database, as well.
      * <p/>
-     * NEED TO HANDLE ERRORS FOR EXISTING ITEMS
-     * INCREMENT EXISTING
      */
     public void addNewItem(String listName, String itemName) {
         SQLiteDatabase dataBase = this.getReadableDatabase();
@@ -314,8 +310,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                             c.getString(c.getColumnIndex(KEY_LOCATION)),
                             c.getString(c.getColumnIndex(KEY_PHONE_NUMBER)),
                             c.getString(c.getColumnIndex(KEY_URL)),
-                            c.getInt(c.getColumnIndex(KEY_HOUR_OPEN)),
-                            c.getInt(c.getColumnIndex(KEY_HOUR_CLOSED)));
+                            c.getString(c.getColumnIndex(KEY_HOUR_OPEN)),
+                            c.getString(c.getColumnIndex(KEY_HOUR_CLOSED)));
                     allStores.add(sl);
                 } while (c.moveToPrevious());
             }
@@ -374,9 +370,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         database.execSQL(selectQuery);
     }
 
-    public void addNewFavoriteStore(String storeName, String phoneNumber, String uRL, int open, int closed, String location) {
+    public void addNewFavoriteStore(String storeName, String phoneNumber, String uRL, String open, String closed, String location, String imageURL, String color) {
         SQLiteDatabase dataBase = this.getReadableDatabase();
-        String selectQuery = "INSERT INTO " + TABLE_STORE + " VALUES(" + '"' + storeName + '"' + ", 1, 1, " + '"' + location + '"' + ", " + '"' + phoneNumber + '"' + ", " + '"' + uRL + '"' + ", " + open + ", " + closed + ")";
+        String selectQuery = "INSERT INTO " + TABLE_STORE + " VALUES('" + storeName + "', '" + imageURL + "', '" + color + "', '" + location  + "', '" + phoneNumber + "', '" + uRL + "', '" + open + "', '" + closed + "')";
         dataBase.execSQL(selectQuery);
     }
 
@@ -400,8 +396,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         c.getString(c.getColumnIndex(KEY_LOCATION)),
                         c.getString(c.getColumnIndex(KEY_PHONE_NUMBER)),
                         c.getString(c.getColumnIndex(KEY_URL)),
-                        c.getInt(c.getColumnIndex(KEY_HOUR_OPEN)),
-                        c.getInt(c.getColumnIndex(KEY_HOUR_CLOSED)));
+                        c.getString(c.getColumnIndex(KEY_HOUR_OPEN)),
+                        c.getString(c.getColumnIndex(KEY_HOUR_CLOSED)));
                 allStores.add(sl);
             } while (c.moveToPrevious());
         }
@@ -442,9 +438,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 c.getString(c.getColumnIndex(KEY_LOCATION)),
                 c.getString(c.getColumnIndex(KEY_PHONE_NUMBER)),
                 c.getString(c.getColumnIndex(KEY_URL)),
-                c.getInt(c.getColumnIndex(KEY_HOUR_OPEN)),
-                c.getInt(c.getColumnIndex(KEY_HOUR_CLOSED)));
+                c.getString(c.getColumnIndex(KEY_HOUR_OPEN)),
+                c.getString(c.getColumnIndex(KEY_HOUR_CLOSED)));
 
         return storeToReturn;
+    }
+
+    public ArrayList searchResult(String name, String input) {
+        SQLiteDatabase dataBase = this.getReadableDatabase();
+        String selectQuery;
+        Cursor c = null;
+        ArrayList itemsToReturn = new ArrayList();
+        try {
+            System.out.println("TRY");
+            selectQuery = "SELECT * FROM " + TABLE_STORE_ITEM + " WHERE " + KEY_STORE_NAME + " = " + "'" + name + "'" + " AND " + KEY_ITEM_NAME + " LIKE '%" + input + "%'";
+            c = dataBase.rawQuery(selectQuery, null);
+            System.out.println("Returned");
+            c.moveToFirst();
+            System.out.println("First" + c.getCount());
+            do {
+                System.out.println("Inside");
+                StoreItem tempItem = new StoreItem(c.getString(c.getColumnIndex(KEY_ITEM_NAME)),
+                        c.getString(c.getColumnIndex(KEY_LOCATION)),
+                        c.getString(c.getColumnIndex(KEY_ITEM_TAG)),
+                        c.getString(c.getColumnIndex(KEY_STORE_NAME)),
+                        c.getString(c.getColumnIndex(KEY_ITEM_PRICE)));
+                System.out.println(tempItem.getvName());
+                itemsToReturn.add(tempItem);
+            }
+            while (c.moveToNext());
+        }
+            catch (Exception e) {
+
+        }
+
+        return itemsToReturn;
     }
 }

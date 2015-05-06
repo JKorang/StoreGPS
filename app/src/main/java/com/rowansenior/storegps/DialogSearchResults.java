@@ -21,10 +21,16 @@ public class DialogSearchResults extends DialogFragment implements View.OnClickL
     Button cancel;
     Button addToList;
 
-    public DialogSearchResults(String store, String item) {
-        mContext = getActivity();
+    public DialogSearchResults(String store, String item, Context context) {
+        mContext = context;
         storeName = store;
         itemName = item;
+        generateResult();
+    }
+
+    private void generateResult() {
+        DatabaseHelper db = new DatabaseHelper(mContext);
+        db.searchResult(storeName, itemName);
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

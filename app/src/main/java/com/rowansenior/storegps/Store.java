@@ -7,9 +7,11 @@ public class Store {
     private String vName;
     private String vLocation;
     private String vURL;
-    private int vHourOpen;
-    private int vHourClosed;
+    private String vHourOpen;
+    private String vHourClosed;
     private String vPhoneNumber;
+    private String vColor;
+    private String vImage;
     private double vDistanceTo;
 
 
@@ -18,7 +20,7 @@ public class Store {
         this.vLocation = location;
     }
 
-    public Store(String name, String location, String phone, String url, int hourOpen, int hourClosed) {
+    public Store(String name, String location, String phone, String url, String hourOpen, String hourClosed) {
         this.vName = name;
         this.vLocation = location;
         this.vURL = url;
@@ -40,16 +42,24 @@ public class Store {
         return vURL;
     }
 
-    public int getHoursOpen() {
+    public String getHoursOpen() {
         return vHourOpen;
     }
 
-    public int getHoursClosed() {
+    public String getHoursClosed() {
         return vHourClosed;
     }
 
     public String getPhoneNumber() {
         return vPhoneNumber;
+    }
+
+    public String getImage() {
+        return vImage;
+    }
+
+    public String getColor() {
+        return vColor;
     }
 
     public double getvDistanceTo() {

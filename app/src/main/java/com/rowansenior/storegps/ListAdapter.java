@@ -148,7 +148,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                     break;
 
                 case R.id.itemInfo:
-                    DialogSearchResults diagSI = new DialogSearchResults(null, vTitleText.toString());
+                    DialogSearchResults diagSI = new DialogSearchResults(null, vTitleText.toString(), vhContext);
                     diagSI.show(fragmentManager, null);
                     break;
             }

@@ -193,9 +193,9 @@ public class SingleStoreFragment extends Fragment implements View.OnClickListene
                 }
                 else {
                     menuRef.findItem(R.id.individual_store_favorite).setIcon(R.drawable.action_bar_favorited);
-                    db.addNewFavoriteStore(storeInfo.getName(), storeInfo.getPhoneNumber(), storeInfo.getURL(), storeInfo.getHoursOpen(), storeInfo.getHoursClosed(), storeInfo.getLocation());
-                }
-                return true;
+                    db.addNewFavoriteStore(storeInfo.getName(), storeInfo.getPhoneNumber(), storeInfo.getURL(), storeInfo.getHoursOpen(), storeInfo.getHoursClosed(), storeInfo.getLocation(), storeInfo.getImage(), storeInfo.getColor());
+            }
+            return true;
 
             case R.id.individual_store_navigate:
                 DialogChooseList diagNL = new DialogChooseList(storeName);
@@ -203,7 +203,7 @@ public class SingleStoreFragment extends Fragment implements View.OnClickListene
                 return true;
 
             case R.id.individual_store_search:
-                DialogSingleItemSearch sIS = new DialogSingleItemSearch(storeName);
+                DialogSingleItemSearch sIS = new DialogSingleItemSearch(storeName, getActivity());
                 sIS.show(fragmentManager, null);
                 return true;
 

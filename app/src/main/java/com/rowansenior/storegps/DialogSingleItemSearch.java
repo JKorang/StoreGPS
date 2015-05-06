@@ -27,8 +27,8 @@ public class DialogSingleItemSearch extends DialogFragment implements View.OnCli
     EditText searchBox;
     String storeName;
 
-    public DialogSingleItemSearch(String store) {
-        mContext = getActivity();
+    public DialogSingleItemSearch(String store, Context context) {
+        mContext = context;
         storeName = store;
     }
 
@@ -47,7 +47,6 @@ public class DialogSingleItemSearch extends DialogFragment implements View.OnCli
 
     public void onClick(View v) {
         FragmentManager fragmentManager = getFragmentManager();
-        DatabaseHelper db = DatabaseHelper.getHelper(getActivity());
         switch (v.getId()) {
             case R.id.searchButton:
                 Editable tempTerm = searchBox.getText();
@@ -56,7 +55,7 @@ public class DialogSingleItemSearch extends DialogFragment implements View.OnCli
                     if (searchTerm.trim().length() == 0) {
                         SnackbarManager.show(Snackbar.with(getActivity()).text("Please enter a search term"));
                     } else {
-                        DialogSearchResults diagSI = new DialogSearchResults(storeName, searchTerm);
+                        DialogSearchResults diagSI = new DialogSearchResults(storeName, searchTerm, mContext);
                         diagSI.show(fragmentManager, null);
                     }
                 break;

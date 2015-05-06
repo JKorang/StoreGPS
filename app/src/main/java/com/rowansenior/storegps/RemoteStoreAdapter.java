@@ -81,6 +81,7 @@ public class RemoteStoreAdapter extends RecyclerView.Adapter<RemoteStoreAdapter.
             vLocation = (TextView) v.findViewById(R.id.date);
             vCardView = (CardView) v.findViewById(R.id.card_view);
             vImageView = (ImageView) v.findViewById(R.id.listIcon);
+            
             vFM = FM;
             vhContext = context;
             vTitleText.setOnClickListener(this);
