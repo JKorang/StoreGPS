@@ -103,7 +103,7 @@
         android:id="@+id/store_categories">
 
         <ListView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/category_list_view" />
     </LinearLayout>
@@ -112,9 +112,9 @@
         android:id="@+id/store_name_LL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_below="@+id/store_image_LL"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical">
+        android:layout_alignParentStart="true">
 
         <TextView
             android:id="@+id/storeName"
