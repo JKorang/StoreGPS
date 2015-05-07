@@ -48,8 +48,6 @@ public class DialogSingleItemSearch extends DialogFragment implements View.OnCli
                 String searchTerm = tempTerm.toString();
 
                     if (searchTerm.trim().length() == 0) {
-                        //SnackbarManager.show(Snackbar.with(getActivity()).text("Please enter a search term"));
-
                         CharSequence searchText = "Please enter a search term";
                         int searchDuration = Toast.LENGTH_SHORT;
                         Toast foundToast = Toast.makeText(mContext, searchText, searchDuration);
