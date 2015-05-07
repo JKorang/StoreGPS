@@ -237,8 +237,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
             while(c.moveToPrevious());
         }
-
         return categories;
+    }
+
+    public ArrayList<StoreItem> getItemsFromCategory(String store, String category) {
+        SQLiteDatabase dataBase = this.getReadableDatabase();
+        String selectQuery;
+        Cursor c = null;
+        ArrayList itemsToReturn = new ArrayList();
+        try {
+            selectQuery = "SELECT * FROM " + TABLE_STORE_ITEM
+                    + " WHERE " + KEY_STORE_NAME + " = " + "'" + store + "'" + " AND " + KEY_ITEM_CATEGORY + " = '" + category + "'";
+            c = dataBase.rawQuery(selectQuery, null);
+            c.moveToFirst();
+            do {
+                StoreItem tempItem = new StoreItem(c.getString(c.getColumnIndex(KEY_ITEM_NAME)),
+                        c.getString(c.getColumnIndex(KEY_LOCATION)),
+                        c.getString(c.getColumnIndex(KEY_ITEM_TAG)),
+                        c.getString(c.getColumnIndex(KEY_STORE_NAME)),
+                        c.getString(c.getColumnIndex(KEY_ITEM_PRICE)),
+                        c.getString(c.getColumnIndex(KEY_ITEM_CATEGORY)));
+                itemsToReturn.add(tempItem);
+            }
+            while (c.moveToNext());
+        } catch (Exception e) {
+
+        }
+        return itemsToReturn;
     }
 
     public ArrayList<ShoppingList> getLast3Lists() {

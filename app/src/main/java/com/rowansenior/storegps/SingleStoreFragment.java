@@ -155,21 +155,20 @@ public class SingleStoreFragment extends Fragment implements View.OnClickListene
         }
 
         final DatabaseHelper db = new DatabaseHelper(getActivity());
-        ArrayList<String> categories = new ArrayList<>();
-        categories = db.getCategories(storeName);
-        final ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, categories);
+        final ArrayList<String> itemCategories;
+        itemCategories = db.getCategories(storeName);
+        final ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, itemCategories);
         ListView listView = (ListView) storeView.findViewById(R.id.category_list_view);
         final FragmentManager fm = (getActivity()).getSupportFragmentManager();
         listView.setAdapter(categoryAdapter);
-        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getDialog().setTitle("Navigate A Store");
-                final Store store = db.getStoreInfo(listOfStores.get(position));
-                fm.beginTransaction().replace(R.id.container, new SingleListFragment().newInstance(mOrigin, true, store)).addToBackStack(null).commit();
-                getDialog().dismiss();
+                ArrayList<StoreItem> alSI = db.getItemsFromCategory(storeName, itemCategories.get(position));
+                DialogChooseItem diagCI = new DialogChooseItem(alSI, getActivity());
+                diagCI.show(fm, null);
             }
-        });*/
+        });
 
         return storeView;
     }
