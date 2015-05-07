@@ -185,7 +185,6 @@ public class RemoteDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-
     public void getNearbyItems(String storeName) {
         String str = "";
         HttpResponse response;

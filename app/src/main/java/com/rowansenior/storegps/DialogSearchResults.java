@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 /**
  * Created by root on 3/31/15.
@@ -20,6 +23,12 @@ public class DialogSearchResults extends DialogFragment implements View.OnClickL
     String itemName;
     Button cancel;
     Button addToList;
+    ArrayList itemResults;
+    StoreItem mItem;
+    TextView tvItemName;
+    TextView tvPrice;
+    TextView tvCategory;
+    TextView tvAisle;
 
     public DialogSearchResults(String store, String item, Context context) {
         mContext = context;
@@ -28,15 +37,33 @@ public class DialogSearchResults extends DialogFragment implements View.OnClickL
         generateResult();
     }
 
+    public DialogSearchResults(StoreItem item, Context context) {
+        mContext = context;
+        mItem = item;
+    }
+
     private void generateResult() {
         DatabaseHelper db = new DatabaseHelper(mContext);
-        db.searchResult(storeName, itemName);
+        itemResults = db.searchResult(storeName, itemName);
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.dialog_searched_item, container, false);
         cancel = (Button) v.findViewById(R.id.addToListFromSearch);
         addToList = (Button) v.findViewById(R.id.closeSearchResults);
+
+
+        tvItemName = (TextView) v.findViewById(R.id.searchItemName);
+        tvPrice = (TextView) v.findViewById(R.id.searchPrice);
+        tvCategory = (TextView) v.findViewById(R.id.searchCategory);
+        tvAisle = (TextView) v.findViewById(R.id.searchAisle);
+
+
+        tvItemName.setText(mItem.getvName());
+        tvPrice.setText("Price: $" + mItem.getvPrice());
+        tvCategory.setText("Category: " + mItem.getvCategory());
+        tvAisle.setText("Location: " + mItem.getvLocation());
+
 
         cancel.setOnClickListener(this);
         addToList.setOnClickListener(this);

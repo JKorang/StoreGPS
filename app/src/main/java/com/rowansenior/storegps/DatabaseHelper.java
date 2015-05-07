@@ -67,11 +67,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_HOUR_OPEN = "open";
     private static final String KEY_HOUR_CLOSED = "closed";
 
-    private static final String KEY_ITEM_CATEGORY = "category";
     private static final String KEY_ITEM_TAG = "tags";
     private static final String KEY_ITEM_PRICE = "price";
     private static final String KEY_ITEM_LOCATION = "location";
     private static final String KEY_STORE = "store";
+    private static final String KEY_ITEM_CATEGORY = "category";
 
     // Table Create Statements
     private static final String CREATE_TABLE_STORE = "CREATE TABLE "
@@ -237,8 +237,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
             while(c.moveToPrevious());
         }
-
         return categories;
+    }
+
+    public ArrayList<StoreItem> getItemsFromCategory(String store, String category) {
+        SQLiteDatabase dataBase = this.getReadableDatabase();
+        String selectQuery;
+        Cursor c = null;
+        ArrayList itemsToReturn = new ArrayList();
+        try {
+            selectQuery = "SELECT * FROM " + TABLE_STORE_ITEM
+                    + " WHERE " + KEY_STORE_NAME + " = " + "'" + store + "'" + " AND " + KEY_ITEM_CATEGORY + " = '" + category + "'";
+            c = dataBase.rawQuery(selectQuery, null);
+            c.moveToFirst();
+            do {
+                StoreItem tempItem = new StoreItem(c.getString(c.getColumnIndex(KEY_ITEM_NAME)),
+                        c.getString(c.getColumnIndex(KEY_LOCATION)),
+                        c.getString(c.getColumnIndex(KEY_ITEM_TAG)),
+                        c.getString(c.getColumnIndex(KEY_STORE_NAME)),
+                        c.getString(c.getColumnIndex(KEY_ITEM_PRICE)),
+                        c.getString(c.getColumnIndex(KEY_ITEM_CATEGORY)));
+                itemsToReturn.add(tempItem);
+            }
+            while (c.moveToNext());
+        } catch (Exception e) {
+
+        }
+        return itemsToReturn;
     }
 
     public ArrayList<ShoppingList> getLast3Lists() {
@@ -466,20 +491,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor c = null;
         ArrayList itemsToReturn = new ArrayList();
         try {
-            System.out.println("TRY");
-            selectQuery = "SELECT * FROM " + TABLE_STORE_ITEM + " WHERE " + KEY_STORE_NAME + " = " + "'" + name + "'" + " AND " + KEY_ITEM_NAME + " LIKE '%" + input + "%'";
+            selectQuery = "SELECT * FROM " + TABLE_STORE_ITEM
+                    + " WHERE " + KEY_STORE_NAME + " LIKE " + "'%" + name + "%'" + " AND (" + KEY_ITEM_NAME + " LIKE '%" + input + "%'"
+                    + " OR " + KEY_ITEM_TAG + " LIKE '%" + input + "%'"
+                    + " OR " + KEY_ITEM_CATEGORY + " LIKE '%" + input + "%')";
             c = dataBase.rawQuery(selectQuery, null);
-            System.out.println("Returned");
+            DatabaseUtils dbu = new DatabaseUtils();
             c.moveToFirst();
-            System.out.println("First" + c.getCount());
             do {
-                System.out.println("Inside");
                 StoreItem tempItem = new StoreItem(c.getString(c.getColumnIndex(KEY_ITEM_NAME)),
                         c.getString(c.getColumnIndex(KEY_LOCATION)),
                         c.getString(c.getColumnIndex(KEY_ITEM_TAG)),
                         c.getString(c.getColumnIndex(KEY_STORE_NAME)),
-                        c.getString(c.getColumnIndex(KEY_ITEM_PRICE)));
-                System.out.println(tempItem.getvName());
+                        c.getString(c.getColumnIndex(KEY_ITEM_PRICE)),
+                        c.getString(c.getColumnIndex(KEY_ITEM_CATEGORY)));
                 itemsToReturn.add(tempItem);
             }
             while (c.moveToNext());
