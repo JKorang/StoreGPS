@@ -121,11 +121,11 @@ public class MainActivity extends ActionBarActivity
                 mTitle = getString(R.string.title_section4);
                 fragment = new NearbyStoreFragment().newInstance();
                 break;
-            case 5:
+            /*case 5:
                 //Settings
                 MainActivity.this.startActivity(new Intent(MainActivity.this, SettingsActivity.class));
-                break;
-            case 6:
+                break;*/
+            case 5:
                 //Help
                 MainActivity.this.startActivity(new Intent(MainActivity.this, HelpActivity.class));
                 break;

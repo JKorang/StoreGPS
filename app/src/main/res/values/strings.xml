@@ -5,8 +5,7 @@
     <string name="title_section2">My Lists</string>
     <string name="title_section3">My Stores</string>
     <string name="title_section4">Nearby Stores</string>
-    <string name="title_section5">Settings</string>
-    <string name="title_section6">Help</string>
+    <string name="title_section5">Help</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
