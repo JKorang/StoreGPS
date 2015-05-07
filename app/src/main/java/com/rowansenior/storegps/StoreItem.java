@@ -12,12 +12,23 @@ public class StoreItem {
     private String vStore;
     private String vPrice;
 
-    public StoreItem(String name, String location, String tag, String store, String price) {
+    public String getvCategory() {
+        return vCategory;
+    }
+
+    public void setvCategory(String vCategory) {
+        this.vCategory = vCategory;
+    }
+
+    private String vCategory;
+
+    public StoreItem(String name, String location, String tag, String store, String price, String category) {
         this.vName = name;
         this.vLocation = location;
         this.vTag = tag;
         this.vStore = store;
         this.vPrice = price;
+        this.vCategory = category;
     }
 
     public String getvPrice() {

@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 /**
  * Created by root on 3/31/15.
  */
@@ -33,6 +35,9 @@ public class DialogSingleItemSearch extends DialogFragment implements View.OnCli
         cancel = (Button) v.findViewById(R.id.searchButtonCancel);
         search = (Button) v.findViewById(R.id.searchButton);
 
+
+
+
         getDialog().setTitle("Search This Store");
         cancel.setOnClickListener(this);
         search.setOnClickListener(this);
@@ -42,6 +47,7 @@ public class DialogSingleItemSearch extends DialogFragment implements View.OnCli
 
     public void onClick(View v) {
         FragmentManager fragmentManager = getFragmentManager();
+        ArrayList itemResults = null;
         switch (v.getId()) {
             case R.id.searchButton:
                 Editable tempTerm = searchBox.getText();
@@ -53,8 +59,29 @@ public class DialogSingleItemSearch extends DialogFragment implements View.OnCli
                         Toast foundToast = Toast.makeText(mContext, searchText, searchDuration);
                         foundToast.show();
                     } else {
-                        DialogSearchResults diagSI = new DialogSearchResults(storeName, searchTerm, mContext);
-                        diagSI.show(fragmentManager, null);
+
+                        try {
+                            DatabaseHelper db = new DatabaseHelper(mContext);
+                            itemResults = db.searchResult(storeName, searchTerm);
+                        }
+                        catch (Exception e) {
+
+                        }
+                        switch(itemResults.size()) {
+                            case 0:
+                                Toast noResults = Toast.makeText(mContext, "Sorry, no items found", Toast.LENGTH_SHORT);
+                                noResults.show();
+                                break;
+                            case 1:
+                                DialogSearchResults diagSI = new DialogSearchResults((StoreItem) itemResults.get(0), mContext);
+                                diagSI.show(fragmentManager, null);
+                                break;
+                            default:
+                                DialogChooseItem diagCI = new DialogChooseItem(itemResults, mContext);
+                                diagCI.show(fragmentManager, null);
+                                break;
+                        }
+
                     }
                 break;
             case R.id.searchButtonCancel:
