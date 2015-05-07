@@ -49,11 +49,11 @@ public class HelpActivity extends ActionBarActivity{
      * @param menu
      * @return
      */
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_help, menu);
         return true;
-    }
+    }*/
 
     /**
      * Handle action bar item clicks here.
@@ -63,12 +63,12 @@ public class HelpActivity extends ActionBarActivity{
      * @param item
      * @return
      */
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }
