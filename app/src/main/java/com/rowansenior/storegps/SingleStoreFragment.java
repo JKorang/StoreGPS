@@ -13,13 +13,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 import static android.graphics.BitmapFactory.decodeStream;
 
@@ -149,6 +153,23 @@ public class SingleStoreFragment extends Fragment implements View.OnClickListene
         catch (Exception e) {
             e.printStackTrace();
         }
+
+        final DatabaseHelper db = new DatabaseHelper(getActivity());
+        ArrayList<String> categories = new ArrayList<>();
+        categories = db.getCategories(storeName);
+        final ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, categories);
+        ListView listView = (ListView) storeView.findViewById(R.id.category_list_view);
+        final FragmentManager fm = (getActivity()).getSupportFragmentManager();
+        listView.setAdapter(categoryAdapter);
+        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                getDialog().setTitle("Navigate A Store");
+                final Store store = db.getStoreInfo(listOfStores.get(position));
+                fm.beginTransaction().replace(R.id.container, new SingleListFragment().newInstance(mOrigin, true, store)).addToBackStack(null).commit();
+                getDialog().dismiss();
+            }
+        });*/
 
         return storeView;
     }

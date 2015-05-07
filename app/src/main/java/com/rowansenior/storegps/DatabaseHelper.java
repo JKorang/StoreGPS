@@ -67,6 +67,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_HOUR_OPEN = "open";
     private static final String KEY_HOUR_CLOSED = "closed";
 
+    private static final String KEY_ITEM_CATEGORY = "category";
     private static final String KEY_ITEM_TAG = "tags";
     private static final String KEY_ITEM_PRICE = "price";
     private static final String KEY_ITEM_LOCATION = "location";
@@ -219,6 +220,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } while (c.moveToPrevious());
         }
         return allLists;
+    }
+
+    public ArrayList<String> getCategories(String storeName)
+    {
+        SQLiteDatabase database = this.getReadableDatabase();
+        ArrayList<String> categories = new ArrayList<>();
+        String selectQuery = "SELECT DISTINCT  " + KEY_ITEM_CATEGORY + " FROM " + TABLE_STORE_ITEM + " WHERE " + KEY_STORE_NAME + " = " + '"' + storeName + '"';
+
+        Cursor c = database.rawQuery(selectQuery, null);
+
+        if(c.moveToLast())
+        {
+            do {
+                categories.add(c.getString(c.getColumnIndex(KEY_ITEM_CATEGORY)));
+            }
+            while(c.moveToPrevious());
+        }
+
+        return categories;
     }
 
     public ArrayList<ShoppingList> getLast3Lists() {
