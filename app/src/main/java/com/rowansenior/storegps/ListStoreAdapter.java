@@ -55,6 +55,9 @@ public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_individual_list, viewGroup, false);
+        if(storeCounter >= stores.size()) {
+            storeCounter = 0;
+        }
         ViewHolder vh = new ViewHolder(v, fragmentManager, context, stores.get(storeCounter));
         storeCounter++;
         return vh;

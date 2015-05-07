@@ -161,15 +161,6 @@ public class SingleStoreFragment extends Fragment implements View.OnClickListene
         ListView listView = (ListView) storeView.findViewById(R.id.category_list_view);
         final FragmentManager fm = (getActivity()).getSupportFragmentManager();
         listView.setAdapter(categoryAdapter);
-        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getDialog().setTitle("Navigate A Store");
-                final Store store = db.getStoreInfo(listOfStores.get(position));
-                fm.beginTransaction().replace(R.id.container, new SingleListFragment().newInstance(mOrigin, true, store)).addToBackStack(null).commit();
-                getDialog().dismiss();
-            }
-        });*/
 
         return storeView;
     }
