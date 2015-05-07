@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
@@ -90,21 +91,34 @@ public class DialogNewList extends DialogFragment implements View.OnClickListene
                 //Ensure that the new list created has a name.
                 //Trim to ensure that the name is not blank spaces.
                 if (name.toString().trim().length() == 0) {
-                    SnackbarManager.show(Snackbar.with(getActivity()).text("Please enter a name for the list"), (ViewGroup) v.getParent());
+                    //SnackbarManager.show(Snackbar.with(getActivity()).text("Please enter a name for the list"), (ViewGroup) v.getParent());
+
+                    CharSequence noText = "Please enter a name for the list";
+                    int noDuration = Toast.LENGTH_SHORT;
+                    Toast foundToast = Toast.makeText(getActivity(), noText, noDuration);
+                    foundToast.show();
                     break;
                 }
 
                 //Ensure that a color has been chosen.
                 if (colorChosen == null) {
-                    SnackbarManager.show(Snackbar.with(getActivity()).text("Please choose a color"), (ViewGroup) v.getParent());
+                    //SnackbarManager.show(Snackbar.with(getActivity()).text("Please choose a color"), (ViewGroup) v.getParent());
 
+                    CharSequence colorText = "Please choose a color";
+                    int colorDuration = Toast.LENGTH_SHORT;
+                    Toast foundToast = Toast.makeText(getActivity(), colorText, colorDuration);
+                    foundToast.show();
                     break;
                 }
 
                 //Ensure that an image has been chosen.
                 if (imageChosen == null) {
-                    SnackbarManager.show(Snackbar.with(getActivity()).text("Please choose an icon"), (ViewGroup) v.getParent());
+                    //SnackbarManager.show(Snackbar.with(getActivity()).text("Please choose an icon"), (ViewGroup) v.getParent());
 
+                    CharSequence iconText = "Please choose an icon";
+                    int iconDuration = Toast.LENGTH_SHORT;
+                    Toast foundToast = Toast.makeText(getActivity(), iconText, iconDuration);
+                    foundToast.show();
                     break;
                 }
 
@@ -130,7 +144,12 @@ public class DialogNewList extends DialogFragment implements View.OnClickListene
                 //Database addition failed. List exists.
                 //Throw a loaf of bread.
                 catch (Exception e) {
-                    SnackbarManager.show(Snackbar.with(getActivity()).text("List Exists: Please enter a unique name"),  (ViewGroup) v.getParent());
+                    //SnackbarManager.show(Snackbar.with(getActivity()).text("List Exists: Please enter a unique name"),  (ViewGroup) v.getParent());
+
+                    CharSequence existsText = "List Exists: Please enter a unique name";
+                    int existsDuration = Toast.LENGTH_SHORT;
+                    Toast foundToast = Toast.makeText(getActivity(), existsText, existsDuration);
+                    foundToast.show();
                 }
                 break;
 

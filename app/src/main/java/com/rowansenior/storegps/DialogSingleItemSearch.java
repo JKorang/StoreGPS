@@ -10,12 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-
-import com.nispok.snackbar.Snackbar;
-import com.nispok.snackbar.SnackbarManager;
-
-import java.util.Collections;
-import java.util.Comparator;
+import android.widget.Toast;
 
 /**
  * Created by root on 3/31/15.
@@ -53,7 +48,12 @@ public class DialogSingleItemSearch extends DialogFragment implements View.OnCli
                 String searchTerm = tempTerm.toString();
 
                     if (searchTerm.trim().length() == 0) {
-                        SnackbarManager.show(Snackbar.with(getActivity()).text("Please enter a search term"));
+                        //SnackbarManager.show(Snackbar.with(getActivity()).text("Please enter a search term"));
+
+                        CharSequence searchText = "Please enter a search term";
+                        int searchDuration = Toast.LENGTH_SHORT;
+                        Toast foundToast = Toast.makeText(mContext, searchText, searchDuration);
+                        foundToast.show();
                     } else {
                         DialogSearchResults diagSI = new DialogSearchResults(storeName, searchTerm, mContext);
                         diagSI.show(fragmentManager, null);
