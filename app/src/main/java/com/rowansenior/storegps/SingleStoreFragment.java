@@ -155,9 +155,8 @@ public class SingleStoreFragment extends Fragment implements View.OnClickListene
         }
 
         final DatabaseHelper db = new DatabaseHelper(getActivity());
-        ArrayList<String> categories = new ArrayList<>();
-        categories = db.getCategories(storeName);
-        final ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, categories);
+        final ArrayList<String> itemCategories = db.getCategories(storeName);
+        final ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, itemCategories);
         ListView listView = (ListView) storeView.findViewById(R.id.category_list_view);
         final FragmentManager fm = (getActivity()).getSupportFragmentManager();
         listView.setAdapter(categoryAdapter);
