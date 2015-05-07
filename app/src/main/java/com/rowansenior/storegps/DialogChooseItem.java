@@ -41,7 +41,7 @@ public class DialogChooseItem extends DialogFragment implements View.OnClickList
 
         //Build dialog
         getDialog().setTitle("Search Results");
-        final ArrayAdapter<StoreItem> searchResultsAdapter = new ArrayAdapter<StoreItem>(getActivity(), android.R.layout.simple_list_item_1, listOfItemNames);
+        final ArrayAdapter<StoreItem> searchResultsAdapter = new ArrayAdapter<StoreItem>(getActivity(), R.layout.simple_list_item_1_edited, listOfItemNames);
         ListView listView = (ListView) v.findViewById(R.id.choose_list_view);
         final FragmentManager fm = (getActivity()).getSupportFragmentManager();
         listView.setAdapter(searchResultsAdapter);
