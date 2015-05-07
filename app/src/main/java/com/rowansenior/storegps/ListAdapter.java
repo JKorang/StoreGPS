@@ -58,6 +58,21 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_item, viewGroup, false);
         ViewHolder vh = new ViewHolder(v, fragmentManager, vhListName, adapterContext, isNavigated, items.get(i).getFound());
+
+        if (vh.vIsNavigated == true) {
+            try {
+                System.out.println(storeNav.getName());
+                System.out.println(vh.vTitleText.getText().toString());
+                DatabaseHelper db = DatabaseHelper.getHelper(adapterContext);
+                ArrayList<StoreItem> alSI = db.navigateStore(storeNav.getName(), vh.vTitleText.getText().toString());
+                System.out.println(alSI.get(0).getvLocation());
+                vh.vItemLocation.setText("Location: " + alSI.get(0).getvLocation());
+            }
+            catch (Exception e) {
+                vh.vItemLocation.setText("Not found in this store");
+            }
+        }
+
         return vh;
     }
 
@@ -85,8 +100,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         //If the list is generated from a navigation, set its location here.
         if (viewHolder.vIsNavigated == true) {
             try {
+                System.out.println(storeNav.getName());
+                System.out.println(viewHolder.vTitleText.getText().toString());
                 DatabaseHelper db = DatabaseHelper.getHelper(adapterContext);
                 ArrayList<StoreItem> alSI = db.navigateStore(storeNav.getName(), viewHolder.vTitleText.getText().toString());
+                System.out.println(alSI.get(0).getvLocation());
                 viewHolder.vItemLocation.setText("Location: " + alSI.get(0).getvLocation());
             }
             catch (Exception e) {
