@@ -30,6 +30,7 @@ public class DialogSearchResults extends DialogFragment implements View.OnClickL
     TextView tvPrice;
     TextView tvCategory;
     TextView tvAisle;
+    TextView tvStore;
 
     public DialogSearchResults(String store, String item, Context context) {
         mContext = context;
@@ -58,12 +59,14 @@ public class DialogSearchResults extends DialogFragment implements View.OnClickL
         tvPrice = (TextView) v.findViewById(R.id.searchPrice);
         tvCategory = (TextView) v.findViewById(R.id.searchCategory);
         tvAisle = (TextView) v.findViewById(R.id.searchAisle);
+        tvStore = (TextView) v.findViewById(R.id.searchStore);
 
 
         tvItemName.setText(mItem.getvName());
         tvPrice.setText("Price: $" + mItem.getvPrice());
         tvCategory.setText("Category: " + mItem.getvCategory());
         tvAisle.setText("Location: " + mItem.getvLocation());
+        tvStore.setText("Store: " + mItem.getvStore());
 
 
         cancel.setOnClickListener(this);
