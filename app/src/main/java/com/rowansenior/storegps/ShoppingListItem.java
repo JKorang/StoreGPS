@@ -51,9 +51,5 @@ public class ShoppingListItem {
         return vIfFound;
     }
 
-    @Override
-    public String toString() {
-        return "tbd";
-    }
 }
 

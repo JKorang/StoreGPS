@@ -21,17 +21,27 @@ public class DialogChooseList extends DialogFragment implements View.OnClickList
     Context mContext;
     ArrayList<String> listOfNames;
     String storeName;
+    StoreItem mItem;
 
     public DialogChooseList(String name) {
         mContext = getActivity();
         this.storeName = name;
     }
 
+    public DialogChooseList(StoreItem item) {
+        mContext = getActivity();
+        this.mItem = item;
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.dialog_choose_list, container, false);
-
+        if (storeName != null) {
+            getDialog().setTitle("Choose A List To Navigate");
+        }
+        else {
+            getDialog().setTitle("Choose A List To Add To");
+        }
         //Build dialog
-        getDialog().setTitle("Choose A List To Navigate");
         final DatabaseHelper db = new DatabaseHelper(getActivity());
         ArrayList list = db.getAllLists();
         generateListOfNames(list);
@@ -42,9 +52,20 @@ public class DialogChooseList extends DialogFragment implements View.OnClickList
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final Store store = db.getStoreInfo(storeName);
-                fm.beginTransaction().replace(R.id.container, new SingleListFragment().newInstance(itemsAdapter.getItem(position), true, store)).addToBackStack(null).commit();
-                getDialog().dismiss();
+                if(storeName != null) {
+                    final Store store = db.getStoreInfo(storeName);
+                    fm.beginTransaction().replace(R.id.container, new SingleListFragment().newInstance(itemsAdapter.getItem(position), true, store)).addToBackStack(null).commit();
+                    getDialog().dismiss();
+                }
+                else {
+                    DatabaseHelper db = DatabaseHelper.getHelper(getActivity());
+                    try {
+                        db.addNewItem(listOfNames.get(position), mItem.getvName());
+                        getDialog().dismiss();
+                    } catch (Exception e) {
+
+                    }
+                }
             }
         });
 

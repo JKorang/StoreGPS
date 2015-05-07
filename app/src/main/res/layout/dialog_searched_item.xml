@@ -30,6 +30,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/searchStore" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/searchAisle" />
     </LinearLayout>
 
@@ -42,12 +48,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add To List"
-            android:id="@+id/addToListFromSearch" />
+            android:id="@+id/addToListFromSearch"
+            android:clickable="true"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Close"
-            android:id="@+id/closeSearchResults" />
+            android:id="@+id/closeSearchResults"
+            android:clickable="true"/>
     </LinearLayout>
 </LinearLayout>

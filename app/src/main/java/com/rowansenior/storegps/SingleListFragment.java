@@ -129,7 +129,7 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                 return lhs.getFound() - rhs.getFound();
             }
         });
-        mAdapter = new ListAdapter(getActivity(), itemList, listName, isNavigated);
+        mAdapter = new ListAdapter(getActivity(), itemList, listName, isNavigated, storeNav);
     }
 
     /**

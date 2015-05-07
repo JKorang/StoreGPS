@@ -1,5 +1,6 @@
 package com.rowansenior.storegps;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -74,6 +75,9 @@ public class DialogSearchResults extends DialogFragment implements View.OnClickL
         switch (v.getId()) {
             //Create a new list
             case R.id.addToListFromSearch:
+                DialogChooseList diagCL = new DialogChooseList(mItem);
+                FragmentManager fm = (getActivity()).getSupportFragmentManager();
+                diagCL.show(fm, null);
                 break;
 
             //Cancel list creation.

@@ -485,14 +485,107 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return storeToReturn;
     }
 
-    public ArrayList searchResult(String name, String input) {
+    public ArrayList nonStoreSearch(String input) {
         SQLiteDatabase dataBase = this.getReadableDatabase();
         String selectQuery;
         Cursor c = null;
         ArrayList itemsToReturn = new ArrayList();
         try {
             selectQuery = "SELECT * FROM " + TABLE_STORE_ITEM
-                    + " WHERE " + KEY_STORE_NAME + " LIKE " + "'%" + name + "%'" + " AND (" + KEY_ITEM_NAME + " LIKE '%" + input + "%'"
+                    + " WHERE (" + KEY_ITEM_NAME + " LIKE '%" + input + "%'"
+                    + " OR " + KEY_ITEM_TAG + " LIKE '%" + input + "%'"
+                    + " OR " + KEY_ITEM_CATEGORY + " LIKE '%" + input + "%')";
+            c = dataBase.rawQuery(selectQuery, null);
+            DatabaseUtils dbu = new DatabaseUtils();
+            c.moveToFirst();
+            do {
+                StoreItem tempItem = new StoreItem(c.getString(c.getColumnIndex(KEY_ITEM_NAME)),
+                        c.getString(c.getColumnIndex(KEY_LOCATION)),
+                        c.getString(c.getColumnIndex(KEY_ITEM_TAG)),
+                        c.getString(c.getColumnIndex(KEY_STORE_NAME)),
+                        c.getString(c.getColumnIndex(KEY_ITEM_PRICE)),
+                        c.getString(c.getColumnIndex(KEY_ITEM_CATEGORY)));
+                itemsToReturn.add(tempItem);
+            }
+            while (c.moveToNext());
+        } catch (Exception e) {
+
+        }
+
+        return itemsToReturn;
+    }
+
+    public ArrayList navigateStore(String storeName, String input) {
+        SQLiteDatabase dataBase = this.getReadableDatabase();
+        String selectQuery;
+        Cursor c = null;
+        ArrayList itemsToReturn = new ArrayList();
+        try {
+            selectQuery = "SELECT * FROM " + TABLE_STORE_ITEM
+                    + " WHERE " + KEY_STORE_NAME + " = " + "'" + storeName + "'" + " AND " + KEY_ITEM_NAME + " = '" + input + "'";
+            c = dataBase.rawQuery(selectQuery, null);
+            if (c.getCount() == 1) {
+                c.moveToFirst();
+                do {
+                    StoreItem tempItem = new StoreItem(c.getString(c.getColumnIndex(KEY_ITEM_NAME)),
+                            c.getString(c.getColumnIndex(KEY_LOCATION)),
+                            c.getString(c.getColumnIndex(KEY_ITEM_TAG)),
+                            c.getString(c.getColumnIndex(KEY_STORE_NAME)),
+                            c.getString(c.getColumnIndex(KEY_ITEM_PRICE)),
+                            c.getString(c.getColumnIndex(KEY_ITEM_CATEGORY)));
+                    itemsToReturn.add(tempItem);
+                }
+                while (c.moveToNext());
+            }
+            else {
+                selectQuery = "SELECT * FROM " + TABLE_STORE_ITEM
+                        + " WHERE " + KEY_STORE_NAME + " = " + "'" + storeName + "'" + " AND " + KEY_ITEM_NAME + " LIKE '%" + input + "%'";
+                c = dataBase.rawQuery(selectQuery, null);
+                if (c.getCount() == 1) {
+                    c.moveToFirst();
+                    do {
+                        StoreItem tempItem = new StoreItem(c.getString(c.getColumnIndex(KEY_ITEM_NAME)),
+                                c.getString(c.getColumnIndex(KEY_LOCATION)),
+                                c.getString(c.getColumnIndex(KEY_ITEM_TAG)),
+                                c.getString(c.getColumnIndex(KEY_STORE_NAME)),
+                                c.getString(c.getColumnIndex(KEY_ITEM_PRICE)),
+                                c.getString(c.getColumnIndex(KEY_ITEM_CATEGORY)));
+                        itemsToReturn.add(tempItem);
+                    }
+                    while (c.moveToNext());
+                }
+                else {
+                    selectQuery = "SELECT * FROM " + TABLE_STORE_ITEM
+                            + " WHERE " + KEY_STORE_NAME + " = " + "'" + storeName + "'" + " AND (" + KEY_ITEM_NAME + " LIKE '%" + input + "%'"
+                            + " OR " + KEY_ITEM_TAG + " LIKE '%" + input + "%'"
+                            + " OR " + KEY_ITEM_CATEGORY + " LIKE '%" + input + "%')";
+                    c = dataBase.rawQuery(selectQuery, null);
+                    c.moveToFirst();
+                    do {
+                        StoreItem tempItem = new StoreItem(c.getString(c.getColumnIndex(KEY_ITEM_NAME)),
+                                c.getString(c.getColumnIndex(KEY_LOCATION)),
+                                c.getString(c.getColumnIndex(KEY_ITEM_TAG)),
+                                c.getString(c.getColumnIndex(KEY_STORE_NAME)),
+                                c.getString(c.getColumnIndex(KEY_ITEM_PRICE)),
+                                c.getString(c.getColumnIndex(KEY_ITEM_CATEGORY)));
+                        itemsToReturn.add(tempItem);
+                    }
+                    while (c.moveToNext());
+                }
+            }
+        } catch (Exception e) {
+        }
+        return itemsToReturn;
+    }
+
+    public ArrayList searchResult(String storeName, String input) {
+        SQLiteDatabase dataBase = this.getReadableDatabase();
+        String selectQuery;
+        Cursor c = null;
+        ArrayList itemsToReturn = new ArrayList();
+        try {
+            selectQuery = "SELECT * FROM " + TABLE_STORE_ITEM
+                    + " WHERE " + KEY_STORE_NAME + " LIKE " + "'%" + storeName + "%'" + " AND (" + KEY_ITEM_NAME + " LIKE '%" + input + "%'"
                     + " OR " + KEY_ITEM_TAG + " LIKE '%" + input + "%'"
                     + " OR " + KEY_ITEM_CATEGORY + " LIKE '%" + input + "%')";
             c = dataBase.rawQuery(selectQuery, null);

@@ -14,10 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,13 +34,24 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public List<ShoppingListItem> items;
     private Context adapterContext;
     private String vhListName;
+    private Store storeNav;
 
     public ListAdapter(Context context, List items, String listName, boolean isNav) {
         this.items = items;
         this.adapterContext = context;
         this.vhListName = listName;
         this.isNavigated = isNav;
+        this.storeNav = null;
         fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
+    }
+
+    public ListAdapter(Context context, List items, String listName, boolean isNav, Store store) {
+        this.items = items;
+        this.adapterContext = context;
+        this.vhListName = listName;
+        this.isNavigated = isNav;
+        fragmentManager = ((FragmentActivity) context).getSupportFragmentManager();
+        this.storeNav = store;
     }
 
     @Override
@@ -71,8 +84,14 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
         //If the list is generated from a navigation, set its location here.
         if (viewHolder.vIsNavigated == true) {
-            //TODO: BUILD THE COLLECTION OF NEARBY STORES INTO THE _ACTIVITY_, NOT THE FRAGMENT
-            viewHolder.vItemLocation.setText("Yeah this works?");
+            try {
+                DatabaseHelper db = DatabaseHelper.getHelper(adapterContext);
+                ArrayList<StoreItem> alSI = db.navigateStore(storeNav.getName(), viewHolder.vTitleText.getText().toString());
+                viewHolder.vItemLocation.setText("Location: " + alSI.get(0).getvLocation());
+            }
+            catch (Exception e) {
+                viewHolder.vItemLocation.setText("Not found in this store");
+            }
         }
     }
 
@@ -98,6 +117,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         public TextView vItemLocation;
         public boolean vIsNavigated;
         public ShoppingListItem thisItem;
+        public StoreItem vStoreItem;
 
         public ViewHolder(View v, FragmentManager FM, String listName, Context context, boolean isNav, int isFound) {
             super(v);
@@ -148,8 +168,21 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                     break;
 
                 case R.id.itemInfo:
-                    DialogSearchResults diagSI = new DialogSearchResults(null, vTitleText.toString(), vhContext);
-                    diagSI.show(fragmentManager, null);
+                    ArrayList<StoreItem> alSI = db.nonStoreSearch(thisItem.getName());
+                    if (alSI.size() == 0) {
+                        CharSequence noText = "Sorry, no matches found.";
+                        int noDuration = Toast.LENGTH_SHORT;
+                        Toast foundToast = Toast.makeText(vhContext, noText, noDuration);
+                        foundToast.show();
+                    }
+                    else if(alSI.size() == 1) {
+                        DialogSearchResults diagSI = new DialogSearchResults(alSI.get(0), vhContext);
+                        diagSI.show(fragmentManager, null);
+                    }
+                    else if(alSI.size() > 1) {
+                        DialogChooseItem diagCI = new DialogChooseItem(alSI, vhContext);
+                        diagCI.show(fragmentManager, null);
+                    }
                     break;
             }
         }

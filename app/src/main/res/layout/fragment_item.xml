@@ -20,28 +20,29 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="false"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_toStartOf="@+id/linearLayout">
 
             <TextView
                 android:id="@+id/itemText"
-                android:layout_width="120dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                android:ellipsize="end" />
 
             <TextView
                 android:id="@+id/QuantityText"
-                android:layout_width="120dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 android:textColor="@android:color/black" />
 
             <TextView
                 android:id="@+id/locationText"
-                android:layout_width="120dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="5dp"
                 android:textColor="@android:color/black" />
@@ -52,7 +53,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:id="@+id/linearLayout">
 
             <ImageButton
                 android:id="@+id/incQuantity"
