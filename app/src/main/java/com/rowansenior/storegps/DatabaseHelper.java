@@ -299,7 +299,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             if (c.moveToLast()) {
                 do {
                     DatabaseUtils dbu = new DatabaseUtils();
-                    System.out.println(dbu.dumpCursorToString(c));
                     Store sl = new Store(c.getString(c.getColumnIndex(KEY_STORE_NAME)),
                             c.getString(c.getColumnIndex(KEY_LOCATION)),
                             c.getString(c.getColumnIndex(KEY_PHONE_NUMBER)),
