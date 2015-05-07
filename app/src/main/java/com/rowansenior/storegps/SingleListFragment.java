@@ -319,6 +319,9 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
             case R.id.addItemButton:
 
                 Editable name = newItem.getText();
+                String tempName= name.toString();
+                tempName = tempName.replaceAll("\\s+$", "");
+                name = Editable.Factory.getInstance().newEditable(tempName);
 
                 for (int i = 0; i < itemList.size(); i++) {
 

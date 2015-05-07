@@ -138,16 +138,7 @@ public class SingleStoreFragment extends Fragment implements View.OnClickListene
 
         String openTime = String.valueOf(storeInfo.getHoursOpen());
         String closedTime = String.valueOf(storeInfo.getHoursClosed());
-        /*try {
-            String _24HourTime = "22:15";
-            SimpleDateFormat _24HourSDF = new SimpleDateFormat("HH:mm");
-            SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
-            Date _24HourDt = _24HourSDF.parse(_24HourTime);
-            System.out.println(_24HourDt);
-            System.out.println(_12HourSDF.format(_24HourDt));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
+
         try {
             String openTimeConvert = openTime;
             String closeTimeConvert = closedTime;
@@ -160,6 +151,7 @@ public class SingleStoreFragment extends Fragment implements View.OnClickListene
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         storeHours.setText("Open from " + openTime + " to " + closedTime);
 
         try {
