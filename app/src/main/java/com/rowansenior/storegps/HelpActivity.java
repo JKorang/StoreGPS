@@ -16,7 +16,7 @@ import java.io.IOException;
  * The 'Help' menu option.
  * Will be a separate activity, not yet developed at all.
  */
-public class HelpActivity extends ActionBarActivity {
+public class HelpActivity extends ActionBarActivity{
 
     /**
      * onCreate triggers immediately upon runtime.
@@ -45,8 +45,7 @@ public class HelpActivity extends ActionBarActivity {
      * Inflates the action bar with menu items.
      * Not sure just yet if we are using the actionbar for anything beyond title.
      * <p/>
-     * ActionBar is the top bar with the title, icons, drop down menu, etc.
-     *
+     * ActionBar is the top bar with the title, icons, drop down menu, etc
      * @param menu
      * @return
      */
@@ -72,7 +71,4 @@ public class HelpActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-
 }
