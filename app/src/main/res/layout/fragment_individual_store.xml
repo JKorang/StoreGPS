@@ -22,7 +22,6 @@
             android:maxHeight="90dp"
             android:maxWidth="90dp"
             android:scaleType="centerInside"
-            android:src="@drawable/deleteme"
 
             />
 

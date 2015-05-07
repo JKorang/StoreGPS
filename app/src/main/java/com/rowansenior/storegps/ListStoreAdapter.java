@@ -8,6 +8,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
@@ -20,8 +23,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.List;
+
+import static android.graphics.BitmapFactory.decodeStream;
 
 /**
  * ListListAdapter handles transmission and access of data from fragments associated with it.
@@ -35,8 +41,10 @@ public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.View
     private List<Store> stores;
     private DecimalFormat df = new DecimalFormat("#.##");
     private int isNearby;
+    private int storeCounter;
 
     public ListStoreAdapter(Context context, List stores, int nearby) {
+        this.storeCounter = 0;
         this.stores = stores;
         this.context = context;
         this.isNearby = nearby;
@@ -46,16 +54,18 @@ public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_individual_list, viewGroup, false);
-        ViewHolder vh = new ViewHolder(v, fragmentManager, context);
+        ViewHolder vh = new ViewHolder(v, fragmentManager, context, stores.get(storeCounter));
+        storeCounter++;
         return vh;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         Store store = stores.get(i);
-        viewHolder.vStore = store;
         viewHolder.vTitleText.setText(store.getName());
         viewHolder.vLocation.setText(df.format(store.getvDistanceTo()) + " miles");
+        viewHolder.vCardView.setCardBackgroundColor(Color.parseColor(store.getColor()));
+
     }
 
     @Override
@@ -75,12 +85,20 @@ public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.View
         public FragmentManager vFM;
         private Store vStore;
 
-        public ViewHolder(View v, FragmentManager FM, Context context) {
+        public ViewHolder(View v, FragmentManager FM, Context context, Store store) {
             super(v);
             vTitleText = (TextView) v.findViewById(R.id.titleText);
             vLocation = (TextView) v.findViewById(R.id.date);
             vCardView = (CardView) v.findViewById(R.id.card_view);
             vImageView = (ImageView) v.findViewById(R.id.listIcon);
+            vStore = store;
+            try {
+                String imageURL = "http://jkorang.com/sites/default/files/webform/" + vStore.getImage();
+                new DownloadImage(vImageView).execute(imageURL);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
             vFM = FM;
             vhContext = context;
             vTitleText.setOnClickListener(this);
@@ -140,5 +158,30 @@ public class ListStoreAdapter extends RecyclerView.Adapter<ListStoreAdapter.View
             alert.show();
             return true;
         }
+
+        private class DownloadImage extends AsyncTask<String, Void, Bitmap> {
+            ImageView bmImage;
+
+            public DownloadImage(ImageView bmImage) {
+                this.bmImage = bmImage;
+            }
+
+            protected Bitmap doInBackground(String... urls) {
+                String urldisplay = urls[0];
+                Bitmap mIcon11 = null;
+                try {
+                    InputStream in = new java.net.URL(urldisplay).openStream();
+                    mIcon11 = decodeStream(in);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return mIcon11;
+            }
+
+            protected void onPostExecute(Bitmap result) {
+                bmImage.setImageBitmap(result);
+            }
+        }
+
     }
 }

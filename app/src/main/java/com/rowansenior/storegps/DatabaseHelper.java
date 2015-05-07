@@ -3,6 +3,7 @@ package com.rowansenior.storegps;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Debug;
@@ -255,21 +256,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         StoreMergeSort sms = new StoreMergeSort(myContext, false);
         sms.mergeSort(allStores);
         ArrayList<Store> top3 = new ArrayList<>();
-        if(allStores.size() < 3)
-        {
-            for(int i = 0; i < allStores.size(); i++)
-            {
+        if (allStores.size() < 3) {
+            for (int i = 0; i < allStores.size(); i++) {
+                top3.add(i, allStores.get(i));
+            }
+        } else {
+            for (int i = 0; i < 3; i++) {
                 top3.add(i, allStores.get(i));
             }
         }
-        else
-        {
-            for(int i = 0; i < 3; i++)
-            {
-                top3.add(i, allStores.get(i));
-            }
-        }
-        
+
         return top3;
     }
 
@@ -279,23 +275,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         StoreMergeSort sms = new StoreMergeSort(myContext, false);
         sms.mergeSort(allNearbyStores);
         ArrayList<Store> nearby3 = new ArrayList<>();
-        if(allNearbyStores.size() < 3)
-        {
-            for(int i = 0; i < allNearbyStores.size(); i++)
-            {
+        if (allNearbyStores.size() < 3) {
+            for (int i = 0; i < allNearbyStores.size(); i++) {
                 nearby3.add(i, allNearbyStores.get(i));
             }
-        }
-        else
-        {
-            for(int i = 0; i < 3; i++)
-            {
+        } else {
+            for (int i = 0; i < 3; i++) {
                 nearby3.add(i, allNearbyStores.get(i));
             }
         }
 
         return nearby3;
     }
+
     public ArrayList<Store> getNearbyStores() {
         SQLiteDatabase dataBase = this.getReadableDatabase();
         ArrayList<Store> allStores = new ArrayList<Store>();
@@ -306,17 +298,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
             if (c.moveToLast()) {
                 do {
+                    DatabaseUtils dbu = new DatabaseUtils();
+                    System.out.println(dbu.dumpCursorToString(c));
                     Store sl = new Store(c.getString(c.getColumnIndex(KEY_STORE_NAME)),
                             c.getString(c.getColumnIndex(KEY_LOCATION)),
                             c.getString(c.getColumnIndex(KEY_PHONE_NUMBER)),
                             c.getString(c.getColumnIndex(KEY_URL)),
                             c.getString(c.getColumnIndex(KEY_HOUR_OPEN)),
-                            c.getString(c.getColumnIndex(KEY_HOUR_CLOSED)));
+                            c.getString(c.getColumnIndex(KEY_HOUR_CLOSED)),
+                            c.getString(c.getColumnIndex(KEY_STORE_ICON)),
+                            c.getString(c.getColumnIndex(KEY_STORE_COLOR))
+                    );
                     allStores.add(sl);
                 } while (c.moveToPrevious());
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
 
         }
         return allStores;
@@ -372,7 +368,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void addNewFavoriteStore(String storeName, String phoneNumber, String uRL, String open, String closed, String location, String imageURL, String color) {
         SQLiteDatabase dataBase = this.getReadableDatabase();
-        String selectQuery = "INSERT INTO " + TABLE_STORE + " VALUES('" + storeName + "', '" + imageURL + "', '" + color + "', '" + location  + "', '" + phoneNumber + "', '" + uRL + "', '" + open + "', '" + closed + "')";
+        String selectQuery = "INSERT INTO " + TABLE_STORE + " VALUES('" + storeName + "', '" + imageURL + "', '" + color + "', '" + location + "', '" + phoneNumber + "', '" + uRL + "', '" + open + "', '" + closed + "')";
         dataBase.execSQL(selectQuery);
     }
 
@@ -386,7 +382,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase dataBase = this.getReadableDatabase();
         ArrayList<Store> allStores = new ArrayList<Store>();
         String selectQuery = "SELECT  * FROM " + TABLE_STORE;
-
         Cursor c = dataBase.rawQuery(selectQuery, null);
 
         // looping through all rows and adding to list
@@ -397,7 +392,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         c.getString(c.getColumnIndex(KEY_PHONE_NUMBER)),
                         c.getString(c.getColumnIndex(KEY_URL)),
                         c.getString(c.getColumnIndex(KEY_HOUR_OPEN)),
-                        c.getString(c.getColumnIndex(KEY_HOUR_CLOSED)));
+                        c.getString(c.getColumnIndex(KEY_HOUR_CLOSED)),
+                        c.getString(c.getColumnIndex(KEY_STORE_ICON)),
+                        c.getString(c.getColumnIndex(KEY_STORE_COLOR)));
                 allStores.add(sl);
             } while (c.moveToPrevious());
         }
@@ -410,10 +407,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String selectQuery = "SELECT EXISTS(SELECT 1 FROM " + TABLE_STORE + " WHERE " + KEY_STORE_NAME + "=" + '"' + store.getName() + '"' + " LIMIT 1)";
         Cursor c = database.rawQuery(selectQuery, null);
         c.moveToFirst();
-        if(c.getInt(0) == 0) {
+        if (c.getInt(0) == 0) {
             exitState = false;
-        }
-        else {
+        } else {
             exitState = true;
         }
         return exitState;
@@ -426,12 +422,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         try {
             selectQuery = "SELECT  * FROM " + TABLE_STORE + " WHERE " + '"' + KEY_STORE_NAME + '"' + " = " + '"' + storeName + '"';
             c = dataBase.rawQuery(selectQuery, null);
-            if(c.getCount() == 0) {
+            if (c.getCount() == 0) {
                 selectQuery = "SELECT  * FROM " + TABLE_NEARBY_STORE + " WHERE " + '"' + KEY_STORE_NAME + '"' + " = " + '"' + storeName + '"';
                 c = dataBase.rawQuery(selectQuery, null);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
         }
         c.moveToFirst();
         Store storeToReturn = new Store(c.getString(c.getColumnIndex(KEY_STORE_NAME)),
@@ -439,7 +434,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 c.getString(c.getColumnIndex(KEY_PHONE_NUMBER)),
                 c.getString(c.getColumnIndex(KEY_URL)),
                 c.getString(c.getColumnIndex(KEY_HOUR_OPEN)),
-                c.getString(c.getColumnIndex(KEY_HOUR_CLOSED)));
+                c.getString(c.getColumnIndex(KEY_HOUR_CLOSED)),
+                c.getString(c.getColumnIndex(KEY_STORE_ICON)),
+                c.getString(c.getColumnIndex(KEY_STORE_COLOR)));
 
         return storeToReturn;
     }
@@ -467,8 +464,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 itemsToReturn.add(tempItem);
             }
             while (c.moveToNext());
-        }
-            catch (Exception e) {
+        } catch (Exception e) {
 
         }
 

@@ -288,7 +288,7 @@ public class HomeFragment extends Fragment {
             }
             else {
                 rDB.getNearbyStores();
-                rDB.getAllNearbyItems();
+              //TODO:  rDB.getAllNearbyItems();
             }
             return true;
         }

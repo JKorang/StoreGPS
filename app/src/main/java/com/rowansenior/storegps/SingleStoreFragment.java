@@ -1,7 +1,9 @@
 package com.rowansenior.storegps;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,10 +14,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DecimalFormat;
+
+import static android.graphics.BitmapFactory.decodeStream;
 
 
 /**
@@ -43,6 +49,7 @@ public class SingleStoreFragment extends Fragment implements View.OnClickListene
     private TextView storePhone;
     private TextView storeURL;
     private TextView storeHours;
+    private ImageView storeImage;
     private Button navigationButton;
     private Button searchButton;
     private DecimalFormat df = new DecimalFormat("#.##");
@@ -116,6 +123,7 @@ public class SingleStoreFragment extends Fragment implements View.OnClickListene
         storePhone = (TextView) storeView.findViewById(R.id.storePhoneNumber);
         storeURL = (TextView) storeView.findViewById(R.id.storeURL);
         storeHours = (TextView) storeView.findViewById(R.id.storeHours);
+        storeImage = (ImageView) storeView.findViewById(R.id.storeImage);
 
         nameOfStore.setText(storeInfo.getName());
         storeAddress.setText(storeInfo.getLocation());
@@ -131,6 +139,14 @@ public class SingleStoreFragment extends Fragment implements View.OnClickListene
             Double location = ul.getDistances(ul.getUserLocation(), ul.getDestinationLocation());
             storeDistance.setText(df.format(location).toString() + " Miles Away");
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            String imageURL = "http://jkorang.com/sites/default/files/webform/" + storeInfo.getImage();
+            new DownloadImage(storeImage).execute(imageURL);
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -221,6 +237,30 @@ public class SingleStoreFragment extends Fragment implements View.OnClickListene
         }
         else {
             menu.findItem(R.id.individual_store_favorite).setIcon(R.drawable.action_bar_not_favorited);
+        }
+    }
+
+    private class DownloadImage extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImage(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = decodeStream(in);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
         }
     }
 }

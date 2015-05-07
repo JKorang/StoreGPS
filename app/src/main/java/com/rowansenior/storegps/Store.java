@@ -20,13 +20,15 @@ public class Store {
         this.vLocation = location;
     }
 
-    public Store(String name, String location, String phone, String url, String hourOpen, String hourClosed) {
+    public Store(String name, String location, String phone, String url, String hourOpen, String hourClosed, String image, String color) {
         this.vName = name;
         this.vLocation = location;
         this.vURL = url;
         this.vHourOpen = hourOpen;
         this.vHourClosed = hourClosed;
         this.vPhoneNumber = phone;
+        this.vImage = image;
+        this.vColor = color;
     }
 
 
