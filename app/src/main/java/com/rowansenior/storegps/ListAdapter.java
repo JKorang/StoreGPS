@@ -139,7 +139,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
                 case R.id.decQuantity:
                     //Ensure that quantity can not drop below 1.
                     if (thisItem.getQuantity() < 2) {
-                        SnackbarManager.show(Snackbar.with(vhContext).text("Quantity is already 1"));
+                        SnackbarManager.show(Snackbar.with(vhContext).color(R.color.material_deep_teal_500).text("Quantity is already 1"));
                     } else {
                         db.decreaseQuantity(parentList, vTitleText.getText().toString());
                         thisItem.decreaseQuantity();

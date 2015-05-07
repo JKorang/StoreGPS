@@ -3,6 +3,7 @@ package com.rowansenior.storegps;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -222,21 +223,19 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                                     final int size = itemList.size()
 ;                                    itemList.remove(tempItem);
                                     db.removeItem(listName, tempItem.getName());
-                                    SnackbarManager.show(Snackbar.with(getActivity())
+                                    SnackbarManager.show(Snackbar.with(getActivity()).color(R.color.material_deep_teal_500)
                                             .text(tempItem.getName() + " has been deleted")
                                             .actionLabel("Undo")
                                             .actionListener(new ActionClickListener() {
                                                                 @Override
                                                                 public void onActionClicked(Snackbar snackbar) {
-                                                                    if(!itemList.contains(tempItem)) {
+                                                                    if (!itemList.contains(tempItem)) {
                                                                         //itemList.add(position, tempItem);
                                                                         try {
                                                                             db.undoDeleteItem(listName, tempItem.getName(), tempItem.getQuantity(), tempItem.getFound());
-                                                                            if(itemList.size() == size) {
+                                                                            if (itemList.size() == size) {
                                                                                 itemList.add(position + 1, tempItem);
-                                                                            }
-                                                                            else
-                                                                            {
+                                                                            } else {
                                                                                 itemList.add(position, tempItem);
                                                                             }
                                                                         } catch (Exception e) {
@@ -325,14 +324,14 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                 for (int i = 0; i < itemList.size(); i++) {
 
                     if (name.toString().equals((itemList.get(i).getName().toString()))) {
-                        SnackbarManager.show(Snackbar.with(getActivity()).text(name.toString() + " already exists"));
+                        SnackbarManager.show(Snackbar.with(getActivity()).color(R.color.material_deep_teal_500).text(name.toString() + " already exists"));
                         exists = true;
                         break;
                     }
                 }
                 if (exists == false) {
                     if (name.toString().trim().length() == 0) {
-                        SnackbarManager.show(Snackbar.with(getActivity()).text("Please enter an item name"));
+                        SnackbarManager.show(Snackbar.with(getActivity()).color(R.color.material_deep_teal_500).text("Please enter an item name"));
                     } else {
                         db.addNewItem(listName, name.toString());
                         itemList = db.getAllItems(listName);
