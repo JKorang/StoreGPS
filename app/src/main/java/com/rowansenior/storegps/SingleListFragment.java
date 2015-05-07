@@ -241,7 +241,6 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                                                                         } catch (Exception e) {
 
                                                                         }
-                                                                        System.out.println("its reaching this");
                                                                         mAdapter.notifyDataSetChanged();
                                                                     }
                                                                 }
@@ -346,7 +345,7 @@ public class SingleListFragment extends Fragment implements AbsListView.OnItemCl
                             }
                         });
 
-                        mAdapter = new ListAdapter(getActivity(), itemList, listName, isNavigated);
+                        mAdapter = new ListAdapter(getActivity(), itemList, listName, isNavigated, storeNav);
                         rview.setAdapter(mAdapter);
                     }
                 }
