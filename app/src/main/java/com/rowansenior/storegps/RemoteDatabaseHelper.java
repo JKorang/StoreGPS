@@ -38,6 +38,7 @@ public class RemoteDatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_ITEM_TAG = "tags";
     private static final String KEY_ITEM_PRICE = "price";
     private static final String KEY_ITEM_LOCATION = "location";
+    private static final String KEY_ITEM_CATEGORY = "category";
     private static final String KEY_STORE = "store";
 
     private static final String CREATE_TABLE_NEARBY_STORE = "CREATE TABLE "
@@ -47,7 +48,7 @@ public class RemoteDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TABLE_STORE_ITEM = "CREATE TABLE " + TABLE_STORE_ITEM + "(" + KEY_ITEM_NAME
             + " STRING NOT NULL, " + KEY_STORE_NAME + " STRING NOT NULL, " + KEY_ITEM_TAG + " STRING, " + KEY_ITEM_PRICE + " STRING, " +
-            KEY_ITEM_LOCATION + " STRING, PRIMARY KEY(" + KEY_ITEM_NAME + ", " + KEY_STORE_NAME + "))";
+            KEY_ITEM_LOCATION + " STRING, " + KEY_ITEM_CATEGORY + " STRING, PRIMARY KEY(" + KEY_ITEM_NAME + ", " + KEY_STORE_NAME + "))";
 
     Context dbContext;
 
@@ -174,9 +175,9 @@ public class RemoteDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_STORE_ITEM);
         db.execSQL(CREATE_TABLE_STORE_ITEM);
-        for (int i = 0; i < jArray.length(); i = i + 5) {
+        for (int i = 0; i < jArray.length(); i = i + 6) {
             try {
-                String insertQuery = "INSERT INTO " + TABLE_STORE_ITEM + " VALUES(" + '"' + jArray.get(i) + '"' + ", " + '"' + jArray.get(i + 2) + '"' + ", " + '"' + jArray.get(i + 3) + '"' + ", " + '"' + jArray.get(i + 4) + '"' + ", " + '"' + jArray.get(i + 1) + '"' + ")";
+                String insertQuery = "INSERT INTO " + TABLE_STORE_ITEM + " VALUES(" + '"' + jArray.get(i) + '"' + ", " + '"' + jArray.get(i + 4) + '"' + ", " + '"' + jArray.get(i + 5) + '"' + ", " + '"' + jArray.get(i + 1) + '"' + ", " + '"' + jArray.get(i + 2) + '"' + ",'" +  jArray.get(i + 3) + "'" + ")";
                 db.execSQL(insertQuery);
             } catch (JSONException e) {
                 e.printStackTrace();
